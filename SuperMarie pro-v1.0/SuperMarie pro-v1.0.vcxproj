@@ -127,7 +127,9 @@
     <ClInclude Include="MarieDisplayFunction.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\..\test2.png" />
     <Image Include="..\..\素材库\test.jpg" />
+    <Image Include="..\..\素材库\test2.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

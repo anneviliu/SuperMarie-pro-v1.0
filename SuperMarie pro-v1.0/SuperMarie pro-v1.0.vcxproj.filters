@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="资源文件\IMAGE">
-      <UniqueIdentifier>{dee7c0b7-bd27-447a-b4ac-de3443dadc17}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="思路.txt" />
@@ -25,10 +22,10 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="MarieActionFunction.cpp">
-      <Filter>头文件</Filter>
+      <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="MarieDisplayFunction.cpp">
-      <Filter>头文件</Filter>
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -40,8 +37,14 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\..\test2.png">
+      <Filter>资源文件</Filter>
+    </Image>
     <Image Include="..\..\素材库\test.jpg">
-      <Filter>资源文件\IMAGE</Filter>
+      <Filter>源文件</Filter>
+    </Image>
+    <Image Include="..\..\素材库\test2.jpg">
+      <Filter>源文件</Filter>
     </Image>
   </ItemGroup>
 </Project>

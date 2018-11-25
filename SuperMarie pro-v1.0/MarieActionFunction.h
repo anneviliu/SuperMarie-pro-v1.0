@@ -1,5 +1,5 @@
-#ifndef MARIE_H
-#define MARIE_H
+#ifndef MARIEACITONFUNCTION_H
+#define MARIEACITONFUNCTION_H
 #include <stdio.h>
 
 
