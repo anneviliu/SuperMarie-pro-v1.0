@@ -15,7 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MainProject.c">
+    <Text Include="思路.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MainProject.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

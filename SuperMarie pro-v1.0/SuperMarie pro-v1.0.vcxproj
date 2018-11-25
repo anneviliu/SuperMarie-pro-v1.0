@@ -115,7 +115,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="MainProject.c" />
+    <ClCompile Include="MainProject.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="思路.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
