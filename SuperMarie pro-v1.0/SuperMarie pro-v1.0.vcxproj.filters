@@ -21,10 +21,10 @@
     <ClCompile Include="MainProject.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="MarieActionFunction.cpp">
+    <ClCompile Include="MarieDisplayFunction.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="MarieDisplayFunction.cpp">
+    <ClCompile Include="MarieActionFunction.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -37,13 +37,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\..\test2.png">
-      <Filter>资源文件</Filter>
-    </Image>
     <Image Include="..\..\素材库\test.jpg">
-      <Filter>源文件</Filter>
-    </Image>
-    <Image Include="..\..\素材库\test2.jpg">
       <Filter>源文件</Filter>
     </Image>
   </ItemGroup>
