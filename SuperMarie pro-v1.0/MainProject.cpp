@@ -2,9 +2,9 @@
 #include <graphics.h>      // 引用图形库头文件
 #include <conio.h>
 #include "Marie.h"
+#include <stdlib.h>
 int main()
 { 
-	printf("%d\n", add(1, 2));
 	IMAGE img(640, 480);
 	SetWorkingImage(&img);
 

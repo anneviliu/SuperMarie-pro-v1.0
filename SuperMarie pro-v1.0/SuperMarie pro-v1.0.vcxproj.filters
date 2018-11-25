@@ -21,12 +21,18 @@
     <ClCompile Include="MainProject.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Marie.c">
-      <Filter>源文件</Filter>
+    <ClCompile Include="MarieActionFunction.cpp">
+      <Filter>头文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MarieDisplayFunction.cpp">
+      <Filter>头文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Marie.h">
+    <ClInclude Include="MarieActionFunction.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MarieDisplayFunction.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
