@@ -9,7 +9,7 @@ void move()
 	char ch = _getch();
 	if (ch == 0xe000)
 	{
-		ch = _getch();
+		ch = _getch(); 
 		if (ch == 0x004b)
 		{
 
