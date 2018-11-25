@@ -1,18 +1,19 @@
-#include <graphics.h>      // ÒıÓÃÍ¼ĞÎ¿âÍ·ÎÄ¼ş
+#include <stdio.h>
+#include <graphics.h>      // å¼•ç”¨å›¾å½¢åº“å¤´æ–‡ä»¶
 #include <conio.h>
-
+#include "Marie.h"
 int main()
-{
+{ 
 	IMAGE img(640, 480);
 	SetWorkingImage(&img);
 
-	initgraph(640, 480);   // ´´½¨»æÍ¼´°¿Ú£¬´óĞ¡Îª 640x480 ÏñËØ
-	loadimage(NULL, _T("C:\\Ccccc\\³¬¼¶ÂêÀö\\ËØ²Ä¿â\\test.jpg"));
+	initgraph(640, 480);   // åˆ›å»ºç»˜å›¾çª—å£ï¼Œå¤§å°ä¸º 640x480 åƒç´ 
+	loadimage(NULL, _T("C:\\Ccccc\\è¶…çº§ç›ä¸½\\ç´ æåº“\\test.jpg"));
 
 	setlinecolor(RED);
-	circle(200, 200, 100); // »­Ô²£¬Ô²ĞÄ(200, 200)£¬°ë¾¶ 100
+	circle(200, 200, 100); // ç”»åœ†ï¼Œåœ†å¿ƒ(200, 200)ï¼ŒåŠå¾„ 100
 	SetWorkingImage();
 
-	_getch();              // °´ÈÎÒâ¼ü¼ÌĞø
-	closegraph();          // ¹Ø±Õ»æÍ¼´°¿Ú
+	_getch();              // æŒ‰ä»»æ„é”®ç»§ç»­
+	closegraph();          // å…³é—­ç»˜å›¾çª—å£
 }

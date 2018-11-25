@@ -116,9 +116,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="MainProject.cpp" />
+    <ClCompile Include="Marie.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="思路.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Marie.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
