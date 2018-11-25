@@ -5,12 +5,12 @@
 
 int main()
 { 
-	IMAGE img(640, 480);
+	IMAGE img(1280, 720);
 	SetWorkingImage(&img);
 
-	initgraph(640, 480);   // 创建绘图窗口，大小为 640x480 像素
-	loadimage(NULL, _T("C:\\Ccccc\\超级玛丽\\素材库\\test.jpg"));
-
+	initgraph(1280,720);   // 创建绘图窗口，大小为 640x480 像素
+	loadimage(&img, _T("test.jpg"));
+	putimage(0, 0, &img);
 	setlinecolor(RED);
 
 	circle(200, 200, 100); // 画圆，圆心(200, 200)，半径 100
