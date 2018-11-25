@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <graphics.h>      // 引用图形库头文件
 #include <conio.h>
-#include "Marie.h"
+#include <stdlib.h>
+
 int main()
 { 
 	IMAGE img(640, 480);
@@ -11,6 +12,7 @@ int main()
 	loadimage(NULL, _T("C:\\Ccccc\\超级玛丽\\素材库\\test.jpg"));
 
 	setlinecolor(RED);
+
 	circle(200, 200, 100); // 画圆，圆心(200, 200)，半径 100
 	SetWorkingImage();
 

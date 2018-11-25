@@ -116,13 +116,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="MainProject.cpp" />
-    <ClCompile Include="Marie.cpp" />
+    <ClCompile Include="MarieActionFunction.cpp" />
+    <ClCompile Include="MarieDisplayFunction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="思路.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Marie.h" />
+    <ClInclude Include="MarieActionFunction.h" />
+    <ClInclude Include="MarieDisplayFunction.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\test2.png" />
+    <Image Include="..\..\素材库\test.jpg" />
+    <Image Include="..\..\素材库\test2.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

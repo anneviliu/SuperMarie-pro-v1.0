@@ -21,13 +21,30 @@
     <ClCompile Include="MainProject.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Marie.cpp">
+    <ClCompile Include="MarieActionFunction.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MarieDisplayFunction.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Marie.h">
+    <ClInclude Include="MarieActionFunction.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="MarieDisplayFunction.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\test2.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="..\..\素材库\test.jpg">
+      <Filter>源文件</Filter>
+    </Image>
+    <Image Include="..\..\素材库\test2.jpg">
+      <Filter>源文件</Filter>
+    </Image>
   </ItemGroup>
 </Project>
