@@ -18,6 +18,7 @@ void menu_show()
 	
 	putimage(0, 0, WIDTH, HIGH, &img_preplay, i, 0);
 	setbkmode(TRANSPARENT);
+
 	settextcolor(BLACK);
 	settextstyle(50, 0, _T("黑体"));
 	outtextxy(WIDTH*0.4, HIGH*0.4, "进入游戏");
