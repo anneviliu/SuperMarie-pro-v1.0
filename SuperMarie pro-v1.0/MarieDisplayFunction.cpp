@@ -21,7 +21,7 @@ void menu_show()
 	settextcolor(BLACK);
 	settextstyle(50, 0, _T("黑体"));
 	outtextxy(WIDTH*0.4, HIGH*0.4, "进入游戏");
-	outtextxy(WIDTH*0.4, HIGH*0.4, "设置");
+	outtextxy(WIDTH*0.425, HIGH*0.5, "设置");
 		
 	FlushBatchDraw();
 	Sleep(2);
