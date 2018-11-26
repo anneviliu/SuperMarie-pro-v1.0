@@ -3,24 +3,19 @@
 #include <stdlib.h>
 #include <conio.h>
 #include <windows.h>
-
-void move()
+#include "Mdefine.h"
+#include <graphics.h>
+void move(IMAGE img)
 {
+	int x = WIDTH, y = HIGH;
+	
 	char ch = _getch();
-	if (ch == 0xe000)
+	if (ch == 'a' && x > 0)
 	{
-		ch = _getch(); 
-		if (ch == 0x004b)
-		{
-
-			
-		}
+		moverel(-1, 0);              // 左移
+	}                         
+	if (ch == 'd' && x < WIDTH)
+	{
+		moverel(1, 0);               //右移
 	}
-
-	                         // 读取方向键
-	                         
-							 
-							 
-							 
-							 // 匹配移动
 }

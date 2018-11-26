@@ -39,9 +39,4 @@
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\..\素材库\test.jpg">
-      <Filter>源文件</Filter>
-    </Image>
-  </ItemGroup>
 </Project>

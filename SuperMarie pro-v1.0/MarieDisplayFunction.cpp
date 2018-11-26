@@ -12,16 +12,16 @@ void menu_show()
 	IMAGE img_preplay;
 	initgraph(WIDTH, HIGH);
 	loadimage(&img_preplay, _T("res\\level_1.png"));
-	mciSendString("open res\\背景音乐.mp3 alias music_back", NULL, 0, NULL);
+	mciSendString("open res\\鑳屾櫙闊充箰.mp3 alias music_back", NULL, 0, NULL);
 	mciSendString("play music_back", NULL, 0, NULL);
 	
 	
-	putimage(0, 0, WIDTH, HIGH, &img_preplay, i, 0);
+	putimage(0, 0, WIDTH, HIGH, &img_preplay, 0, 0);
 	setbkmode(TRANSPARENT);
 	settextcolor(BLACK);
-	settextstyle(50, 0, _T("黑体"));
-	outtextxy(WIDTH*0.4, HIGH*0.4, "进入游戏");
-	outtextxy(WIDTH*0.4, HIGH*0.4, "设置");
+	settextstyle(50, 0, _T("榛戜綋"));
+	outtextxy(WIDTH*0.4, HIGH*0.4, "杩涘叆娓告垙");
+	outtextxy(WIDTH*0.4, HIGH*0.4, "璁剧疆");
 		
 	FlushBatchDraw();
 	Sleep(2);
