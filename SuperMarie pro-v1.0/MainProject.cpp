@@ -8,7 +8,7 @@
 
 int main()
 {	
-	start_show();
+	menu_show();
 
 	return 0;
 }
