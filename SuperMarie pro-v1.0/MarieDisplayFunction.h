@@ -3,7 +3,7 @@
 #define MARIEDISPLAYFUNCTION_H
 #include <stdio.h>
 void start_show();
-
+void game_show();
 
 
 #endif

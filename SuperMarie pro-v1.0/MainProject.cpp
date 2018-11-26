@@ -3,13 +3,12 @@
 #include <conio.h>
 #include <stdlib.h>
 #include "MarieDisplayFunction.h"
+#include <stdbool.h>
+#pragma comment(lib,"Winmm.lib")
+
 int main()
-{ 
-	IMAGE img;
-	initgraph(1280,720);
-	loadimage(&img, _T("test.jpg"));
-	putimage(0, 0, &img);
-	
-	_getch();
-	closegraph();
+{	
+	start_show();
+
+	return 0;
 }
