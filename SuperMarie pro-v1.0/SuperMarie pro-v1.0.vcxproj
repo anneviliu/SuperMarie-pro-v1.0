@@ -127,9 +127,6 @@
     <ClInclude Include="MarieDisplayFunction.h" />
     <ClInclude Include="Mdefine.h" />
   </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\..\素材库\test.jpg" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
