@@ -8,7 +8,7 @@
 void GameStart()
 {
 	cleardevice();
-	settextstyle(40, 0, "方正舒体");
+	settextstyle(40, 0, "微软雅黑");
 
 	int i = 0;
 	IMAGE img_preplay;
@@ -24,19 +24,23 @@ void GameStart()
 
 	RECT r1 = { 0, 0, WIDTH, HIGH / 3 };
 	drawtext("超级玛丽魔改版", &r1, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-	settextstyle(30, 0, "宋体");
-	RECT r2 = { WIDTH / 2 - 45,HIGH / 3,WIDTH / 2 + 45,HIGH / 3 + 30 }; 
-	rectangle(WIDTH / 2 - 45, HIGH / 3, WIDTH / 2 + 45, HIGH / 3 + 30);
-	drawtext("开始游戏", &r2, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-	RECT r3 = { WIDTH / 2 - 45,HIGH / 3 + 30,WIDTH / 2 + 45,HIGH / 3 + 60 }; 
-	rectangle(WIDTH / 2 - 45, HIGH /  3 + 30, WIDTH / 2 + 45, HIGH / 3 + 60);
-	drawtext("游戏介绍", &r3, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-	RECT r4 = { WIDTH / 2 - 45,HIGH / 3 + 60,WIDTH / 2 + 45,HIGH / 3 + 90 }; 
-	rectangle(WIDTH / 2 - 45, HIGH / 3 + 60, WIDTH / 2 + 45, HIGH / 3 + 90);
-	drawtext("操作说明", &r4, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-	RECT r5 = { WIDTH / 2 - 45,HIGH / 3 + 90,WIDTH / 2 + 45,HIGH / 3 + 120 }; 
-	rectangle(WIDTH / 2 - 45, HIGH / 3 + 90, WIDTH / 2 + 45, HIGH / 3 + 120);
-	drawtext("退出游戏", &r5, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+	settextstyle(50, 0, "微软雅黑");
+
+	RECT r2 = { WIDTH / 2 - 125,HIGH / 3-40,WIDTH / 2 + 45,HIGH / 3 + 40 }; 
+	rectangle(WIDTH / 2 - 125, HIGH / 3, WIDTH / 2 + 55, HIGH / 3 + 30);
+	drawtext("开 始 游 戏", &r2, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+	
+	RECT r3 = { WIDTH / 2 - 85,HIGH / 3 + 30,WIDTH / 2 + 45,HIGH / 3 + 60 }; 
+	rectangle(WIDTH / 2 - 85, HIGH /  3 + 30, WIDTH / 2 + 45, HIGH / 3 + 60);
+	drawtext("游 戏 介 绍", &r3, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+	 
+	RECT r4 = { WIDTH / 2 - 85,HIGH / 3 + 60,WIDTH / 2 + 45,HIGH / 3 + 90 }; 
+	rectangle(WIDTH / 2 - 85, HIGH / 3 + 60, WIDTH / 2 + 45, HIGH / 3 + 90);
+	drawtext("操 作 说 明", &r4, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+	
+	RECT r5 = { WIDTH / 2 - 85,HIGH / 3 + 90,WIDTH / 2 + 45,HIGH / 3 + 120 }; 
+	rectangle(WIDTH / 2 - 85, HIGH / 3 + 90, WIDTH / 2 + 45, HIGH / 3 + 120);
+	drawtext("退 出 游 戏", &r5, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 	/*setbkmode(TRANSPARENT);
 	settextcolor(BLACK);
 	settextstyle(50, 0, _T("黑体"));
