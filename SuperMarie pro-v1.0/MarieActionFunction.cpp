@@ -7,15 +7,15 @@
 #include <graphics.h>
 void move(IMAGE img)
 {
-	int x = WIDTH, y = HIGH;
+	int x = 0, y = 0;
 	
 	char ch = _getch();
 	if (ch == 'a' && x > 0)
 	{
-		moverel(-1, 0);              // 左移
+		x-=1;              // 左移
 	}                         
 	if (ch == 'd' && x < WIDTH)
 	{
-		moverel(1, 0);               //右移
+		x+=1;               //右移
 	}
 }
