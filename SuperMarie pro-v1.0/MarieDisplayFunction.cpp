@@ -4,7 +4,7 @@
 #include <conio.h>
 #include "Mdefine.h"
 #pragma comment(lib,"Winmm.lib")
-
+ 
 void GameStart()
 {
 	cleardevice();
