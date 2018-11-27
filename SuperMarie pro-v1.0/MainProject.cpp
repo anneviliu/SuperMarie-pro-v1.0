@@ -21,9 +21,13 @@
 //全局变量
 int life = LIFE;
 int world = 1;
-
+IMAGE img_test;
+extern int x = 0;
+extern int y = 400;
 int main()
 {
+	
+
 	initgraph(WIDTH, HIGH);
 	GameStart();
 	
