@@ -27,6 +27,9 @@
     <ClCompile Include="MarieActionFunction.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="control.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MarieActionFunction.h">
@@ -36,6 +39,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Mdefine.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="control.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

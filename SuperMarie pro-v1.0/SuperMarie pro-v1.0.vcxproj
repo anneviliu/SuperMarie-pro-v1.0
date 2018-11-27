@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="control.cpp" />
     <ClCompile Include="MainProject.cpp" />
     <ClCompile Include="MarieActionFunction.cpp" />
     <ClCompile Include="MarieDisplayFunction.cpp" />
@@ -123,6 +124,7 @@
     <Text Include="思路.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="control.h" />
     <ClInclude Include="MarieActionFunction.h" />
     <ClInclude Include="MarieDisplayFunction.h" />
     <ClInclude Include="Mdefine.h" />
