@@ -7,49 +7,73 @@
  
 void GameStart()
 {
-	cleardevice();
-	settextstyle(40, 0, "微软雅黑");
 
-	int i = 0;
-	IMAGE img_preplay;
-	IMAGE img_test;
+	
+	cleardevice();
+
+/////////////////////////////////////////////////////////////////
+	
+    //是否处于当前页面
+	int HOME_flag = 1; 
+	int INTRODUCTION_flag = 0; 
+
+	//图片资源的声明
+	IMAGE img_preplay, img_test, img_start,img_help,img_exit;
+
+/////////////////////////////////////////////////////////////////
+
 	initgraph(WIDTH, HIGH);
+
+	//图片的加载
 	loadimage(&img_preplay, _T("res\\level_1.png"));
 	loadimage(&img_test, _T("res\\test.jpg"));
+	loadimage(&img_start,_T("res\\开始游戏.png"));
+	loadimage(&img_help, _T("res\\操作说明.png"));
+	loadimage(&img_exit, _T("res\\退出游戏.png"));
 
+	//音乐加载
 	mciSendString("open res\\背景音乐.mp3 alias music_back", NULL, 0, NULL);
 	mciSendString("play music_back", NULL, 0, NULL);
-	putimage(0, 0, WIDTH, HIGH, &img_preplay, i, 0);
+	
+	//图片输出
+	putimage(0, 0, WIDTH, HIGH, &img_preplay, 0, 0);
 	putimage(0, y, &img_test);
+	putimage(540, 235, &img_start);
+	putimage(540, 300, &img_help);
+	putimage(540, 365, &img_exit);
 
-	RECT r1 = { 0, 0, WIDTH, HIGH / 3 };
-	drawtext("超级玛丽魔改版", &r1, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-	settextstyle(50, 0, "微软雅黑");
+	MOUSEMSG click;
+	while (HOME_flag)
+	{
+		BeginBatchDraw();
+		click = GetMouseMsg();
+		switch (click.uMsg)
+		{
+		case WM_LBUTTONDOWN:
+			EndBatchDraw();
 
-	RECT r2 = { WIDTH / 2 - 125,HIGH / 3-40,WIDTH / 2 + 45,HIGH / 3 + 40 }; 
-	rectangle(WIDTH / 2 - 125, HIGH / 3, WIDTH / 2 + 55, HIGH / 3 + 30);
-	drawtext("开 始 游 戏", &r2, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-	
-	RECT r3 = { WIDTH / 2 - 85,HIGH / 3 + 30,WIDTH / 2 + 45,HIGH / 3 + 60 }; 
-	rectangle(WIDTH / 2 - 85, HIGH /  3 + 30, WIDTH / 2 + 45, HIGH / 3 + 60);
-	drawtext("游 戏 介 绍", &r3, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-	 
-	RECT r4 = { WIDTH / 2 - 85,HIGH / 3 + 60,WIDTH / 2 + 45,HIGH / 3 + 90 }; 
-	rectangle(WIDTH / 2 - 85, HIGH / 3 + 60, WIDTH / 2 + 45, HIGH / 3 + 90);
-	drawtext("操 作 说 明", &r4, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-	
-	RECT r5 = { WIDTH / 2 - 85,HIGH / 3 + 90,WIDTH / 2 + 45,HIGH / 3 + 120 }; 
-	rectangle(WIDTH / 2 - 85, HIGH / 3 + 90, WIDTH / 2 + 45, HIGH / 3 + 120);
-	drawtext("退 出 游 戏", &r5, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-	/*setbkmode(TRANSPARENT);
-	settextcolor(BLACK);
-	settextstyle(50, 0, _T("黑体"));
-	outtextxy(WIDTH*0.4, HIGH*0.4, "进入游戏");
-	outtextxy(WIDTH*0.425, HIGH*0.5, "设置");*/
-	
+
+
+			if (click.x >= 540 && click.x <= 740 && click.y >= 235 && click.y <= 285 && HOME_flag==1 && INTRODUCTION_flag==0)
+			{
+				HOME_flag = 0;
+				putimage(0, 0, &img_test);
+
+				 
+			}
+
+		default:
+			break;
+		}
+	}
+
+
+
+
+
+
+	//清空绘图缓存
 	FlushBatchDraw();
 	Sleep(2);
 
-	_getch();
-	closegraph();
 }
