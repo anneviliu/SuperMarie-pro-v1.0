@@ -3,7 +3,6 @@
 #include <graphics.h>
 #include <conio.h>
 #include "Mdefine.h"
-#include "MarieActionFunction.h"	
 #pragma comment(lib,"Winmm.lib")
  
 void GameStart()
@@ -21,8 +20,7 @@ void GameStart()
 	mciSendString("open res\\背景音乐.mp3 alias music_back", NULL, 0, NULL);
 	mciSendString("play music_back", NULL, 0, NULL);
 	putimage(0, 0, WIDTH, HIGH, &img_preplay, i, 0);
-		putimage(0,y, &img_test);
-		move(img_test);
+	putimage(0, y, &img_test);
 
 	RECT r1 = { 0, 0, WIDTH, HIGH / 3 };
 	drawtext("超级玛丽魔改版", &r1, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
