@@ -1,21 +1,25 @@
-#include"MarieActionfunction.h"
+﻿#include"MarieActionfunction.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
 #include <windows.h>
 #include "Mdefine.h"
 #include <graphics.h>
+
+#define ACTION_XX 'a'
+
+
 void move(IMAGE img)
 {
-	int x = WIDTH, y = HIGH;
+	int x = 0, y = 0;
 	
-	char ch = _getch();
-	if (ch == 'a' && x > 0)
+	char actionType = _getch();
+	if (actionType == 'a' && x > 0)
 	{
-		moverel(-1, 0);              // 左移
+		x-=1;              // 左移
 	}                         
-	if (ch == 'd' && x < WIDTH)
+	if (actionType == 'd' && x < WIDTH)
 	{
-		moverel(1, 0);               //右移
+		x+=1;               //右移
 	}
 }
