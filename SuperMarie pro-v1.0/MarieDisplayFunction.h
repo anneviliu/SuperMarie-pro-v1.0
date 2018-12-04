@@ -4,6 +4,7 @@
 #include <stdio.h>
 void GameStart();
 void game_show();
-
+void HelpPage();
+void Introduction();
 
 #endif

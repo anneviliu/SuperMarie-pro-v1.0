@@ -17,5 +17,5 @@ extern int y;
 
 
 
-#define ESC 0x1b //ESC键对应的键码
+#define ESC 27 //ESC键对应的键码
 #endif //MDEFINE_H

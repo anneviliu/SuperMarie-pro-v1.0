@@ -29,6 +29,8 @@ int main()
 	initgraph(WIDTH, HIGH);
 	GameStart();
 	
+
+
 	system("pause");
 	return 0;
 }
