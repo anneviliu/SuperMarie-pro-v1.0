@@ -66,7 +66,6 @@ void GameStart()
 					cleardevice(); //这个函数用当前背景色清空屏幕，并将当前点移至 (0, 0)
 					HelpPage(); // 调用HelpPage函数 显示 操作说明界面；
 					ESC_flag = _getch(); //显示帮助界面后，随时准备获取用户的键盘输入。
-
 				}
 				
 				//当按下esc键时返回上一级（->帮助<-）
@@ -87,7 +86,9 @@ void GameStart()
 					cleardevice();
 					Introduction();
 				    //显示介绍界面后，随时准备获取用户的键盘输入。
+					ESC_flag = _getch();
 				}
+
 				if (ESC_flag == ESC && HOME_flag == 0 && HELP_flag == 0 && INTRODUCTION_flag == 1)
 				{
 					HOME_flag = 1, HELP_flag = 0, INTRODUCTION_flag = 0;
@@ -96,10 +97,9 @@ void GameStart()
 					GameStart();
 				}
 				
-				
 				if (click.x >= 540 && click.x <= 740 && click.y >= 430 && click.y <= 480 && HOME_flag == 1 && HELP_flag == 0 && INTRODUCTION_flag == 0) //点击退出游戏
 					exit(0);
-
+					
 			    default:
 				break;
 			}
