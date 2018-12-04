@@ -70,16 +70,17 @@ void GameStart()
 				}
 				
 				//当按下esc键时返回上一级（->帮助<-）
-				if (ESC_flag == ESC && HOME_flag == 0 && HELP_flag == 1 && INTRODUCTION_flag == 0) 
+				 else if (ESC_flag == ESC && HOME_flag == 0 && HELP_flag == 1 && INTRODUCTION_flag == 0) 
 				{
-					HOME_flag = 1, HELP_flag = 0, INTRODUCTION_flag = 0;
+					HOME_flag = 1;
+					HELP_flag = 0; INTRODUCTION_flag = 0;
 					cleardevice(); //这个函数用当前背景色清空屏幕，并将当前点移至 (0, 0)
 					//重新回到主界面
 					GameStart();
 				}
 				
 				//选择 "游戏介绍"
-				 if (click.x >= 540 && click.x <= 740 && click.y >= 365 && click.y <= 415 && HOME_flag == 1 && HELP_flag == 0 && INTRODUCTION_flag == 0)
+				 else if (click.x >= 540 && click.x <= 740 && click.y >= 365 && click.y <= 415 && HOME_flag == 1 && HELP_flag == 0 && INTRODUCTION_flag == 0)
 				{
 					INTRODUCTION_flag = 1;
 					HOME_flag = 0;
@@ -88,9 +89,9 @@ void GameStart()
 					Introduction();
 				    //显示介绍界面后，随时准备获取用户的键盘输入。
 				}
-				if (ESC_flag == ESC && HOME_flag == 0 && HELP_flag == 0 && INTRODUCTION_flag == 1)
+				else if (ESC_flag == ESC && HOME_flag == 0 && HELP_flag == 0 && INTRODUCTION_flag == 1)
 				{
-					HOME_flag = 1, HELP_flag = 0, INTRODUCTION_flag = 0;
+					HOME_flag = 1; HELP_flag = 0; INTRODUCTION_flag = 0;
 					cleardevice(); //这个函数用当前背景色清空屏幕，并将当前点移至 (0, 0)
 					//重新回到主界面
 					GameStart();

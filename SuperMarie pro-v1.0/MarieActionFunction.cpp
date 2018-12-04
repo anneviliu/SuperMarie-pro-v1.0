@@ -10,14 +10,21 @@
 
 
 int move()
-{	
-	char ActionType = _getch();
-	if (ActionType == 'a')
+{
+	if (_kbhit())
 	{
-		return CMD_LEFT;              // 左移
-	}                         
-	if (ActionType == 'd')
-	{
-		return CMD_RIGHT;              //右移
+		char actionType = _getch();
+		if (actionType == 'a' && x > 0)
+		{
+			return CMD_LEFT;              // 左移
+		}
+		if (actionType == 'd' && x < WIDTH)
+		{
+			return CMD_RIGHT;               //右移
+		}
+		if (actionType == 'w'&&y > 0)
+		{
+			return CMD_JUMP;         //跳跃
+		}
 	}
 }
