@@ -18,9 +18,6 @@
     <Text Include="思路.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MainProject.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="MarieDisplayFunction.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -28,6 +25,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="control.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

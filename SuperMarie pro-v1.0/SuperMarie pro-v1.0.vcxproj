@@ -116,7 +116,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="control.cpp" />
-    <ClCompile Include="MainProject.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="MarieActionFunction.cpp" />
     <ClCompile Include="MarieDisplayFunction.cpp" />
   </ItemGroup>

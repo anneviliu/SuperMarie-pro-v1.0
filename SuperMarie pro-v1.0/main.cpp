@@ -3,7 +3,7 @@
   *			     By HDU_CBS Annevi ADobie Yuahwg 			   	    *
  *					 	  2018-11-26---						       *
 ******************************************************************/
-//				//									\\
+				//									\\
                //									 \\
 			  //									  \\
 
@@ -28,6 +28,8 @@ int main()
 {
 	initgraph(WIDTH, HIGH);
 	GameStart();
+	Hero_Show();
+
 	
 
 

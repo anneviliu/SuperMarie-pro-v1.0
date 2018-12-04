@@ -18,4 +18,8 @@ extern int y;
 
 
 #define ESC 27 //ESC键对应的键码
+#define CMD_LEFT 4 //主角左移
+#define CMD_RIGHT 6 //主角右移
+#define CMD_JUMP 8 //主角跳跃
+
 #endif //MDEFINE_H

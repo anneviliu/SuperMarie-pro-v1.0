@@ -2,7 +2,10 @@
 #define MARIEACITONFUNCTION_H
 #include <stdio.h>
 #include <graphics.h>
-void move(IMAGE img);
+
+
+
+int move(); //øÿ÷∆◊Û”““∆∂Ø
 
 
 #endif

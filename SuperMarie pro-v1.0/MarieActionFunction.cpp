@@ -6,20 +6,18 @@
 #include "Mdefine.h"
 #include <graphics.h>
 
-#define ACTION_XX 'a'
 
 
-void move(IMAGE img)
-{
-	int x = 0, y = 0;
-	
-	char actionType = _getch();
-	if (actionType == 'a' && x > 0)
+
+int move()
+{	
+	char ActionType = _getch();
+	if (ActionType == 'a')
 	{
-		x-=1;              // 左移
+		return CMD_LEFT;              // 左移
 	}                         
-	if (actionType == 'd' && x < WIDTH)
+	if (ActionType == 'd')
 	{
-		x+=1;               //右移
+		return CMD_RIGHT;              //右移
 	}
 }
