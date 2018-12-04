@@ -11,4 +11,11 @@ extern int y;
 #define STEP 10 //主角每走一步相距的像素个数
 #define ENEMY_STEP 1 //敌人每走一步相距的像素个数
 
+
+
+
+
+
+
+#define ESC 0x1b //ESC键对应的键码
 #endif //MDEFINE_H

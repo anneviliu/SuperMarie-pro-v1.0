@@ -3,6 +3,7 @@
 #include <graphics.h>
 #include <conio.h>
 #include "Mdefine.h"
+#include <stdlib.h>
 #pragma comment(lib,"Winmm.lib")
  
 void GameStart()
@@ -17,7 +18,7 @@ void GameStart()
 	int HELP_flag = 0;
 	//图片资源的声明
 	IMAGE img_preplay, img_test, img_start,img_help,img_exit;
-	IMAGE img_help_page;
+	IMAGE img_help_page, img_back;
 /////////////////////////////////////////////////////////////////
 
 	initgraph(WIDTH, HIGH);
@@ -29,6 +30,7 @@ void GameStart()
 	loadimage(&img_help, _T("res\\操作说明.png"));
 	loadimage(&img_exit, _T("res\\退出游戏.png"));
 	loadimage(&img_help_page, _T("res\\游戏帮助.png"));
+	loadimage(&img_back, _T("res\\返回箭头1.png"));
 
 	//音乐加载
 	mciSendString("open res\\背景音乐.mp3 alias music_back", NULL, 0, NULL);
@@ -55,21 +57,35 @@ void GameStart()
 			{
 				HOME_flag = 0;
 				putimage(0, 0, &img_test); //测试按键
-				break;
+			
 			}
 			else if (click.x >= 540 && click.x <= 740 && click.y >= 300 && click.y <= 350 && HOME_flag == 1 && INTRODUCTION_flag == 0) //选择游戏帮助
 			{
 				HELP_flag = 1;
+				HOME_flag = 0;
 				cleardevice(); //这个函数用当前背景色清空屏幕，并将当前点移至 (0, 0)
-				putimage(0, 0, &img_help_page);
-
+				putimage(0, 0, &img_help_page); //输出帮助页面
+			
 			}
-		default:
+			else if ((_getch() ==ESC) && (HOME_flag == 0) && HELP_flag == 1 && INTRODUCTION_flag == 0)
+			{
+				cleardevice(); //这个函数用当前背景色清空屏幕，并将当前点移至 (0, 0)
+
+				//重新回到主界面
+				putimage(0, 0, WIDTH, HIGH, &img_preplay, 0, 0);
+				putimage(0, y, &img_test);
+				putimage(540, 235, &img_start);
+				putimage(540, 300, &img_help);
+				putimage(540, 365, &img_exit);
+			
+			}
+
+		    default:
 			break;
 		}
 	}
+
 	//清空绘图缓存
 	FlushBatchDraw();
 	Sleep(2);
-
 }
