@@ -15,7 +15,7 @@ int move()
 	{
 		char actionType = _getch();
 		if (actionType == 'a' && x > 0)
-		{
+		{ 
 			return CMD_LEFT;              // 左移
 		}
 		if (actionType == 'd' && x < WIDTH)
