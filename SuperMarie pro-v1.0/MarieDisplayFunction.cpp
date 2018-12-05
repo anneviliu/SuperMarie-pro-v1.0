@@ -5,7 +5,11 @@
 #include "Mdefine.h"
 #include <stdlib.h>
 #pragma comment(lib,"Winmm.lib")
- 
+
+    IMAGE img_preplay, img_test, img_start, img_help, img_exit, img_introduction;
+	IMAGE img_help_page, img_back;
+	IMAGE img_start_I, img_help_I, img_introduction_I, img_exit_I;
+	IMAGE img_level1;
 void GameStart()
 {
 	cleardevice();
@@ -18,9 +22,7 @@ void GameStart()
 	int HELP_flag = 0;
 	int ESC_flag = 0;
 	//图片资源的声明
-	IMAGE img_preplay, img_test, img_start, img_help, img_exit, img_introduction;
-	IMAGE img_help_page, img_back;
-	IMAGE img_start_I, img_help_I, img_introduction_I,img_exit_I;
+	
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 	//图片的加载
@@ -60,7 +62,7 @@ void GameStart()
 				if (click.x >= 540 && click.x <= 740 && click.y >= 235 && click.y <= 285 && HOME_flag == 1 && INTRODUCTION_flag == 0 && HELP_flag == 0) 
 				{
 					HOME_flag = 0;
-					break;
+					break; //终止循环，正式开始游戏，执行主函数中的下一个函数。
 				}
 
 				//选择游戏帮助
@@ -97,6 +99,7 @@ void GameStart()
 					ESC_flag = _getch();
 				}
 
+				 //当按下esc键时返回上一级（->介绍<-）
 				if (ESC_flag == ESC && HOME_flag == 0 && HELP_flag == 0 && INTRODUCTION_flag == 1)
 				{
 					HOME_flag = 1, HELP_flag = 0, INTRODUCTION_flag = 0;
@@ -108,7 +111,7 @@ void GameStart()
 				if (click.x >= 540 && click.x <= 740 && click.y >= 430 && click.y <= 480 && HOME_flag == 1 && HELP_flag == 0 && INTRODUCTION_flag == 0) //点击退出游戏
 					exit(0);
 					
-			case WM_MOUSEMOVE:
+			case WM_MOUSEMOVE: //检测鼠标移动（按钮效果所在）
 
 				if (click.x >= 540 && click.x <= 740 && click.y >= 235 && click.y <= 285 && HOME_flag == 1 && INTRODUCTION_flag == 0 && HELP_flag == 0)
 					putimage(540, 235, &img_start_I);
@@ -159,17 +162,30 @@ void Introduction()
 void Hero_Show() //显示主角 需解决 遮罩、背景、移动残留。
 {
 	int i;
-	IMAGE Hero;
+	IMAGE Hero,Hero_mask;
 	loadimage(&Hero, _T("res\\主角.png"));
+	loadimage(&Hero_mask, _T("res\\主角（遮罩）"));
 	while (1)
 	{
 		for (i = 0; 35 * i < 150; i++)
 		{
-			putimage(0, HIGH - 120, 35, 50, &Hero, 210 + 40 * i, 80);
+			putimage(0, HIGH - 120, 35, 50, &Hero_mask, 210 + 40 * i, 80, NOTSRCERASE);
+			putimage(i*10, HIGH - 120, 35, 50, &Hero, 210 + 40 * i, 80, SRCINVERT);
 
 			Sleep(300);
 		}
 	}
+}
+
+void game_show()
+{
+	IMAGE img_map_level1;
+	int j = 0;
+	loadimage(&img_map_level1, _T("res\\level_1.png"));
+	
+		putimage(0, 0, WIDTH, HIGH, &img_map_level1, 0, 0);
+		
+	
 }
 
 void Hero_TurnLeft()
@@ -179,5 +195,7 @@ void Hero_TurnLeft()
 
 void Hero_TurnRight()
 {
+	IMAGE img_Hero_TurnRight;
 
 }
+

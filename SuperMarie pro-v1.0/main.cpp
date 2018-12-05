@@ -28,7 +28,14 @@ int main()
 {
 	initgraph(WIDTH, HIGH);
 	GameStart();
-	Hero_Show();
+	cleardevice();
+
+	game_show();
+	while (1)
+	{
+		move();
+		Sleep(5);
+	}
 
 	
 
