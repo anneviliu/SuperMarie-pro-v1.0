@@ -6,25 +6,34 @@
 #include "Mdefine.h"
 #include <graphics.h>
 
-
-
-
-int move()
+void move()
 {
-	if (_kbhit())
+	IMAGE Hero, Hero_mask, img_level1;
+	static int position_back = 0;
+	static int position_forward = 0;
+	loadimage(&Hero, _T("res\\主角.png"));
+	loadimage(&Hero_mask, _T("res\\主角（遮罩）"));
+	loadimage(&img_level1, _T("res\\level1.png"));
+
+	char key = _getch();
+	switch (key)
 	{
-		char actionType = _getch();
-		if (actionType == 'a' && x > 0)
-		{ 
-			return CMD_LEFT;              // 左移
-		}
-		if (actionType == 'd' && x < WIDTH)
-		{
-			return CMD_RIGHT;               //右移
-		}
-		if (actionType == 'w'&&y > 0)
-		{
-			return CMD_JUMP;         //跳跃
-		}
+
+	 case 'a':
+	 case 'A':
+		
+		putimage(0, 0, WIDTH, HIGH, &img_level1, 0, 0);
+		putimage(-1*position_back * 10, HIGH - 120, 35, 50, &Hero, 210, 80);
+		position_back++;
+		
+	 case 'd':
+	 case 'D':
+
+		putimage(0, 0, WIDTH, HIGH, &img_level1, 0, 0);
+		putimage(1 * position_forward * 10, HIGH - 120, 35, 50, &Hero, 210, 80);
+		position_forward++;
+
+	default:
+		break;
 	}
 }

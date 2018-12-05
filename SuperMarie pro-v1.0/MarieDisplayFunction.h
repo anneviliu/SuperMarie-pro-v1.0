@@ -2,6 +2,8 @@
 #ifndef MARIEDISPLAYFUNCTION_H
 #define MARIEDISPLAYFUNCTION_H
 #include <stdio.h>
+
+
 void GameStart(); //游戏开始主界面
 void game_show();
 void HelpPage();  //游戏操作说明界面
