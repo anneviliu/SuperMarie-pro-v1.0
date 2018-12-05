@@ -65,4 +65,4 @@ int main()
 	             //返回菜单或进入下一关
 	system("pause");
 	return 0;
-}
+}    
