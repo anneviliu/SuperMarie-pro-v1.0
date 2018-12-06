@@ -5,7 +5,7 @@
 
 
 
-void move(); //控制左右移动
+int hero_move(); //控制左右移动
 
 
 #endif

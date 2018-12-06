@@ -15,7 +15,7 @@ void GameStart()
 	cleardevice();
 
 ////////////////////////////////////////////////////////////////////////////////////////////
-	
+															
     //是否处于当前页面
 	int HOME_flag = 1; 
 	int INTRODUCTION_flag = 0; 
@@ -44,7 +44,6 @@ void GameStart()
 	//图片输出
 	
 		putimage(0, 0, WIDTH, HIGH, &img_preplay, 0, 0);
-		putimage(0, y, &img_test);
 		putimage(540, 235, &img_start);	//输出菜单界面
 		putimage(540, 300, &img_help);
 		putimage(540, 365, &img_introduction);
@@ -161,20 +160,12 @@ void Introduction()
 
 void Hero_Show() //显示主角 需解决 遮罩、背景、移动残留。
 {
-	int i;
 	IMAGE Hero,Hero_mask;
 	loadimage(&Hero, _T("res\\主角.png"));
 	loadimage(&Hero_mask, _T("res\\主角（遮罩）"));
-	while (1)
-	{
-		for (i = 0; 35 * i < 150; i++)
-		{
-			putimage(0, HIGH - 120, 35, 50, &Hero_mask, 210 + 40 * i, 80, NOTSRCERASE);
-			putimage(i*10, HIGH - 120, 35, 50, &Hero, 210 + 40 * i, 80, SRCINVERT);
 
-			Sleep(300);
-		}
-	}
+	putimage(0, HIGH - 120, 35, 50, &Hero_mask, 210, 80, NOTSRCERASE);
+	putimage(0, HIGH - 120, 35, 50, &Hero, 210 , 80, SRCINVERT);
 }
 
 void game_show()
@@ -182,8 +173,7 @@ void game_show()
 	IMAGE img_map_level1;
 	int j = 0;
 	loadimage(&img_map_level1, _T("res\\level_1.png"));
-	
-		putimage(0, 0, WIDTH, HIGH, &img_map_level1, 0, 0);
+	putimage(0, 0, WIDTH, HIGH, &img_map_level1, 0, 0);
 		
 	
 }

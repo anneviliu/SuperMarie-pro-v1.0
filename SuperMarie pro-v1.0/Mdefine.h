@@ -2,8 +2,6 @@
 #ifndef MDEFINE_H
 #define MDEFINE_H
 
-extern int x;
-extern int y;
 
 #define HIGH 720 //屏幕高
 #define WIDTH 1280 //屏幕宽

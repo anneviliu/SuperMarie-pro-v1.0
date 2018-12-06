@@ -21,25 +21,58 @@
 //全局变量
 int life = LIFE;
 int world = 1;
-extern int x = 0;
-extern int y = 400;
+extern int cur_positionX = 0;
+extern int cur_positionY = 400;
 
 int main()
 {
+	IMAGE Hero, Hero_mask, img_level1;
+	int i=0;
+	loadimage(&Hero, _T("res\\主角.png"));
+	loadimage(&Hero_mask, _T("res\\主角（遮罩）"));
+	loadimage(&img_level1, _T("res\\level1.png"));
 	initgraph(WIDTH, HIGH);
 	GameStart();
 	cleardevice(); //菜单界面
 
 	game_show(); //进入游戏
-	             //设置人物可站立位置，掉落至地图外死亡位置
+	Hero_Show(); //显示人物的初始位置
+				 //设置人物可站立位置，掉落至地图外死亡位置
 	             //蘑菇与硬币生成
 	             //分数显示
 	             //物理引擎载入
-	while (1)
+	while (true)
 	{
-		move();
+
+		switch (hero_move()) //读取移动输入，返回值
+		{
+		case CMD_LEFT:
+			if (cur_positionX > 0)
+			{
+				cleardevice();
+				BeginBatchDraw();
+				putimage(0, 0, WIDTH, HIGH, &img_level1, 0, 0);
+				putimage(cur_positionX-=7, HIGH - 120, 35, 50, &Hero, 210, 80);
+				EndBatchDraw();
+				break;
+			}
+		case CMD_RIGHT:
+
+			if (cur_positionX < (WIDTH-35)/2)
+			{				
+				cleardevice();
+				BeginBatchDraw();
+				putimage(0, 0, WIDTH, HIGH, &img_level1, 0, 0);
+				putimage(cur_positionX+=7, HIGH - 120, 35, 50, &Hero, 210, 80);
+				EndBatchDraw();
+				break;
+			}
+
+			default:
+			break;
+		}
 		Sleep(5);
-		         //读取移动输入，返回值
+		         
 		        
 				 //打印改变位置后的人物并完成清屏相关
 	             	  
