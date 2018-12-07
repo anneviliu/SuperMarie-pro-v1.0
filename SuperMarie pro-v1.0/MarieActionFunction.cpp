@@ -1,6 +1,7 @@
 ﻿#include"MarieActionfunction.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include <conio.h>
 #include <windows.h>
 #include "Mdefine.h"
@@ -24,4 +25,13 @@ int hero_move()
 	default:
 		break;
 	}
+}
+
+
+double shift(double *v,double t,double a){
+	double h = *v * t + 1 / 2.0*a*t*t;
+	if (fabs(*v) >= 10&&a*(*v)>0)
+		return h;
+	*v = *v + a * t;
+	return h;
 }

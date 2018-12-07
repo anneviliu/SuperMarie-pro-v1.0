@@ -1,11 +1,12 @@
-#ifndef MARIEACITONFUNCTION_H
+ï»¿#ifndef MARIEACITONFUNCTION_H
 #define MARIEACITONFUNCTION_H
 #include <stdio.h>
 #include <graphics.h>
 
 
 
-int hero_move(); //¿ØÖÆ×óÓÒÒÆ¶¯
+int hero_move(); //æ§åˆ¶å·¦å³ç§»åŠ¨
+double shift(double *v,double t,double a);//è®¡ç®—äººç‰©ä½ç§»
 
 
 #endif
