@@ -22,6 +22,9 @@ int hero_move()
 	 case 'D':
 		 return CMD_RIGHT;
 		break;
+	 case 'w':
+	 case'W':
+		 return CMD_JUMP;
 	default:
 		break;
 	}
