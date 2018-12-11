@@ -26,15 +26,18 @@ extern int cur_positionY = 400;
 
 double hero_vx = 0;
 double here_vy = 0;
-
+   
 int main()
 {
-	IMAGE Hero, Hero_mask, img_level1;
-	int i=0;
+	extern IMAGE Hero, Hero_mask, img_level1;
 	loadimage(&Hero, _T("res\\主角.png"));
 	loadimage(&Hero_mask, _T("res\\主角（遮罩）"));
 	loadimage(&img_level1, _T("res\\level1.png"));
+	
+	int i=0;
+	
 	initgraph(WIDTH, HIGH);
+	imageload();
 	GameStart();
 	cleardevice(); //菜单界面
 

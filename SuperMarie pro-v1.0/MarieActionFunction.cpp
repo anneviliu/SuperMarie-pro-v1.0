@@ -9,6 +9,8 @@
 
 int hero_move()
 {
+
+	
 	char key = _getch();
 	switch (key)
 	{

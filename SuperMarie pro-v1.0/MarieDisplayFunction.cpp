@@ -6,10 +6,28 @@
 #include <stdlib.h>
 #pragma comment(lib,"Winmm.lib")
 
-    IMAGE img_preplay, img_test, img_start, img_help, img_exit, img_introduction;
+    
+	
+void imageload()
+{
+	IMAGE img_preplay, img_test, img_start, img_help, img_exit, img_introduction;
 	IMAGE img_help_page, img_back;
 	IMAGE img_start_I, img_help_I, img_introduction_I, img_exit_I;
 	IMAGE img_level1;
+	IMAGE img_introduciton;
+	loadimage(&img_preplay, _T("res\\level_1.png"));
+	loadimage(&img_start,_T("res\\开始游戏按钮.png"));
+	loadimage(&img_help, _T("res\\操作说明按钮.png"));
+	loadimage(&img_exit, _T("res\\退出游戏按钮.png"));
+	loadimage(&img_introduction, _T("res\\游戏介绍按钮.png"));
+	loadimage(&img_help_page, _T("res\\游戏帮助.png"));
+	loadimage(&img_start_I, _T("res\\开始游戏按钮（放上）.png"));
+	loadimage(&img_help_I, _T("res\\操作说明按钮（放上）.png"));
+	loadimage(&img_introduciton, _T("res\\游戏介绍.png"));
+	loadimage(&img_introduction_I, _T("res\\游戏介绍按钮（放上）.png"));
+	loadimage(&img_exit_I, _T("res\\退出游戏按钮（放上）.png"));
+}
+
 void GameStart()
 {
 	cleardevice();
@@ -26,16 +44,7 @@ void GameStart()
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 	//图片的加载
-	loadimage(&img_preplay, _T("res\\level_1.png"));
-	loadimage(&img_start,_T("res\\开始游戏按钮.png"));
-	loadimage(&img_help, _T("res\\操作说明按钮.png"));
-	loadimage(&img_exit, _T("res\\退出游戏按钮.png"));
-	loadimage(&img_introduction, _T("res\\游戏介绍按钮.png"));
-
-	loadimage(&img_start_I, _T("res\\开始游戏按钮（放上）.png"));
-	loadimage(&img_help_I, _T("res\\操作说明按钮（放上）.png"));
-	loadimage(&img_introduction_I, _T("res\\游戏介绍按钮（放上）.png"));
-	loadimage(&img_exit_I, _T("res\\退出游戏按钮（放上）.png"));
+	
 
 	//音乐加载
 	mciSendString("open res\\背景音乐.mp3 alias music_back", NULL, 0, NULL);
@@ -144,29 +153,19 @@ void GameStart()
 
 void HelpPage()
 {
-	IMAGE img_help_page;
-	loadimage(&img_help_page, _T("res\\游戏帮助.png"));
+	
 	putimage(0, 0, &img_help_page); //输出帮助页面
 }
 
 void Introduction()
 {
-	IMAGE img_introduciton;
-	loadimage(&img_introduciton, _T("res\\游戏介绍.png"));
+	
 	putimage(0, 0, &img_introduciton); //输出游戏介绍界面
 
 }
 
 
-void Hero_Show() //显示主角 需解决 遮罩、背景、移动残留。
-{
-	IMAGE Hero,Hero_mask;
-	loadimage(&Hero, _T("res\\主角.png"));
-	loadimage(&Hero_mask, _T("res\\主角（遮罩）"));
 
-	putimage(0, HIGH - 120, 35, 50, &Hero_mask, 210, 80, NOTSRCERASE);
-	putimage(0, HIGH - 120, 35, 50, &Hero, 210 , 80, SRCINVERT);
-}
 
 void game_show()
 {

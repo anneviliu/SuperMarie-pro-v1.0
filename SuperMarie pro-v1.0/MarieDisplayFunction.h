@@ -11,4 +11,5 @@ void Introduction(); //游戏简介界面
 void Hero_TurnLeft(); //主角向左移动
 void Hero_TurnRight(); //主角向右移动
 void Hero_Show();
+void imageload();
 #endif
