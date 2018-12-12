@@ -26,18 +26,20 @@ extern int cur_positionY = 400;
 
 double hero_vx = 0;
 double here_vy = 0;
-   
+
+
 int main()
 {
-	extern IMAGE Hero, Hero_mask, img_level1;
+	float G = 7; //重力
+	float H_MAX = 400;  //最大高度
+	float H_NOW = 0;//目前高度
+	int IS_JUMP = 0; //是否跳跃
+	IMAGE Hero, Hero_mask, img_level1;
+	int i=0;
 	loadimage(&Hero, _T("res\\主角.png"));
 	loadimage(&Hero_mask, _T("res\\主角（遮罩）"));
 	loadimage(&img_level1, _T("res\\level1.png"));
-	
-	int i=0;
-	
 	initgraph(WIDTH, HIGH);
-	imageload();
 	GameStart();
 	cleardevice(); //菜单界面
 
@@ -74,6 +76,31 @@ int main()
 					EndBatchDraw();
 					break;
 				}
+			case CMD_JUMP:
+				if (IS_JUMP == 0 && cur_positionY >= HIGH - 120)
+				{
+					cur_positionY +=2*G;
+				}
+				if (IS_JUMP == 1)
+				{
+                    cur_positionY -= G;
+					H_NOW +=  G;
+					if (H_NOW > H_MAX)
+					{
+						IS_JUMP = 0;
+						H_NOW = 0;
+					}
+				}
+				if (IS_JUMP == 0 && cur_positionY >= HIGH - 120)
+				{
+					IS_JUMP = 1;
+				}
+				cleardevice();
+				BeginBatchDraw();
+				putimage(cur_positionX, cur_positionY, 35, 50, &Hero, 210, 80);
+				EndBatchDraw();
+				Sleep(10);
+				break;
 			default:
 				break;
 			}
