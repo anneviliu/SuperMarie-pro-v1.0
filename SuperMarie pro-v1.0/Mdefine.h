@@ -10,14 +10,14 @@
 #define ENEMY_STEP 1 //敌人每走一步相距的像素个数
 
 
-#define GRAVITY 10 
-#define ACCELERATION 5
-#define FRICTION 2
-#define TIME 1.0
+#define GRAVITY 10 .0
+#define ACCELERATION 3.0
+#define FRICTION 2.0
+#define TIME 3.0
 
 #define ESC 27 //ESC键对应的键码
 #define CMD_LEFT 4 //主角左移
 #define CMD_RIGHT 6 //主角右移
 #define CMD_JUMP 8 //主角跳跃
-
+#define CMD_RELEASE 0 //按键处在放开状态
 #endif //MDEFINE_H

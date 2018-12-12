@@ -1,31 +1,25 @@
-ï»¿/******************************************************************
- *				       SuperMarie Pro V1.0	     	               *
-  *			     By HDU_CBS Annevi ADobie Yuahwg 			   	    *
- *					 	  2018-11-26---						       *
-******************************************************************/
-				//									\\
-               //									 \\
-			  //									  \\
-*/
-#ifndef XXX_MAIN_H
-#define XXX_MAIN_H
+#pragma once
+#ifndef MAIN_H
+#define MAIN_H
 #include "MarieDisplayFunction.h"
 #include "MarieActionFunction.h"
 #include "control.h"
 #include "Mdefine.h"
 #include <stdbool.h>
-#include <graphics.h>      // å¼•ç”¨å›¾å½¢åº“å¤´æ–‡ä»¶
+#include <graphics.h>      // ÒıÓÃÍ¼ĞÎ¿âÍ·ÎÄ¼ş
 #include <conio.h>
 #include <stdlib.h>
 #include <stdio.h>
-//#include "main.h"
-#pragma comment(lib,"Winmm.lib")
+//È«¾Ö±äÁ¿
+extern double cur_positionX;
+extern double cur_positionY;
+extern double old_positionX;
+extern 	double old_positionY;
+extern 	double hero_vx;
+extern 	double here_vy;
+extern 	int num;
+extern 	IMAGE img_hero[3],  img_level1;
+	
 
-//å…¨å±€å˜é‡
-extern int life = LIFE;
-extern int world = 1;
-extern int cur_positionX = 0;
-extern int cur_positionY = 400;
 
-#endif //XXX_MAIN_H
-
+#endif

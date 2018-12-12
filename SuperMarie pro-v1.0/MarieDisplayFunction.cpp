@@ -4,33 +4,29 @@
 #include <conio.h>
 #include "Mdefine.h"
 #include <stdlib.h>
+#include "main.h"
 #pragma comment(lib,"Winmm.lib")
 
     
-	
-void imageload()
+///////////////菜单界面/////////////////
+
+void GameStart()
 {
-	IMAGE img_preplay, img_test, img_start, img_help, img_exit, img_introduction;
-	IMAGE img_help_page, img_back;
+	initgraph(WIDTH, HIGH);
+	IMAGE img_preplay, img_test, img_start, img_help, img_exit;
+	IMAGE img_back;
 	IMAGE img_start_I, img_help_I, img_introduction_I, img_exit_I;
 	IMAGE img_level1;
-	IMAGE img_introduciton;
+	IMAGE img_introductionButton;
 	loadimage(&img_preplay, _T("res\\level_1.png"));
 	loadimage(&img_start,_T("res\\开始游戏按钮.png"));
 	loadimage(&img_help, _T("res\\操作说明按钮.png"));
 	loadimage(&img_exit, _T("res\\退出游戏按钮.png"));
-	loadimage(&img_introduction, _T("res\\游戏介绍按钮.png"));
-	loadimage(&img_help_page, _T("res\\游戏帮助.png"));
+	loadimage(&img_introductionButton, _T("res\\游戏介绍按钮.png"));
 	loadimage(&img_start_I, _T("res\\开始游戏按钮（放上）.png"));
 	loadimage(&img_help_I, _T("res\\操作说明按钮（放上）.png"));
-	loadimage(&img_introduciton, _T("res\\游戏介绍.png"));
 	loadimage(&img_introduction_I, _T("res\\游戏介绍按钮（放上）.png"));
 	loadimage(&img_exit_I, _T("res\\退出游戏按钮（放上）.png"));
-}
-
-void GameStart()
-{
-	cleardevice();
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 															
@@ -39,7 +35,6 @@ void GameStart()
 	int INTRODUCTION_flag = 0; 
 	int HELP_flag = 0;
 	int ESC_flag = 0;
-	//图片资源的声明
 	
 ////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -47,15 +42,15 @@ void GameStart()
 	
 
 	//音乐加载
-	mciSendString("open res\\背景音乐.mp3 alias music_back", NULL, 0, NULL);
-	mciSendString("play music_back", NULL, 0, NULL);
+	//mciSendString("open res\\背景音乐.mp3 alias music_back", NULL, 0, NULL);
+	//mciSendString("play music_back", NULL, 0, NULL);
 	
 	//图片输出
 	
 		putimage(0, 0, WIDTH, HIGH, &img_preplay, 0, 0);
 		putimage(540, 235, &img_start);	//输出菜单界面
 		putimage(540, 300, &img_help);
-		putimage(540, 365, &img_introduction);
+		putimage(540, 365, &img_introductionButton);
 		putimage(540, 430, &img_exit);
 
 		MOUSEMSG click;
@@ -134,7 +129,7 @@ void GameStart()
 				if (click.x >= 540 && click.x <= 740 && click.y >= 365 && click.y <= 415 && HOME_flag == 1 && HELP_flag == 0 && INTRODUCTION_flag == 0)
 					putimage(540, 365, &img_introduction_I);
 				else
-					putimage(540, 365, &img_introduction);
+					putimage(540, 365, &img_introductionButton);
 				if (click.x >= 540 && click.x <= 740 && click.y >= 430 && click.y <= 480 && HOME_flag == 1 && HELP_flag == 0 && INTRODUCTION_flag == 0) 
 					putimage(540, 430, &img_exit_I);
 				else
@@ -147,44 +142,71 @@ void GameStart()
 		//清空绘图缓存
 	FlushBatchDraw();
 	Sleep(2);
-
 	}
 	
-
 void HelpPage()
 {
-	
+	IMAGE img_help_page;
+	loadimage(&img_help_page, _T("res\\游戏帮助.png"));
 	putimage(0, 0, &img_help_page); //输出帮助页面
 }
 
 void Introduction()
 {
-	
-	putimage(0, 0, &img_introduciton); //输出游戏介绍界面
+	IMAGE img_introductionPage;
+	loadimage(&img_introductionPage, _T("res\\游戏介绍.png"));
+	putimage(0, 0, &img_introductionPage); //输出游戏介绍界面
 
 }
 
-
-
+///////////////////////////////////////
 
 void game_show()
 {
-	IMAGE img_map_level1;
-	int j = 0;
-	loadimage(&img_map_level1, _T("res\\level_1.png"));
-	putimage(0, 0, WIDTH, HIGH, &img_map_level1, 0, 0);
-		
 	
+	loadimage(&img_level1, _T("res\\level_1.png"));
+	putimage(0, 0, WIDTH, HIGH, &img_level1, 0, 0);
+	putimage(cur_positionX, HIGH - 120, 35, 50, &img_hero[1], 210 , 80, SRCINVERT);
+	putimage(cur_positionX, HIGH - 120, 35, 50, &img_hero[2], 210, 80, NOTSRCERASE);
+	old_positionX = cur_positionX;
+
 }
 
-void Hero_TurnLeft()
+void hero_show()
 {
-	IMAGE img_Hero_TurnLeft;
+/*
+	loadimage(&img_hero, _T("res\\主角.png"));
+	loadimage(&img_hero_mask, _T("res\\主角（遮罩）.png"));
+	loadimage(&img_level1, _T("res\\level1.jpg"));*/
+
+	BeginBatchDraw(); //一次输出，减少闪烁
+	//putimage(0, 0, WIDTH, HIGH, &img_level1, 0, 0);
+	putimage(old_positionX, HIGH - 120, 35, 50, &img_level1, old_positionX, HIGH - 120, SRCCOPY);
+	putimage(cur_positionX, HIGH - 120, 35, 50, &img_hero[2], 210+50*num, 80,SRCINVERT);
+	putimage(cur_positionX, HIGH - 120, 35, 50, &img_hero[1], 210+50*num, 80, NOTSRCERASE);
+	FlushBatchDraw();
+	EndBatchDraw();
+	old_positionX = cur_positionX;
+	//FlushBatchDraw();
 }
 
-void Hero_TurnRight()
+void begin()
 {
-	IMAGE img_Hero_TurnRight;
+	mciSendString("open res\\背景音乐.mp3 alias music_back", NULL, 0, NULL);
+	mciSendString("play music_back", NULL, 0, NULL);
+	HWND hwnd = GetHWnd(); //获取窗口句柄
+	SetWindowText(hwnd, "超级玛丽魔改版-V1.0"); //设置窗口标题
+	GameStart(); //显示菜单界面
+	//BeginBatchDraw();
+	loadimage(&img_hero[1], _T("res\\主角.png"));
+	loadimage(&img_hero[2], _T("res\\主角（遮罩）.png"));
+	loadimage(&img_level1, _T("res\\level1.jpg"));
+	cleardevice();
+}
 
+void preload()
+{
+	cur_positionX = 0;
+	cur_positionY = HIGH - 120;
 }
 

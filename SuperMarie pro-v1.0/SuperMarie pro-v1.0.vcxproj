@@ -125,6 +125,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="control.h" />
+    <ClInclude Include="main.h" />
     <ClInclude Include="MarieActionFunction.h" />
     <ClInclude Include="MarieDisplayFunction.h" />
     <ClInclude Include="Mdefine.h" />

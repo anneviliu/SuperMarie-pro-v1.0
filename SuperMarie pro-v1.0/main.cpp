@@ -7,128 +7,200 @@
                //									 \\
 			  //									  \\
 
-#include "MarieDisplayFunction.h"
-#include "MarieActionFunction.h"
-#include "control.h"
-#include "Mdefine.h"
-#include <stdbool.h>
-#include <graphics.h>      // 引用图形库头文件
-#include <conio.h>
-#include <stdlib.h>
-#include <stdio.h>
+
+
+#include "main.h"
+
 #pragma comment(lib,"Winmm.lib")
 
 //全局变量
 int life = LIFE;
 int world = 1;
-extern int cur_positionX = 0;
-extern int cur_positionY = 400;
 
-double hero_vx = 0;
-double here_vy = 0;
-
+ double cur_positionX = 0;
+ double cur_positionY = HIGH-120;
+ double old_positionX = 0;
+ double old_positionY = HIGH - 120;
+ double hero_vx = 0;
+ double here_vy = 0;
+ IMAGE img_hero[3], img_level1;
+ int num = 0;
 
 int main()
 {
-	float G = 7; //重力
-	float H_MAX = 400;  //最大高度
-	float H_NOW = 0;//目前高度
-	int IS_JUMP = 0; //是否跳跃
-	IMAGE Hero, Hero_mask, img_level1;
-	int i=0;
-	loadimage(&Hero, _T("res\\主角.png"));
-	loadimage(&Hero_mask, _T("res\\主角（遮罩）"));
-	loadimage(&img_level1, _T("res\\level1.png"));
-	initgraph(WIDTH, HIGH);
-	GameStart();
-	cleardevice(); //菜单界面
+    double G = 9.8; //重力
+	float h_max = 400; //最大高度
+	float h_now = 0; //目前高度
+	int is_jump = 0; //是否跳跃
+	
+	int temp = 0;
 
-	game_show(); //进入游戏
-	Hero_Show(); //显示人物的初始位置
+	short key_get = 0; //用于记录 Getanyckeystate的返回值
+	int num = 0; //实现人物的步伐动作
+	//double a_left_shift = shift(&hero_vx, TIME, FRICTION - ACCELERATION);
+	//double a_right_shift = shift(&hero_vx, TIME, ACCELERATION - FRICTION);
+
+	//
+
+	//loadimage(&img_hero, _T("res\\主角.png"));
+	//loadimage(&img_hero_mask, _T("res\\主角（遮罩）.png"));
+	//loadimage(&img_level1, _T("res\\level1.jpg"));
+
+	
+	
+				 //进入游戏
+				 //显示人物的初始位置
 				 //设置人物可站立位置，掉落至地图外死亡位置
 	             //蘑菇与硬币生成
-	             //分数显示
-	while (true)
+	if (temp == 0)
 	{
-		if (_kbhit()) {
+		begin();
+		temp++;
+	}       
+	if (temp)
+	{
+		game_show();
+		preload();
+		hero_move();
+	}
+	
+
+	/*while (true)
+	{					
+		//putimage(0, 0, WIDTH, HIGH, &img_level1, 0, 0);
+
+		if (_kbhit()) 
+		{	
 			switch (hero_move()) //读取移动输入，返回值
 			{
 			case CMD_LEFT:
 				if (cur_positionX > 0)
 				{
-					cleardevice();
 					BeginBatchDraw();
-					putimage(0, 0, WIDTH, HIGH, &img_level1, 0, 0);
-					cur_positionX += (int)shift(&hero_vx, TIME, FRICTION - ACCELERATION);
-					putimage(cur_positionX, HIGH - 120, 35, 50, &Hero, 210, 80);
+					//putimage(0, 0, WIDTH, HIGH, &img_level1, 0, 0);
+					//putimage(old_positionX, HIGH - 120, 35, 50, &img_hero, 210 + 50 * num, 80, SRCAND);
+					//putimage(old_positionX, HIGH - 120, 35, 50, &img_hero_mask, 210 + 50 * num, 80, SRCINVERT);
+					//cleardevice();	
+					cur_positionX += shift(&hero_vx, TIME, FRICTION - ACCELERATION); //设定一个加速度，改变水平坐标
+					//putimage(0, 0, WIDTH, HIGH, &img_level1, 0, 0);
+					//putimage(old_positionX, HIGH - 120, 35, 50, &img_level1, old_positionX, HIGH - 120,SRCCOPY);
+					//putimage(cur_positionX, HIGH - 120, 35, 50, &img_hero, 210+50*num, 80, SRCAND);
+					//putimage(cur_positionX, HIGH - 120, 35, 50, &img_hero_mask, 210+50*num, 80, SRCINVERT);
+					//cleardevice();
+					FlushBatchDraw();
 					EndBatchDraw();
+					//old_positionX = cur_positionX;
+					
+					num++; //实现人物脚步
+					if (num == 4)  
+						num = 0;
+					
 					break;
 				}
 			case CMD_RIGHT:
 
 				if (cur_positionX < (WIDTH - 35) / 2)
 				{
-					cleardevice();
 					BeginBatchDraw();
-					putimage(0, 0, WIDTH, HIGH, &img_level1, 0, 0);
-					cur_positionX += (int)shift(&hero_vx, TIME, ACCELERATION - FRICTION);
-					putimage(cur_positionX, HIGH - 120, 35, 50, &Hero, 210, 80);
+					//putimage(cur_positionX, HIGH - 120, 35, 50, &img_level1, cur_positionX, HIGH - 120);
+					//putimage(old_positionX, HIGH - 120, 35, 50, &img_level1, old_positionX, HIGH - 120, SRCCOPY);
+					//clearrectangle(old_positionX, HIGH - 120 + 50, old_positionX + 35, HIGH - 120);
+					//putimage(0, 0, WIDTH, HIGH, &img_level1, 0, 0);
+					//putimage(old_positionX, HIGH - 120, 35, 50, &img_hero, 210 + 50 * num, 80, SRCAND);
+					//putimage(old_positionX, HIGH - 120, 35, 50, &img_hero_mask, 210 + 50 * num, 80, SRCINVERT);
+					cleardevice();					
+					cur_positionX += shift(&hero_vx, TIME, ACCELERATION - FRICTION); //设定一个加速度，改变水平坐标
+					//putimage(0, 0, WIDTH, HIGH, &img_level1, 0, 0);
+					//putimage(cur_positionX, HIGH - 120, 35, 50, &img_hero, 210+50*num, 80, SRCAND);
+					//putimage(cur_positionX, HIGH - 120, 35, 50, &img_hero_mask, 210+50*num, 80, SRCINVERT);
+					//old_positionX = cur_positionX;
+					FlushBatchDraw();
 					EndBatchDraw();
+					num++; //实现人物脚步
+					if (num == 4)
+						num = 0;
+					//
+					
 					break;
-				}
-			case CMD_JUMP:
-				if (IS_JUMP == 0 && cur_positionY >= HIGH - 120)
+				}	
+			/*case CMD_JUMP:
+				if (is_jump == 0 && cur_positionY >= HIGH - 120)
 				{
 					cur_positionY +=2*G;
 				}
-				if (IS_JUMP == 1)
+				if (is_jump == 1)
 				{
                     cur_positionY -= G;
-					H_NOW +=  G;
-					if (H_NOW > H_MAX)
+					h_now +=  G;
+					if (h_now > h_max)
 					{
-						IS_JUMP = 0;
-						H_NOW = 0;
+						is_jump = 0;
+						h_now = 0;
 					}
 				}
-				if (IS_JUMP == 0 && cur_positionY >= HIGH - 120)
+				if (is_jump == 0 && cur_positionY >= HIGH - 120)
 				{
-					IS_JUMP = 1;
+					is_jump = 1;
 				}
-				cleardevice();
+				//cleardevice();
 				BeginBatchDraw();
-				putimage(cur_positionX, cur_positionY, 35, 50, &Hero, 210, 80);
+				putimage(cur_positionX, cur_positionY, 35, 50, &img_hero, 210, 80);
 				EndBatchDraw();
 				Sleep(10);
-				break;
+				break;*/
+			/*case CMD_RELEASE:
+				{
+					if (hero_vx > 0)
+					{
+						//cleardevice();
+						BeginBatchDraw();
+						putimage(0, 0, WIDTH, HIGH, &img_level1, 0, 0);
+						cur_positionX += shift(&hero_vx, TIME, -FRICTION);
+						putimage(cur_positionX, HIGH - 120, 35, 50, &img_hero, 210, 80);
+						EndBatchDraw();
+					}
+					else if (hero_vx < 0)
+					{
+						//cleardevice();
+						BeginBatchDraw();
+						putimage(0, 0, WIDTH, HIGH, &img_level1, 0, 0);
+						cur_positionX += shift(&hero_vx, TIME, FRICTION);
+						putimage(cur_positionX, HIGH - 120, 35, 50, &img_hero, 210, 80);
+						EndBatchDraw();
+					}
+					break;
+				}
 			default:
 				break;
 			}
 		}
-		else {//没有输入操作时人物移动
-			if (hero_vx > 0) {
+		else 
+		{				
+			if (hero_vx > 0) 
+			{
 				cleardevice();
 				BeginBatchDraw();
 				putimage(0, 0, WIDTH, HIGH, &img_level1, 0, 0);
-				cur_positionX += (int)shift(&hero_vx, TIME, -FRICTION);
-				putimage(cur_positionX, HIGH - 120, 35, 50, &Hero, 210, 80);
+				cur_positionX += shift(&hero_vx, TIME, -FRICTION);
+				putimage(cur_positionX, HIGH - 120, 35, 50, &img_hero, 210, 80);
 				EndBatchDraw();
 			}
-			else if (hero_vx < 0) {
+			else if (hero_vx < 0) 
+			{     
 				cleardevice();
 				BeginBatchDraw();
 				putimage(0, 0, WIDTH, HIGH, &img_level1, 0, 0);
-				cur_positionX += (int)shift(&hero_vx, TIME, FRICTION);
-				putimage(cur_positionX, HIGH - 120, 35, 50, &Hero, 210, 80);
+				cur_positionX += shift(&hero_vx, TIME, FRICTION);
+				putimage(cur_positionX, HIGH - 120, 35, 50, &img_hero, 210, 80);
 				EndBatchDraw();
 			}
 		}
-		Sleep(10);
+		Sleep(80);
 		         
-		        
+		imgshow();
 				 //打印改变位置后的人物并完成清屏相关
 	             	  
-	} 
+	}*/
 	             //背景移动
 	             //人物射击（子弹发射，子弹飞行，子弹击中判定）
 	             //人物射击动画与音效
@@ -148,6 +220,7 @@ int main()
 	             //抵达终点后动画与音效
 	             //通关动画与音效
 	             //返回菜单或进入下一关
+	closegraph();
 	system("pause");
 	return 0;
 }              

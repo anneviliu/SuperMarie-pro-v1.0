@@ -5,7 +5,8 @@
 
 
 
-int hero_move(); //控制左右移动
+void hero_move(); //控制左右移动
+
 double shift(double *v,double t,double a);//计算人物位移
 
 
