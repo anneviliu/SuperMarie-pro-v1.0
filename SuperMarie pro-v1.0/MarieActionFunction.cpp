@@ -61,8 +61,11 @@ void hero_move()
 
 			}
 		}
-		Sleep(1);
+		Sleep(80);
+		
+		
 	}
+
 	
 	/*if (GetAsyncKeyState(VK_UP))
 	{

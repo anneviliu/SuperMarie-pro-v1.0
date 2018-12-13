@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #ifndef MAIN_H
 #define MAIN_H
 #include "MarieDisplayFunction.h"
@@ -6,11 +6,11 @@
 #include "control.h"
 #include "Mdefine.h"
 #include <stdbool.h>
-#include <graphics.h>      // ÒıÓÃÍ¼ĞÎ¿âÍ·ÎÄ¼ş
+#include <graphics.h>      // å¼•ç”¨å›¾å½¢åº“å¤´æ–‡ä»¶
 #include <conio.h>
 #include <stdlib.h>
 #include <stdio.h>
-//È«¾Ö±äÁ¿
+//å…¨å±€å˜é‡
 extern double cur_positionX;
 extern double cur_positionY;
 extern double old_positionX;
@@ -19,7 +19,8 @@ extern 	double hero_vx;
 extern 	double here_vy;
 extern 	int num;
 extern 	IMAGE img_hero[3],  img_level1;
-	
+extern struct Blank;
+extern struct Block;
 
 
 #endif

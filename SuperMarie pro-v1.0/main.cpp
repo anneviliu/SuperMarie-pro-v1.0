@@ -25,9 +25,48 @@ int world = 1;
  double here_vy = 0;
  IMAGE img_hero[3], img_level1;
  int num = 0;
+ double real_positionX = 0;
+ double real_positionY = 0;
+
+  struct Blank
+ {
+	 double begin_x;
+	 double final_x;
+ }; 
+   Blank blank[2];
+
+   struct Block
+   {
+	   double begin_x;
+	   double final_x;
+	   double high;
+  };
+   Block block[4];
+
+
+  
+  
+
 
 int main()
 {
+	block[0].begin_x = 1450;
+	block[0].final_x = 1550;
+	block[0].high = 540;
+	block[1].begin_x = 1970;
+	block[1].final_x = 2070;
+	block[1].high = 490;
+	block[2].begin_x = 2385;
+	block[2].final_x = 2485;
+	block[2].high = 440;
+	block[3].begin_x = 2945;
+	block[3].final_x = 3045;
+	block[3].high = 440;   //初始化阻挡物
+	
+	blank[0].begin_x = 3570;
+	blank[0].final_x = 3680;
+	blank[1].begin_x = 4450;
+	blank[1].final_x = 4610; //初始化空地
     double G = 9.8; //重力
 	float h_max = 400; //最大高度
 	float h_now = 0; //目前高度
