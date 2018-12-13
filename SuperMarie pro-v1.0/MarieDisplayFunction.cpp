@@ -38,12 +38,7 @@ void GameStart()
 	
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-	//图片的加载
-	
 
-	//音乐加载
-	//mciSendString("open res\\背景音乐.mp3 alias music_back", NULL, 0, NULL);
-	//mciSendString("play music_back", NULL, 0, NULL);
 	
 	//图片输出
 	
@@ -163,41 +158,32 @@ void Introduction()
 
 void game_show()
 {
-	
+	BeginBatchDraw();
 	loadimage(&img_level1, _T("res\\level_1.png"));
-	putimage(0, 0, WIDTH, HIGH, &img_level1, 0, 0);
-	putimage(cur_positionX, HIGH - 120, 35, 50, &img_hero[1], 210 , 80, SRCINVERT);
+	putimage(map_position, 0, WIDTH, HIGH, &img_level1, 0, 0);
 	putimage(cur_positionX, HIGH - 120, 35, 50, &img_hero[2], 210, 80, NOTSRCERASE);
+	putimage(cur_positionX, HIGH - 120, 35, 50, &img_hero[1], 210 , 80, SRCINVERT);
+	EndBatchDraw();
 	old_positionX = cur_positionX;
 
 }
 
 void hero_show()
 {
-/*
-	loadimage(&img_hero, _T("res\\主角.png"));
-	loadimage(&img_hero_mask, _T("res\\主角（遮罩）.png"));
-	loadimage(&img_level1, _T("res\\level1.jpg"));*/
-
-	BeginBatchDraw(); //一次输出，减少闪烁
-	//putimage(0, 0, WIDTH, HIGH, &img_level1, 0, 0);
-	putimage(old_positionX, HIGH - 120, 35, 50, &img_level1, old_positionX, HIGH - 120, SRCCOPY);
-	putimage(cur_positionX, HIGH - 120, 35, 50, &img_hero[2], 210+50*num, 80,SRCINVERT);
-	putimage(cur_positionX, HIGH - 120, 35, 50, &img_hero[1], 210+50*num, 80, NOTSRCERASE);
-	FlushBatchDraw();
-	EndBatchDraw();
+	putimage(old_positionX, HERO_INIT_Y, 35, 50, &img_level1, old_positionX, HERO_INIT_Y, SRCCOPY);
+	putimage(cur_positionX, HERO_INIT_Y, 35, 50, &img_hero[2], 210+40*num, 82, NOTSRCERASE);
+	putimage(cur_positionX, HERO_INIT_Y, 35, 50, &img_hero[1], 210+40*num, 82, SRCINVERT);
 	old_positionX = cur_positionX;
-	//FlushBatchDraw();
 }
 
 void begin()
 {
-	mciSendString("open res\\背景音乐.mp3 alias music_back", NULL, 0, NULL);
-	mciSendString("play music_back", NULL, 0, NULL);
+	//mciSendString("open res\\背景音乐.mp3 alias music_back", NULL, 0, NULL);
+	//mciSendString("play music_back", NULL, 0, NULL);
+
 	HWND hwnd = GetHWnd(); //获取窗口句柄
 	SetWindowText(hwnd, "超级玛丽魔改版-V1.0"); //设置窗口标题
 	GameStart(); //显示菜单界面
-	//BeginBatchDraw();
 	loadimage(&img_hero[1], _T("res\\主角.png"));
 	loadimage(&img_hero[2], _T("res\\主角（遮罩）.png"));
 	loadimage(&img_level1, _T("res\\level1.jpg"));
@@ -210,3 +196,7 @@ void preload()
 	cur_positionY = HIGH - 120;
 }
 
+void map_show()
+{
+	putimage(0, 0, WIDTH, HIGH, &img_level1, map_position, 0);
+}

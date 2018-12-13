@@ -14,13 +14,22 @@
 extern double cur_positionX;
 extern double cur_positionY;
 extern double old_positionX;
-extern 	double old_positionY;
-extern 	double hero_vx;
-extern 	double here_vy;
-extern 	int num;
-extern 	IMAGE img_hero[3],  img_level1;
-extern struct Blank;
-extern struct Block;
+extern double old_positionY;
+extern double real_positionX;
+extern double real_positionY;
+extern double map_position;
+extern double hero_vx;
+extern double here_vy;
+extern int num;
+extern IMAGE img_hero[3],  img_level1;
+extern double cur_vx;
+extern double cur_vy;
+extern double h_now;
+extern double acceleration_left;
+extern double acceleration_right;
+extern double friction;
+extern double friction_n;
+
 
 
 #endif
