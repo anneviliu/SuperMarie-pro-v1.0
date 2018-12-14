@@ -10,9 +10,9 @@
 #define ENEMY_STEP 1 //敌人每走一步相距的像素个数
 #define HERO_INIT_Y HIGH-120
 
-#define GRAVITY 10 .0
-#define ACCELERATION 3.0
-#define FRICTION 2.0
+#define GRAVITY 1.0
+#define ACCELERATION 2.5
+#define FRICTION 1.0
 #define TIME 3.0
 #define H_MAX 400
 

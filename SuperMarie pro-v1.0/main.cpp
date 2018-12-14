@@ -18,10 +18,10 @@
  int life = LIFE;
  int world = 1;
 
- double acceleration_left = shift(&hero_vx, TIME, FRICTION - ACCELERATION);
- double acceleration_right = shift(&hero_vx, TIME, ACCELERATION - FRICTION);
- double friction = shift(&hero_vx, TIME, FRICTION);
- double friction_n = shift(&hero_vx, TIME, -FRICTION);
+ //double acceleration_left = shift_x(&hero_vx, TIME, FRICTION - ACCELERATION);
+ //double acceleration_right = shift_x(&hero_vx, TIME, ACCELERATION - FRICTION);
+ //double friction = shift_x(&hero_vx, TIME, FRICTION);
+// double friction_n = shift_x(&hero_vx, TIME, -FRICTION);
 
  double cur_positionX = 0;
  double cur_positionY = HIGH-120;
@@ -31,14 +31,16 @@
  double real_positionY = HIGH - 120;
  double map_position = 0;
  double hero_vx = 0;
- double here_vy = 0; //
- double cur_vx = 0; //当前水平速度记录
- double cur_vy = 0; //当前竖直方向速度记录
+ double hero_vy = 0; //
+ double cur_vx = 0; //当前水平速度记录 录
+ double cur_vy = 0; //当前竖直方向速度记
  double h_now = 0; //目前高度
+ int is_jump = 0; //是否跳跃
+
  IMAGE img_hero[3], img_level1;
  int num = 0;
- double real_positionX = 0;
- double real_positionY = 0;
+ //double real_positionX = 0;
+ //double real_positionY = 0;
 
   struct Blank
  {
@@ -74,10 +76,9 @@ int main()
 	blank[0].final_x = 3680;
 	blank[1].begin_x = 4450;
 	blank[1].final_x = 4610; //初始化空地
-    double G = 9.8; //重力
 	float h_max = 400; //最大高度
 	float h_now = 0; //目前高度
-	int is_jump = 0; //是否跳跃
+
 	
 	int temp = 0;
 
@@ -102,7 +103,7 @@ int main()
 
 			FlushBatchDraw();
 			EndBatchDraw();
-			HpSleep(100);
+			//HpSleep(100);
 		}
 	}
 
