@@ -190,7 +190,7 @@ void begin()
 	loadimage(&img_hero[1], _T("res\\主角.png"));
 	loadimage(&img_hero[2], _T("res\\主角（遮罩）.png"));
 	loadimage(&img_level1, _T("res\\level1.jpg"));
-	cleardevice();
+	cleardevice(); 
 }
 
 void preload()

@@ -18,4 +18,4 @@ double shift_y(double *v,double t,double a);//计算人物位移，加速度实�
 
 void bkg_move(); //控制背景的移动
 
-#endif
+#endif 

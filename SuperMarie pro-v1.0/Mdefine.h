@@ -11,7 +11,7 @@
 #define HERO_INIT_Y HIGH-120
 
 #define GRAVITY 1.0
-#define ACCELERATION 2.5
+#define ACCELERATION 2.5 
 #define FRICTION 1.0
 #define TIME 3.0
 #define H_MAX 400

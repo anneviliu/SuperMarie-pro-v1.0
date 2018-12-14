@@ -106,7 +106,7 @@ double shift_x(double *v,double t,double a)
 	double s = *v * t + 1 / 2.0*a*t*t;
 
 	if (fabs(*v) >= 5&& a*(*v)>0)
-		return s;
+		return s; 
 	
 	*v = *v + a * t;
 	cur_vx = *v;

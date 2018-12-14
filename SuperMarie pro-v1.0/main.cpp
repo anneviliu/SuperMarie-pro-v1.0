@@ -87,7 +87,7 @@ int main()
 	
 	if (temp == 0)
 	{
-		begin();
+		begin(); 
 		temp++;
 	}       
 	if (temp)
