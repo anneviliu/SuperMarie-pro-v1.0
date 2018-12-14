@@ -5,7 +5,7 @@
 
 
 void GameStart(); //游戏开始主界面
-void hero_show();
+void show();
 void game_show();
 void HelpPage();  //游戏操作说明界面
 void Introduction(); //游戏简介界面

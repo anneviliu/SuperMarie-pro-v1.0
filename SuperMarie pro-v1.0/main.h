@@ -29,7 +29,7 @@ extern double acceleration_left;
 extern double acceleration_right;
 extern double friction;
 extern double friction_n;
-
+extern int is_forward; //是否可行走状态
 
 
 #endif

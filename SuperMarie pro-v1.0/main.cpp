@@ -17,12 +17,11 @@
 //============================================//
  int life = LIFE;
  int world = 1;
-
+ int is_forward = 1; //是否可行走状态
  double acceleration_left = shift(&hero_vx, TIME, FRICTION - ACCELERATION);
  double acceleration_right = shift(&hero_vx, TIME, ACCELERATION - FRICTION);
  double friction = shift(&hero_vx, TIME, FRICTION);
  double friction_n = shift(&hero_vx, TIME, -FRICTION);
-
  double cur_positionX = 0;
  double cur_positionY = HIGH-120;
  double old_positionX = 0;
@@ -37,23 +36,23 @@
  double h_now = 0; //目前高度
  IMAGE img_hero[3], img_level1;
  int num = 0;
- double real_positionX = 0;
- double real_positionY = 0;
+ //double real_positionX = 0;
+ //double real_positionY = 0;
 
-  struct Blank
+ struct Blank
  {
 	 double begin_x;
 	 double final_x;
- }; 
-   Blank blank[2];
+ };
+ Blank blank[2];
 
-   struct Block
-   {
-	   double begin_x;
-	   double final_x;
-	   double high;
-  };
-   Block block[4];
+ struct Block
+ {
+	 double begin_x;
+	 double final_x;
+	 double high;
+ };
+ Block block[4];
 
 int main()
 {
@@ -69,7 +68,6 @@ int main()
 	block[3].begin_x = 2945;
 	block[3].final_x = 3045;
 	block[3].high = 440;   //初始化阻挡物
-	
 	blank[0].begin_x = 3570;
 	blank[0].final_x = 3680;
 	blank[1].begin_x = 4450;
@@ -94,15 +92,17 @@ int main()
 		game_show();
 		preload();
 		BeginBatchDraw();
+	    printf("cur_positionX\t\t\treal_positionX\n");
 		while (1)
-		{
-			hero_move();
-			map_show();
-			hero_show();
+		{			
 
+			
+			printf("%d\t\t\t%d\n", cur_positionX, real_positionX);	
+			hero_move();
+			show();
 			FlushBatchDraw();
 			EndBatchDraw();
-			HpSleep(100);
+			HpSleep(80);
 		}
 	}
 
