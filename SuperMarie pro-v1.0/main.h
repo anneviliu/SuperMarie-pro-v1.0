@@ -19,7 +19,7 @@ extern double real_positionX;
 extern double real_positionY;
 extern double map_position;
 extern double hero_vx;
-extern double here_vy;
+extern double hero_vy;
 extern int num;
 extern IMAGE img_hero[3],  img_level1;
 extern double cur_vx;
@@ -29,7 +29,7 @@ extern double acceleration_left;
 extern double acceleration_right;
 extern double friction;
 extern double friction_n;
-extern int is_forward; //是否可行走状态
+extern int is_jump;
 
 
 #endif

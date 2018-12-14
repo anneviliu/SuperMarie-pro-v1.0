@@ -170,24 +170,13 @@ void game_show()
 
 void show() 
 {
-	
-	putimage(0, 0, WIDTH, HIGH, &img_level1, map_position, 0);
-	putimage(old_positionX, HERO_INIT_Y, 35, 50, &img_level1, old_positionX, HERO_INIT_Y, SRCCOPY);
-	putimage(cur_positionX, HERO_INIT_Y, 35, 50, &img_hero[2], 210+40*num, 82, NOTSRCERASE);
-	putimage(cur_positionX, HERO_INIT_Y, 35, 50, &img_hero[1], 210+40*num, 82, SRCINVERT);
-
-	settextcolor(YELLOW);
-	settextstyle(16, 0, "宋体");
-	char s[500];
-	sprintf(s, "cur_position_x=%lf cur_position_y=%lf", cur_positionX,cur_positionY );
-	outtextxy(10, 10, s);
-	settextcolor(YELLOW);
-	settextstyle(16, 0, "宋体");
-	char s1[500];
-	sprintf(s1, "real_positionX=%lf,real_positionY=%lf", real_positionX,real_positionY);
-	outtextxy(10, 30, s1);
-
-	//old_positionX = cur_positionX;
+	BeginBatchDraw();
+	//putimage(old_positionX, old_positionY, 35, 50, &img_level1, old_positionX, HERO_INIT_Y, SRCCOPY);
+	putimage(cur_positionX, cur_positionY, 35, 50, &img_hero[2], 210+40*num, 82, NOTSRCERASE);
+	putimage(cur_positionX, cur_positionY, 35, 50, &img_hero[1], 210+40*num, 82, SRCINVERT);
+	old_positionX = cur_positionX;
+	old_positionY = cur_positionY;
+	EndBatchDraw();
 }
 
 
