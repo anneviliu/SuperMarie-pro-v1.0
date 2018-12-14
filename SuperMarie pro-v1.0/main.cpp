@@ -18,10 +18,8 @@
  int life = LIFE;
  int world = 1;
 
- double acceleration_left = shift(&hero_vx, TIME, FRICTION - ACCELERATION);
- double acceleration_right = shift(&hero_vx, TIME, ACCELERATION - FRICTION);
- double friction = shift(&hero_vx, TIME, FRICTION);
- double friction_n = shift(&hero_vx, TIME, -FRICTION);
+ int is_forward = 1;
+ int is_jump = 0; //是否跳跃
 
  double cur_positionX = 0;
  double cur_positionY = HIGH-120;
@@ -31,17 +29,14 @@
  double real_positionY = HIGH - 120;
  double map_position = 0;
  double hero_vx = 0;
- double here_vy = 0; //
+ double hero_vy = 0; //
  double cur_vx = 0; //当前水平速度记录
  double cur_vy = 0; //当前竖直方向速度记录
  double h_now = 0; //目前高度
- int is_jump = 0; //是否跳跃
 
  IMAGE img_hero[3], img_level1;
  int num = 0;
- //double real_positionX = 0;
- //double real_positionY = 0;
-
+ //========================================================//
  struct Blank
  {
 	 double begin_x;
@@ -77,10 +72,7 @@ int main()
 	blank[1].final_x = 4610; //初始化空地
 	float h_max = 400; //最大高度
 	float h_now = 0; //目前高度
-
-	
 	int temp = 0;
-
 	short key_get = 0; //用于记录 Getanyckeystate的返回值
 	int num = 0; //实现人物的步伐动作
 	
@@ -94,17 +86,12 @@ int main()
 		game_show();
 		preload();
 		BeginBatchDraw();
-	    printf("cur_positionX\t\t\treal_positionX\n");
 		while (1)
-		{			
-
-			
-			printf("%d\t\t\t%d\n", cur_positionX, real_positionX);	
-			hero_move();
-			show();
+		{	
+			hero_move();		
+			show();	
 			FlushBatchDraw();
 			EndBatchDraw();
-			//HpSleep(100);
 		}
 	}
 

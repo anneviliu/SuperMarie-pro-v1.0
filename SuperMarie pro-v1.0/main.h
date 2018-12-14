@@ -30,6 +30,7 @@ extern double acceleration_right;
 extern double friction;
 extern double friction_n;
 extern int is_jump;
+extern int is_forward;
 
 
 #endif
