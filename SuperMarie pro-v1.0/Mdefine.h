@@ -22,4 +22,6 @@
 #define CMD_RIGHT 6 //主角右移
 #define CMD_JUMP 8 //主角跳跃
 #define CMD_RELEASE 0 //按键处在放开状态
+#define HERO_WIDTH 35 //人物宽度
+#define HERO_HIGH 50 //人物高度
 #endif //MDEFINE_H
