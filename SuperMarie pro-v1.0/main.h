@@ -27,7 +27,7 @@ extern double cur_vy;
 extern double h_now;
 extern double acceleration_left;
 extern double acceleration_right;
-extern double friction;
+extern double friction; 
 extern double friction_n;
 extern struct Blank ;
 extern struct Block ;
