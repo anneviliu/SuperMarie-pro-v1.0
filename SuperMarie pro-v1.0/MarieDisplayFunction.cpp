@@ -19,7 +19,7 @@ void GameStart()
 	IMAGE img_level1;
 	IMAGE img_introductionButton;
 	loadimage(&img_preplay, _T("res\\level_1.png"));
-	loadimage(&img_start,_T("res\\开始游戏按钮.png"));
+	loadimage(&img_start, _T("res\\开始游戏按钮.png"));
 	loadimage(&img_help, _T("res\\操作说明按钮.png"));
 	loadimage(&img_exit, _T("res\\退出游戏按钮.png"));
 	loadimage(&img_introductionButton, _T("res\\游戏介绍按钮.png"));
@@ -69,7 +69,7 @@ void GameStart()
 					HELP_flag = 1;
 					HOME_flag = 0;
 					cleardevice(); //这个函数用当前背景色清空屏幕，并将当前点移至 (0, 0)
-					HelpPage(); // 调用HelpPage函数 显示 操作说明界面；
+					help_page(); // 调用HelpPage函数 显示 操作说明界面；
 					ESC_flag = _getch(); //显示帮助界面后，随时准备获取用户的键盘输入。
 				}
 				
@@ -91,7 +91,7 @@ void GameStart()
 					HOME_flag = 0;
 					HELP_flag = 0;
 					cleardevice();
-					Introduction();
+					introduction_Page();
 
 				    //显示介绍界面后，随时准备获取用户的键盘输入。
 					ESC_flag = _getch();
@@ -139,14 +139,14 @@ void GameStart()
 	Sleep(2);
 	}
 	
-void HelpPage()
+void help_page()
 {
 	IMAGE img_help_page;
 	loadimage(&img_help_page, _T("res\\游戏帮助.png"));
 	putimage(0, 0, &img_help_page); //输出帮助页面
 }
 
-void Introduction()
+void introduction_Page()
 {
 	IMAGE img_introductionPage;
 	loadimage(&img_introductionPage, _T("res\\游戏介绍.png"));
@@ -156,6 +156,7 @@ void Introduction()
 
 ///////////////////////////////////////
 
+///////////////游戏正式开始主界面///////////////////////
 void game_show()
 {
 	BeginBatchDraw();
@@ -168,23 +169,34 @@ void game_show()
 
 }
 
-void hero_show()
+void show()
 {
-	//putimage(old_positionX, HERO_INIT_Y, 35, 50, &img_level1, old_positionX, HERO_INIT_Y, SRCCOPY);
+	BeginBatchDraw();
+	map_show();
+	//putimage(old_positionX, old_positionY, 35, 50, &img_level1, old_positionX, HERO_INIT_Y, SRCCOPY);
 	putimage(cur_positionX, cur_positionY, 35, 50, &img_hero[2], 210+40*num, 82, NOTSRCERASE);
 	putimage(cur_positionX, cur_positionY, 35, 50, &img_hero[1], 210+40*num, 82, SRCINVERT);
+	
 	old_positionX = cur_positionX;
+	old_positionY = cur_positionY;
+
 	settextcolor(YELLOW);
 	settextstyle(16, 0, "宋体");
-	char s[500];
-	sprintf(s, "cur_position_x=%lf cur_position_y=%lf", cur_positionX, cur_positionY);
+	char s[100];
+	sprintf(s, "cur_positionX=%lf cur_positionY=%lf", cur_positionX, cur_positionY);
 	outtextxy(10, 10, s);
 	settextcolor(YELLOW);
 	settextstyle(16, 0, "宋体");
-	char s1[500];
+	char s1[100];
 	sprintf(s1, "real_positionX=%lf,real_positionY=%lf", real_positionX, real_positionY);
 	outtextxy(10, 30, s1);
+	settextcolor(YELLOW);
+	settextstyle(16, 0, "宋体");
+	char s2[100];
+	sprintf(s2, "map_position = %lf", map_position);
+	outtextxy(10, 50, s2);
 
+	EndBatchDraw();
 }
 
 void begin()
@@ -211,3 +223,5 @@ void map_show()
 {
 	putimage(0, 0, WIDTH, HIGH, &img_level1, map_position, 0);
 }
+
+///////////////////////////////////////////////////////////////////////

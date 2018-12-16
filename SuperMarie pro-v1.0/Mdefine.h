@@ -5,8 +5,6 @@
 
 #define HIGH 720 //屏幕高
 #define WIDTH 1280 //屏幕宽
-#define HERO_HIGH 50 //人物高
-#define HERO_WIDTH  35 //人物宽
 #define LIFE 4 //主角暂且有4条生命
 #define STEP 10 //主角每走一步相距的像素个数
 #define ENEMY_STEP 1 //敌人每走一步相距的像素个数

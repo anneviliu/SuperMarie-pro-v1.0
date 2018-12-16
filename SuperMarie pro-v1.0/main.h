@@ -21,7 +21,7 @@ extern double map_position;
 extern double hero_vx;
 extern double hero_vy;
 extern int num;
-extern IMAGE img_hero[3],  img_level1;
+extern IMAGE img_hero[3],img_level1;
 extern double cur_vx;
 extern double cur_vy;
 extern double h_now;
@@ -29,10 +29,8 @@ extern double acceleration_left;
 extern double acceleration_right;
 extern double friction; 
 extern double friction_n;
-extern struct Blank ;
-extern struct Block ;
 extern int is_jump;
-
+extern int temp;
 
 
 #endif
