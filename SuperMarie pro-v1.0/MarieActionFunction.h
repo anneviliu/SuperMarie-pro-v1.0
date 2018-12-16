@@ -17,5 +17,5 @@ double shift_x(double *v,double t,double a);//计算人物位移，加速度实�
 double shift_y(double *v,double t,double a);//计算人物位移，加速度实现
 
 void bkg_move(); //控制背景的移动
-
-#endif 
+void judge();//障碍空地判定
+#endif

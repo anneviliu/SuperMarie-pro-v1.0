@@ -32,58 +32,16 @@
  double map_position = 0;
  double hero_vx = 0;
  double hero_vy = 0; //
- double cur_vx = 0; //当前水平速度记录 录
- double cur_vy = 0; //当前竖直方向速度记
+ double cur_vx = 0; //当前水平速度记录
+ double cur_vy = 0; //当前竖直方向速度记录
  double h_now = 0; //目前高度
- int is_jump = 0; //是否跳跃
-
  IMAGE img_hero[3], img_level1;
- int num = 0;
- //double real_positionX = 0;
- //double real_positionY = 0;
-
-  struct Blank
- {
-	 double begin_x;
-	 double final_x;
- }; 
-   Blank blank[2];
-
-   struct Block
-   {
-	   double begin_x;
-	   double final_x;
-	   double high;
-  };
-   Block block[4];
-
+ int is_jump = 0; //是否跳跃
+ int temp = 0;
+ short key_get = 0; //用于记录 Getanyckeystate的返回值
+ int num = 0; //实现人物的步伐动作
 int main()
 {
-	block[0].begin_x = 1450;
-	block[0].final_x = 1550;
-	block[0].high = 540;
-	block[1].begin_x = 1970;
-	block[1].final_x = 2070;
-	block[1].high = 490;
-	block[2].begin_x = 2385;
-	block[2].final_x = 2485;
-	block[2].high = 440;
-	block[3].begin_x = 2945;
-	block[3].final_x = 3045;
-	block[3].high = 440;   //初始化阻挡物
-	
-	blank[0].begin_x = 3570;
-	blank[0].final_x = 3680;
-	blank[1].begin_x = 4450;
-	blank[1].final_x = 4610; //初始化空地
-	float h_max = 400; //最大高度
-	float h_now = 0; //目前高度
-
-	
-	int temp = 0;
-
-	short key_get = 0; //用于记录 Getanyckeystate的返回值
-	int num = 0; //实现人物的步伐动作
 	
 	if (temp == 0)
 	{
@@ -97,6 +55,7 @@ int main()
 		BeginBatchDraw();
 		while (1)
 		{
+		    judge();
 			hero_move();
 			map_show();
 			hero_show();

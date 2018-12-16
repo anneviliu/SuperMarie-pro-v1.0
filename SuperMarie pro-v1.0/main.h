@@ -29,7 +29,10 @@ extern double acceleration_left;
 extern double acceleration_right;
 extern double friction; 
 extern double friction_n;
+extern struct Blank ;
+extern struct Block ;
 extern int is_jump;
+
 
 
 #endif
