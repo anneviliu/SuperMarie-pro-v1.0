@@ -110,14 +110,14 @@ void hero_move()
 
 	if (GetAsyncKeyState(VK_UP) && !is_jump)
 	{
-		hero_vy = -22;
-		is_jump = 1;
+		hero_vy = -22;//跳跃初速度
+		is_jump = 1;//是否跳跃
 		cur_positionY += shift_y(&hero_vy, TIME, GRAVITY);
 	}
 	else
 	{
 		cur_positionY += shift_y(&hero_vy, TIME, GRAVITY);
-		if (cur_positionY >= 600) {
+		if (cur_positionY >= 600) {//是否落地
 			cur_positionY = HIGH-120;
 			hero_vy = 0;
 			cur_vy = 0;
@@ -131,24 +131,24 @@ void hero_move()
 
 double shift_x(double *v, double t, double a)
 {
-	double s = *v * t + 1 / 2.0*a*t*t;
+	double s = *v * t + 1 / 2.0*a*t*t;//位移量
 
-	if (fabs(*v) >= 5 && a*(*v) > 0)
+	if (fabs(*v) >= 4 && a*(*v) > 0)//限制最大速度
 		return s;
 
-	*v = *v + a * t;
+	*v = *v + a * t;//速度更新
 	cur_vx = *v;
 	return s;
 }
 
 double shift_y(double *v, double t, double a)
 {
-	double s = *v * t + 1 / 2.0*a*t*t;
+	double s = *v * t + 1 / 2.0*a*t*t;//位移量
 
-	if (fabs(*v) >= 10 && a*(*v) > 0)
+	if (fabs(*v) >= 10 && a*(*v) > 0)//限制最大速度
 		return s;
 
-	*v = *v + a * t;
+	*v = *v + a * t;//速度更新
 	cur_vy = *v;
 	return s;
 }
