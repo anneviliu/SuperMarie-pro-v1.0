@@ -224,4 +224,9 @@ void map_show()
 	putimage(0, 0, WIDTH, HIGH, &img_level1, map_position, 0);
 }
 
+void gold_show() {
+	IMAGE item_objects;
+	putimage(400, 400, 15, 16, &item_objects, 0, 96, NOTSRCERASE);
+}
+
 ///////////////////////////////////////////////////////////////////////

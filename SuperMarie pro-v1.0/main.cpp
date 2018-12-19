@@ -61,6 +61,7 @@ int main()
 			hero_move();
 			judge();
 			show();
+			gold_show();
 
 			FlushBatchDraw();
 			EndBatchDraw();

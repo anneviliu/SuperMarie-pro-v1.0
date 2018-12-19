@@ -33,5 +33,7 @@ extern int is_jump;
 extern int temp;
 extern struct Blank;
 extern struct Block;
+extern struct Gold;
+
 
 #endif

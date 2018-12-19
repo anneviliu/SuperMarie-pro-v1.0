@@ -23,6 +23,15 @@ struct Block
 	double high;
 };
 Block block[4];
+
+struct Gold
+{
+	double begin_x;
+	double final_x;
+	double high;
+};
+Gold gold[10];
+
 void HpSleep(int ms)
 {
 	static clock_t oldclock = clock();		// 静态变量，记录上一次 tick
@@ -43,9 +52,10 @@ void hero_move()
 	{
 		if (cur_positionX > 45)
 		{
-			cur_positionX += shift_x(&hero_vx, TIME, FRICTION - ACCELERATION); //设定一个加速度，改变水平坐标
+			double shift_temp = shift_x(&hero_vx, TIME, FRICTION - ACCELERATION);//使用一个变量存此次位移量
+			cur_positionX += shift_temp; //设定一个加速度，改变水平坐标
 			//real_positionX += shift_x(&hero_vx, TIME, FRICTION - ACCELERATION);
-			real_positionX += shift_x(&hero_vx, TIME, FRICTION - ACCELERATION);
+			real_positionX += shift_temp;
 			num++;
 			if (num == 4)
 				num = 1;
@@ -57,10 +67,9 @@ void hero_move()
 	{
 		if (hero_vx < 0)
 		{
-			hero_vx = 0;
-			//cur_positionX += shift_x(&hero_vx, TIME, FRICTION);
-			//real_positionX += shift_x(&hero_vx, TIME, FRICTION);
-			//real_positionX += shift_x(&hero_vx, TIME, ACCELERATION - FRICTION);
+			double shift_temp = shift_x(&hero_vx, TIME, FRICTION);
+			cur_positionX += shift_temp;
+			real_positionX += shift_temp;
 
 		}
 	}
@@ -69,13 +78,15 @@ void hero_move()
 	{
 		if (cur_positionX >= WIDTH / 2.0 && map_position <= 4800)
 		{
-			map_position += shift_x(&hero_vx, TIME, ACCELERATION - FRICTION);
-			real_positionX += shift_x(&hero_vx, TIME, ACCELERATION - FRICTION);
+			double shift_temp = shift_x(&hero_vx, TIME, ACCELERATION - FRICTION);//存此次位移量
+			map_position += shift_temp;
+			real_positionX += shift_temp;
 		}
 		else 
 		{
-			real_positionX += shift_x(&hero_vx, TIME, ACCELERATION - FRICTION);
-			cur_positionX += shift_x(&hero_vx, TIME, ACCELERATION - FRICTION);
+			double shift_temp = shift_x(&hero_vx, TIME, ACCELERATION - FRICTION);//存此次位移量
+			real_positionX += shift_temp;
+			cur_positionX += shift_temp;
 		}
 	
 		 //设定一个加速度，改变水平坐标
@@ -93,15 +104,15 @@ void hero_move()
 		{
 			if (real_positionX <= WIDTH / 2.0)
 			{
-				hero_vx = 0;
-				//cur_positionX += shift_x(&hero_vx, TIME, -FRICTION);
-				//real_positionX += shift_x(&hero_vx, TIME, FRICTION - ACCELERATION);
+				double shift_temp = shift_x(&hero_vx, TIME, -FRICTION);//存此次位移量
+				cur_positionX += shift_temp;
+				real_positionX += shift_temp;//该变量用于判断位置
 			}
 			else
 			{
-				hero_vx = 0;
-				//map_position += shift_x(&hero_vx, TIME, -FRICTION);
-				//real_positionX += shift_x(&hero_vx, TIME, FRICTION - ACCELERATION);
+				double shift_temp = shift_x(&hero_vx, TIME, -FRICTION);
+				map_position += shift_temp;
+				real_positionX += shift_temp;
 
 			}
 
@@ -172,6 +183,11 @@ void judge()
 	blank[0].final_x = 3680;
 	blank[1].begin_x = 4450;
 	blank[1].final_x = 4610; //初始化空地
+
+	gold[0].begin_x = 550;
+	gold[0].final_x = 570;
+	gold[0].high = 400;
+
 
 	if (real_positionX - HERO_WIDTH / 2 >= blank[0].begin_x &&real_positionX + HERO_WIDTH / 2 <= blank[0].final_x)
 

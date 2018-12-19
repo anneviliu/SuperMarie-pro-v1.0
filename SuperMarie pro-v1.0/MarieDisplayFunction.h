@@ -14,5 +14,6 @@ void introduction_Page(); //游戏简介界面
 void begin();
 void preload();
 void map_show();
+void gold_show();
 
 #endif
