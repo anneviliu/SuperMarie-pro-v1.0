@@ -11,9 +11,12 @@ void help_page();  //游戏操作说明界面
 void introduction_Page(); //游戏简介界面
 //void Hero_TurnLeft(); //主角向左移动
 //void Hero_TurnRight(); //主角向右移动
+
 void begin();
 void preload();
 void map_show();
-void gold_show();
+void hero_die_show();
+void hero_die_menu_show();
+
 
 #endif

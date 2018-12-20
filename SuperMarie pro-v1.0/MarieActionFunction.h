@@ -7,6 +7,5 @@ void HpSleep(int ms);
 double shift_x(double *v,double t,double a);//计算人物位移，加速度实现
 double shift_y(double *v,double t,double a);//计算人物位移，加速度实现
 
-void bkg_move(); //控制背景的移动
 void judge();
 #endif 

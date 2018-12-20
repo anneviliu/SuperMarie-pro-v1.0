@@ -7,7 +7,7 @@
 #include "main.h"
 #pragma comment(lib,"Winmm.lib")
 
-    
+
 ///////////////菜单界面/////////////////
 
 void GameStart()
@@ -28,117 +28,117 @@ void GameStart()
 	loadimage(&img_introduction_I, _T("res\\游戏介绍按钮（放上）.png"));
 	loadimage(&img_exit_I, _T("res\\退出游戏按钮（放上）.png"));
 
-////////////////////////////////////////////////////////////////////////////////////////////
-															
-    //是否处于当前页面
-	int HOME_flag = 1; 
-	int INTRODUCTION_flag = 0; 
+	////////////////////////////////////////////////////////////////////////////////////////////
+
+		//是否处于当前页面
+	int HOME_flag = 1;
+	int INTRODUCTION_flag = 0;
 	int HELP_flag = 0;
 	int ESC_flag = 0;
-	
-////////////////////////////////////////////////////////////////////////////////////////////
+
+	////////////////////////////////////////////////////////////////////////////////////////////
 
 
-	
-	//图片输出
-	
-		putimage(0, 0, WIDTH, HIGH, &img_preplay, 0, 0);
-		putimage(540, 235, &img_start);	//输出菜单界面
-		putimage(540, 300, &img_help);
-		putimage(540, 365, &img_introductionButton);
-		putimage(540, 430, &img_exit);
 
-		MOUSEMSG click;
-		while (HOME_flag)
+		//图片输出
+
+	putimage(0, 0, WIDTH, HIGH, &img_preplay, 0, 0);
+	putimage(540, 235, &img_start);	//输出菜单界面
+	putimage(540, 300, &img_help);
+	putimage(540, 365, &img_introductionButton);
+	putimage(540, 430, &img_exit);
+
+	MOUSEMSG click;
+	while (HOME_flag)
+	{
+		click = GetMouseMsg();
+		switch (click.uMsg) //当前鼠标消息
 		{
-			click = GetMouseMsg();
-			switch (click.uMsg) //当前鼠标消息
+		case WM_LBUTTONDOWN: //表示鼠标左键单击响应
+
+			//选择游戏开始
+			if (click.x >= 540 && click.x <= 740 && click.y >= 235 && click.y <= 285 && HOME_flag == 1 && INTRODUCTION_flag == 0 && HELP_flag == 0)
 			{
-			case WM_LBUTTONDOWN: //表示鼠标左键单击响应
-
-				//选择游戏开始
-				if (click.x >= 540 && click.x <= 740 && click.y >= 235 && click.y <= 285 && HOME_flag == 1 && INTRODUCTION_flag == 0 && HELP_flag == 0) 
-				{
-					HOME_flag = 0;
-					break; //终止循环，正式开始游戏，执行主函数中的下一个函数。
-				}
-
-				//选择游戏帮助
-				else if (click.x >= 540 && click.x <= 740 && click.y >= 300 && click.y <= 350 && HOME_flag == 1 && HELP_flag == 0 && INTRODUCTION_flag == 0) 
-				{
-					HELP_flag = 1;
-					HOME_flag = 0;
-					cleardevice(); //这个函数用当前背景色清空屏幕，并将当前点移至 (0, 0)
-					help_page(); // 调用HelpPage函数 显示 操作说明界面；
-					ESC_flag = _getch(); //显示帮助界面后，随时准备获取用户的键盘输入。
-				}
-				
-				//当按下esc键时返回上一级（->帮助<-）
-				if (ESC_flag == ESC && HOME_flag == 0 && HELP_flag == 1 && INTRODUCTION_flag == 0) 
-				{
-					HOME_flag = 1, HELP_flag = 0, INTRODUCTION_flag = 0;
-					cleardevice(); //这个函数用当前背景色清空屏幕，并将当前点移至 (0, 0)
-					//重新回到主界面
-					GameStart();
-
-				}
-				
-				//选择 "游戏介绍"
-				 if (click.x >= 540 && click.x <= 740 && click.y >= 365 && click.y <= 415 && HOME_flag == 1 && HELP_flag == 0 && INTRODUCTION_flag == 0)
-				{
-
-					INTRODUCTION_flag = 1;
-					HOME_flag = 0;
-					HELP_flag = 0;
-					cleardevice();
-					introduction_Page();
-
-				    //显示介绍界面后，随时准备获取用户的键盘输入。
-					ESC_flag = _getch();
-				}
-
-				 //当按下esc键时返回上一级（->介绍<-）
-				if (ESC_flag == ESC && HOME_flag == 0 && HELP_flag == 0 && INTRODUCTION_flag == 1)
-				{
-					HOME_flag = 1, HELP_flag = 0, INTRODUCTION_flag = 0;
-					cleardevice(); //这个函数用当前背景色清空屏幕，并将当前点移至 (0, 0)
-					//重新回到主界面
-					GameStart();
-				}
-				
-				if (click.x >= 540 && click.x <= 740 && click.y >= 430 && click.y <= 480 && HOME_flag == 1 && HELP_flag == 0 && INTRODUCTION_flag == 0) //点击退出游戏
-					exit(0);
-					
-			case WM_MOUSEMOVE: //检测鼠标移动（按钮效果所在）
-
-				if (click.x >= 540 && click.x <= 740 && click.y >= 235 && click.y <= 285 && HOME_flag == 1 && INTRODUCTION_flag == 0 && HELP_flag == 0)
-					putimage(540, 235, &img_start_I);
-				else
-					putimage(540, 235, &img_start);
-
-				if (click.x >= 540 && click.x <= 740 && click.y >= 300 && click.y <= 350 && HOME_flag == 1 && HELP_flag == 0 && INTRODUCTION_flag == 0)
-					putimage(540, 300, &img_help_I);
-				else
-					putimage(540, 300, &img_help);
-
-				if (click.x >= 540 && click.x <= 740 && click.y >= 365 && click.y <= 415 && HOME_flag == 1 && HELP_flag == 0 && INTRODUCTION_flag == 0)
-					putimage(540, 365, &img_introduction_I);
-				else
-					putimage(540, 365, &img_introductionButton);
-				if (click.x >= 540 && click.x <= 740 && click.y >= 430 && click.y <= 480 && HOME_flag == 1 && HELP_flag == 0 && INTRODUCTION_flag == 0) 
-					putimage(540, 430, &img_exit_I);
-				else
-					putimage(540, 430, &img_exit);
-
-			    default:
-				break;
+				HOME_flag = 0;
+				break; //终止循环，正式开始游戏，执行主函数中的下一个函数。
 			}
+
+			//选择游戏帮助
+			else if (click.x >= 540 && click.x <= 740 && click.y >= 300 && click.y <= 350 && HOME_flag == 1 && HELP_flag == 0 && INTRODUCTION_flag == 0)
+			{
+				HELP_flag = 1;
+				HOME_flag = 0;
+				cleardevice(); //这个函数用当前背景色清空屏幕，并将当前点移至 (0, 0)
+				help_page(); // 调用HelpPage函数 显示 操作说明界面；
+				ESC_flag = _getch(); //显示帮助界面后，随时准备获取用户的键盘输入。
+			}
+
+			//当按下esc键时返回上一级（->帮助<-）
+			if (ESC_flag == ESC && HOME_flag == 0 && HELP_flag == 1 && INTRODUCTION_flag == 0)
+			{
+				HOME_flag = 1, HELP_flag = 0, INTRODUCTION_flag = 0;
+				cleardevice(); //这个函数用当前背景色清空屏幕，并将当前点移至 (0, 0)
+				//重新回到主界面
+				GameStart();
+
+			}
+
+			//选择 "游戏介绍"
+			if (click.x >= 540 && click.x <= 740 && click.y >= 365 && click.y <= 415 && HOME_flag == 1 && HELP_flag == 0 && INTRODUCTION_flag == 0)
+			{
+
+				INTRODUCTION_flag = 1;
+				HOME_flag = 0;
+				HELP_flag = 0;
+				cleardevice();
+				introduction_Page();
+
+				//显示介绍界面后，随时准备获取用户的键盘输入。
+				ESC_flag = _getch();
+			}
+
+			//当按下esc键时返回上一级（->介绍<-）
+			if (ESC_flag == ESC && HOME_flag == 0 && HELP_flag == 0 && INTRODUCTION_flag == 1)
+			{
+				HOME_flag = 1, HELP_flag = 0, INTRODUCTION_flag = 0;
+				cleardevice(); //这个函数用当前背景色清空屏幕，并将当前点移至 (0, 0)
+				//重新回到主界面
+				GameStart();
+			}
+
+			if (click.x >= 540 && click.x <= 740 && click.y >= 430 && click.y <= 480 && HOME_flag == 1 && HELP_flag == 0 && INTRODUCTION_flag == 0) //点击退出游戏
+				exit(0);
+
+		case WM_MOUSEMOVE: //检测鼠标移动（按钮效果所在）
+
+			if (click.x >= 540 && click.x <= 740 && click.y >= 235 && click.y <= 285 && HOME_flag == 1 && INTRODUCTION_flag == 0 && HELP_flag == 0)
+				putimage(540, 235, &img_start_I);
+			else
+				putimage(540, 235, &img_start);
+
+			if (click.x >= 540 && click.x <= 740 && click.y >= 300 && click.y <= 350 && HOME_flag == 1 && HELP_flag == 0 && INTRODUCTION_flag == 0)
+				putimage(540, 300, &img_help_I);
+			else
+				putimage(540, 300, &img_help);
+
+			if (click.x >= 540 && click.x <= 740 && click.y >= 365 && click.y <= 415 && HOME_flag == 1 && HELP_flag == 0 && INTRODUCTION_flag == 0)
+				putimage(540, 365, &img_introduction_I);
+			else
+				putimage(540, 365, &img_introductionButton);
+			if (click.x >= 540 && click.x <= 740 && click.y >= 430 && click.y <= 480 && HOME_flag == 1 && HELP_flag == 0 && INTRODUCTION_flag == 0)
+				putimage(540, 430, &img_exit_I);
+			else
+				putimage(540, 430, &img_exit);
+
+		default:
+			break;
 		}
-		//清空绘图缓存
+	}
+	//清空绘图缓存
 	FlushBatchDraw();
 	Sleep(2);
-	}
-	
+}
+
 void help_page()
 {
 	IMAGE img_help_page;
@@ -162,8 +162,8 @@ void game_show()
 	BeginBatchDraw();
 	loadimage(&img_level1, _T("res\\level_1.png"));
 	putimage(map_position, 0, WIDTH, HIGH, &img_level1, 0, 0);
-	putimage(cur_positionX, HIGH - 120, 35, 50, &img_hero[2], 210, 80, NOTSRCERASE);
-	putimage(cur_positionX, HIGH - 120, 35, 50, &img_hero[1], 210 , 80, SRCINVERT);
+	putimage(cur_positionX, HIGH - 120, HERO_WIDTH, HERO_HIGH, &img_hero[2], 210, 80, NOTSRCERASE);
+	putimage(cur_positionX, HIGH - 120, HERO_WIDTH, HERO_HIGH, &img_hero[1], 210, 80, SRCINVERT);
 	EndBatchDraw();
 	old_positionX = cur_positionX;
 
@@ -174,9 +174,9 @@ void show()
 	BeginBatchDraw();
 	map_show();
 	//putimage(old_positionX, old_positionY, 35, 50, &img_level1, old_positionX, HERO_INIT_Y, SRCCOPY);
-	putimage(cur_positionX, cur_positionY, 35, 50, &img_hero[2], 210+40*num, 82, NOTSRCERASE);
-	putimage(cur_positionX, cur_positionY, 35, 50, &img_hero[1], 210+40*num, 82, SRCINVERT);
-	
+	putimage(cur_positionX, cur_positionY, HERO_WIDTH, HERO_HIGH, &img_hero[2], 210 + 40 * num, 82, NOTSRCERASE);
+	putimage(cur_positionX, cur_positionY, HERO_WIDTH, HERO_HIGH, &img_hero[1], 210 + 40 * num, 82, SRCINVERT);
+
 	old_positionX = cur_positionX;
 	old_positionY = cur_positionY;
 
@@ -201,22 +201,49 @@ void show()
 
 void begin()
 {
-	//mciSendString("open res\\背景音乐.mp3 alias music_back", NULL, 0, NULL);
-	//mciSendString("play music_back", NULL, 0, NULL);
 
+	mciSendString("open res\\背景音乐.mp3 alias music_back", NULL, 0, NULL);
+	mciSendString("play music_back", NULL, 0, NULL);
 	HWND hwnd = GetHWnd(); //获取窗口句柄
 	SetWindowText(hwnd, "超级玛丽魔改版-V1.0"); //设置窗口标题
 	GameStart(); //显示菜单界面
+
 	loadimage(&img_hero[1], _T("res\\主角.png"));
 	loadimage(&img_hero[2], _T("res\\主角（遮罩）.png"));
 	loadimage(&img_level1, _T("res\\level1.jpg"));
-	cleardevice(); 
+	loadimage(&img_hero_die[1], _T("res\\主角.png"));
+	loadimage(&img_hero_die[2], _T("res\\主角（遮罩）.png"));
+
+	cleardevice();
 }
 
 void preload()
 {
+
+	mciSendString("open res\\背景音乐.mp3 alias music_back", NULL, 0, NULL);
+	mciSendString("play music_back", NULL, 0, NULL);
 	cur_positionX = 0;
 	cur_positionY = HIGH - 120;
+	real_positionX = 0;
+	cur_positionX = 0;
+	cur_positionY = HIGH - 120;
+	old_positionX = 0;
+	old_positionY = HIGH - 120;
+	real_positionX = 0;
+	real_positionY = HIGH - 120;
+	map_position = 0;
+	hero_vx = 0;
+	hero_vy = 0; //
+	cur_vx = 0; //当前水平速度记录 录
+	cur_vy = 0; //当前竖直方向速度记
+	h_now = 0; //目前高度
+	is_jump = 0; //是否跳跃
+	is_die = 0;
+	is_replay = 0;
+	can_forward = 1;
+	game_state = 1;
+	num = 0; //实现人物的步伐动作
+
 }
 
 void map_show()
@@ -224,9 +251,88 @@ void map_show()
 	putimage(0, 0, WIDTH, HIGH, &img_level1, map_position, 0);
 }
 
-void gold_show() {
-	IMAGE item_objects;
-	putimage(400, 400, 15, 16, &item_objects, 0, 96, NOTSRCERASE);
+void hero_die_show()
+{
+	mciSendString("stop music_back", NULL, 0, NULL);
+
+	mciSendString("open res\\death.wav alias music_die", NULL, 0, NULL);
+	mciSendString("play music_die", NULL, 0, NULL);
+	putimage(cur_positionX, cur_positionY, HERO_DIE_WIDTH, HERO_DIE_HIGH, &img_hero_die[2], 410, 79, NOTSRCERASE);
+	putimage(cur_positionX, cur_positionY, HERO_DIE_WIDTH, HERO_DIE_HIGH, &img_hero_die[1], 410, 79, SRCINVERT);
+	//HpSleep(1.0 * 1000);
+
+}
+
+void hero_die_menu_show()
+{
+	IMAGE img_die_menu, img_replay, img_back_home,img_replay_icon,img_home_icon;
+	int die_menu_flag = 1;
+
+	loadimage(&img_die_menu, _T("res\\毛玻璃背景.jpg"));
+	loadimage(&img_replay, _T("res\\重新开始.png"));
+	loadimage(&img_back_home, _T("res\\回到主菜单.png"));
+	loadimage(&img_replay_icon, _T("res\\重新开始图标.png"));
+	loadimage(&img_home_icon, _T("res\\主菜单图标.png"));
+
+	mciSendString("stop music_die", NULL, 0, NULL);
+	mciSendString("open res\\游戏结束.mp3 alias music_gameover", NULL, 0, NULL);
+	mciSendString("play music_gameover", NULL, 0, NULL);
+
+	putimage(220, 60, 800, 500, &img_die_menu, 0, 0, SRCCOPY);
+	putimage(520, 200, 200, 50, &img_replay, 0, 0);
+	putimage(520, 400, 200, 50, &img_back_home, 0, 0);
+
+	MOUSEMSG click;
+	while (die_menu_flag)
+	{
+		click = GetMouseMsg();
+		switch (click.uMsg)
+		{
+		case WM_LBUTTONDOWN:
+			if (click.x >= 520 && click.x <= 720 && click.y >= 200 && click.y <= 250 && die_menu_flag == 1 && is_replay == 0)
+			{
+				game_state = 2; //游戏状态改变
+				//is_replay = 1;
+				die_menu_flag = 0;
+				mciSendString("stop music_gameover", NULL, 0, NULL);
+				mciSendString("stop music_back", NULL, 0, NULL);
+
+				break;
+			}
+			if (click.x >= 520 && click.x <= 720 && click.y >= 400 && click.y <= 450 && die_menu_flag == 1 && is_replay == 0)
+			{
+				game_state = 1; //游戏状态改变
+				die_menu_flag = 0;
+				mciSendString("stop music_gameover", NULL, 0, NULL);
+				mciSendString("stop music_back", NULL, 0, NULL);
+
+				break;
+			}
+
+		case WM_MOUSEMOVE: //实现按钮效果
+			if (click.x >= 520 && click.x <= 720 && click.y >= 200 && click.y <= 250 && die_menu_flag == 1 && is_replay == 0)
+			{
+				putimage(520, 200, 200, 50, &img_replay_icon, 0, 0);
+
+			}
+			else
+			{
+				putimage(520, 200, 200, 50, &img_replay, 0, 0);
+
+			}
+			if (click.x >= 520 && click.x <= 720 && click.y >= 400 && click.y <= 450 && die_menu_flag == 1 && is_replay == 0)
+			{
+				putimage(520, 400, 200, 50, &img_home_icon, 0, 0);
+			}
+			else
+			{
+				putimage(520, 400, 200, 50, &img_back_home, 0, 0);
+			}
+		default:
+			break;
+		}
+
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////

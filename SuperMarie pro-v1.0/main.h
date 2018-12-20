@@ -22,6 +22,8 @@ extern double hero_vx;
 extern double hero_vy;
 extern int num;
 extern IMAGE img_hero[3],img_level1;
+extern IMAGE img_hero_die[3];
+
 extern double cur_vx;
 extern double cur_vy;
 extern double h_now;
@@ -30,10 +32,12 @@ extern double acceleration_right;
 extern double friction; 
 extern double friction_n;
 extern int is_jump;
+extern int is_die;
+extern int is_replay;
+extern int can_forward;
 extern int temp;
+extern int game_state;
 extern struct Blank;
 extern struct Block;
-extern struct Gold;
-
 
 #endif
