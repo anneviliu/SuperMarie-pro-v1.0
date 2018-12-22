@@ -11,15 +11,15 @@
 #include <stdlib.h>
 #include <stdio.h>
 //全局变量
-extern double cur_positionX;
-extern double cur_positionY;
-extern double old_positionX;
+extern double cur_positionX; //人物当前横坐标	
+extern double cur_positionY; //人物当前纵坐标
+extern double old_positionX; 
 extern double old_positionY;
-extern double real_positionX;
-extern double real_positionY;
-extern double map_position;
-extern double hero_vx;
-extern double hero_vy;
+extern double real_positionX; //人物实际横坐标
+extern double real_positionY; //人物实际纵坐标
+extern double map_position; //地图位置
+extern double hero_vx; //人物水平速度	
+extern double hero_vy; //人物竖直速度
 extern int num;
 extern IMAGE img_hero[3],img_level1;
 extern IMAGE img_hero_die[3];
@@ -37,7 +37,13 @@ extern int is_replay;
 extern int can_forward;
 extern int temp;
 extern int game_state;
+extern int is_left;
+extern int is_right;
+extern int can_left;
+extern int can_right;
 extern struct Blank;
 extern struct Block;
+extern struct Gold;
+
 
 #endif

@@ -31,6 +31,10 @@ double cur_vx = 0; //当前水平速度记录 录
 double cur_vy = 0; //当前竖直方向速度记
 double h_now = 0; //目前高度
 
+int is_left = 0;
+int is_right = 0;
+int can_left= 1;
+int can_right= 1;
 int is_jump = 0; //是否跳跃
 int is_die = 0;
 int is_replay = 0;
