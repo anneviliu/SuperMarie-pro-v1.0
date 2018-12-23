@@ -13,7 +13,7 @@
 #define ACCELERATION 2.5 
 #define FRICTION 1.0
 #define DIE_A 90
-#define TIME 3.0
+#define TIME 1.0
 #define DIE_TIME 1.5
 #define H_MAX 400
 

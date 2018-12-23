@@ -10,7 +10,7 @@
 
 ///////////////菜单界面/////////////////
 
-void GameStart()
+void game_start()
 {
 	initgraph(WIDTH, HIGH);
 	IMAGE img_preplay, img_test, img_start, img_help, img_exit;
@@ -38,6 +38,8 @@ void GameStart()
 
 	////////////////////////////////////////////////////////////////////////////////////////////
 
+	mciSendString("play music_back", NULL, 0, NULL); //背景音乐
+
 
 
 		//图片输出
@@ -60,6 +62,7 @@ void GameStart()
 			if (click.x >= 540 && click.x <= 740 && click.y >= 235 && click.y <= 285 && HOME_flag == 1 && INTRODUCTION_flag == 0 && HELP_flag == 0)
 			{
 				HOME_flag = 0;
+				game_state = 2; //开始游戏状态
 				break; //终止循环，正式开始游戏，执行主函数中的下一个函数。
 			}
 
@@ -79,7 +82,7 @@ void GameStart()
 				HOME_flag = 1, HELP_flag = 0, INTRODUCTION_flag = 0;
 				cleardevice(); //这个函数用当前背景色清空屏幕，并将当前点移至 (0, 0)
 				//重新回到主界面
-				GameStart();
+				game_start();
 
 			}
 
@@ -103,7 +106,7 @@ void GameStart()
 				HOME_flag = 1, HELP_flag = 0, INTRODUCTION_flag = 0;
 				cleardevice(); //这个函数用当前背景色清空屏幕，并将当前点移至 (0, 0)
 				//重新回到主界面
-				GameStart();
+				game_start();
 			}
 
 			if (click.x >= 540 && click.x <= 740 && click.y >= 430 && click.y <= 480 && HOME_flag == 1 && HELP_flag == 0 && INTRODUCTION_flag == 0) //点击退出游戏
@@ -162,8 +165,8 @@ void game_show()
 	BeginBatchDraw();
 	loadimage(&img_level1, _T("res\\level_1.png"));
 	putimage(map_position, 0, WIDTH, HIGH, &img_level1, 0, 0);
-	putimage(cur_positionX, HIGH - 120, HERO_WIDTH, HERO_HIGH, &img_hero[2], 210, 80, NOTSRCERASE);
-	putimage(cur_positionX, HIGH - 120, HERO_WIDTH, HERO_HIGH, &img_hero[1], 210, 80, SRCINVERT);
+	putimage(cur_positionX, HIGH - 120, HERO_WIDTH, HERO_HIGH, &img_hero_right[2], 210, 80, NOTSRCERASE);
+	putimage(cur_positionX, HIGH - 120, HERO_WIDTH, HERO_HIGH, &img_hero_right[1], 210, 80, SRCINVERT);
 	EndBatchDraw();
 	old_positionX = cur_positionX;
 
@@ -174,9 +177,17 @@ void show()
 	BeginBatchDraw();
 	map_show();
 	//putimage(old_positionX, old_positionY, 35, 50, &img_level1, old_positionX, HERO_INIT_Y, SRCCOPY);
-	putimage(cur_positionX, cur_positionY, HERO_WIDTH, HERO_HIGH, &img_hero[2], 210 + 40 * num, 82, NOTSRCERASE);
-	putimage(cur_positionX, cur_positionY, HERO_WIDTH, HERO_HIGH, &img_hero[1], 210 + 40 * num, 82, SRCINVERT);
-
+	if (is_right == 1)
+	{
+		putimage(cur_positionX, cur_positionY, HERO_WIDTH, HERO_HIGH, &img_hero_right[2], 210 + 40 * num, 82, NOTSRCERASE);
+		putimage(cur_positionX, cur_positionY, HERO_WIDTH, HERO_HIGH, &img_hero_right[1], 210 + 40 * num, 82, SRCINVERT);
+		
+	}
+	if (is_left == 1)
+	{
+		putimage(cur_positionX, cur_positionY, HERO_WIDTH, HERO_HIGH, &img_hero_left[2], 958-40*num , 82, NOTSRCERASE);
+		putimage(cur_positionX, cur_positionY, HERO_WIDTH, HERO_HIGH, &img_hero_left[1], 756-40*num , 82, SRCINVERT);
+	}
 	old_positionX = cur_positionX;
 	old_positionY = cur_positionY;
 
@@ -195,33 +206,45 @@ void show()
 	char s2[100];
 	sprintf(s2, "map_position = %lf", map_position);
 	outtextxy(10, 50, s2);
-
+	char s3[50];
+	sprintf(s3, "is_jump = %d", is_jump);
+	outtextxy(10, 70, s3);
+	char s4[50];
+	sprintf(s4, "can_forward = %d", can_forward);
+	outtextxy(10, 90, s4);
+	char s5[50];
+	sprintf(s5, "hero_vx = %lf", hero_vx);
+	outtextxy(10, 110, s5);
+	char s6[50];
+	sprintf(s6, "old_positionX = %lf", old_positionX);
+	outtextxy(10, 130, s6);
 	EndBatchDraw();
 }
 
 void begin()
 {
 
-	mciSendString("open res\\背景音乐.mp3 alias music_back", NULL, 0, NULL);
-	mciSendString("play music_back", NULL, 0, NULL);
+	//mciSendString("open res\\背景音乐.mp3 alias music_back", NULL, 0, NULL);
+	//mciSendString("play music_back", NULL, 0, NULL);
 	HWND hwnd = GetHWnd(); //获取窗口句柄
 	SetWindowText(hwnd, "超级玛丽魔改版-V1.0"); //设置窗口标题
-	GameStart(); //显示菜单界面
+	//GameStart(); //显示菜单界面
 
-	loadimage(&img_hero[1], _T("res\\主角.png"));
-	loadimage(&img_hero[2], _T("res\\主角（遮罩）.png"));
+	loadimage(&img_hero_right[1], _T("res\\主角.png"));
+	loadimage(&img_hero_right[2], _T("res\\主角（遮罩）.png"));
+	loadimage(&img_hero_left[1], _T("res\\主角朝左.png"));
+	loadimage(&img_hero_left[2], _T("res\\主角朝左（遮罩）.png"));
 	loadimage(&img_level1, _T("res\\level1.jpg"));
 	loadimage(&img_hero_die[1], _T("res\\主角.png"));
 	loadimage(&img_hero_die[2], _T("res\\主角（遮罩）.png"));
 
-	cleardevice();
+	//cleardevice();
 }
 
 void preload()
 {
-
+	mciSendString("open res\\小跳跃.mp3 alias music_jump", NULL, 0, NULL);
 	mciSendString("open res\\背景音乐.mp3 alias music_back", NULL, 0, NULL);
-	mciSendString("play music_back", NULL, 0, NULL);
 	cur_positionX = 0;
 	cur_positionY = HIGH - 120;
 	real_positionX = 0;
@@ -266,6 +289,7 @@ void hero_die_show()
 void hero_die_menu_show()
 {
 	IMAGE img_die_menu, img_replay, img_back_home,img_replay_icon,img_home_icon;
+
 	int die_menu_flag = 1;
 
 	loadimage(&img_die_menu, _T("res\\毛玻璃背景.jpg"));
@@ -291,21 +315,22 @@ void hero_die_menu_show()
 		case WM_LBUTTONDOWN:
 			if (click.x >= 520 && click.x <= 720 && click.y >= 200 && click.y <= 250 && die_menu_flag == 1 && is_replay == 0)
 			{
-				game_state = 2; //游戏状态改变
-				//is_replay = 1;
+				
+				is_replay = 1;
 				die_menu_flag = 0;
 				mciSendString("stop music_gameover", NULL, 0, NULL);
 				mciSendString("stop music_back", NULL, 0, NULL);
-
+				game_state = 2; //游戏状态改变
 				break;
 			}
 			if (click.x >= 520 && click.x <= 720 && click.y >= 400 && click.y <= 450 && die_menu_flag == 1 && is_replay == 0)
 			{
-				game_state = 1; //游戏状态改变
+				game_state = 1;
 				die_menu_flag = 0;
 				mciSendString("stop music_gameover", NULL, 0, NULL);
 				mciSendString("stop music_back", NULL, 0, NULL);
-
+				//cleardevice();
+				//exit(0);
 				break;
 			}
 
@@ -313,7 +338,6 @@ void hero_die_menu_show()
 			if (click.x >= 520 && click.x <= 720 && click.y >= 200 && click.y <= 250 && die_menu_flag == 1 && is_replay == 0)
 			{
 				putimage(520, 200, 200, 50, &img_replay_icon, 0, 0);
-
 			}
 			else
 			{
@@ -335,4 +359,12 @@ void hero_die_menu_show()
 	}
 }
 
+void mic_control()
+{
+	if (is_jump == 1)
+	{
+		
+		mciSendString("play music_jump from 0", NULL, 0, NULL);
+	}
+}
 ///////////////////////////////////////////////////////////////////////

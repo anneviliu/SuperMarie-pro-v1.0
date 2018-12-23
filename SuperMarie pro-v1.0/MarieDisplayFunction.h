@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 
-void GameStart(); //游戏开始主界面
+void game_start(); //游戏开始主界面
 void show();
 void game_show();
 void help_page();  //游戏操作说明界面
@@ -17,6 +17,6 @@ void preload();
 void map_show();
 void hero_die_show();
 void hero_die_menu_show();
-
+void mic_control();
 
 #endif

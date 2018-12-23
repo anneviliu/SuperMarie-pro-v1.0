@@ -21,9 +21,9 @@ extern double map_position; //地图位置
 extern double hero_vx; //人物水平速度	
 extern double hero_vy; //人物竖直速度
 extern int num;
-extern IMAGE img_hero[3],img_level1;
+extern IMAGE img_hero_right[3],img_level1;
 extern IMAGE img_hero_die[3];
-
+extern IMAGE img_hero_left[3];
 extern double cur_vx;
 extern double cur_vy;
 extern double h_now;
