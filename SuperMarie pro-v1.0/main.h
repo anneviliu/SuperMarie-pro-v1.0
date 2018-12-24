@@ -43,6 +43,8 @@ extern struct Blank;
 extern struct Block;
 typedef struct Gold {
 	double begin_x, begin_y;
+	double final_x, final_y;
+	int is_touch;
 }Gold;
 extern Gold gold[10];//金币数组
 

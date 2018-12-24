@@ -179,8 +179,8 @@ void judge()
 	block[2].begin_x = 2385;
 	block[2].final_x = 2485;
 	block[2].high = 440;
-	block[3].begin_x = 2945;
-	block[3].final_x = 3045;
+	block[3].begin_x = 2953;
+	block[3].final_x = 3054;
 	block[3].high = 438;   //初始化阻挡物
 
 	blank[0].begin_x = 3570;
@@ -215,10 +215,10 @@ void judge()
 	
 	for (i = 0; i < 4; i++)
 	{
-		if (real_positionX + HERO_WIDTH / 2.0 >= block[i].begin_x - 20 
-			&& real_positionX - HERO_WIDTH / 2.0 <= block[i].final_x + 20 
-			&& cur_positionY + HERO_HIGH / 2.0 >= block[i].high  
-			&& cur_positionY + HERO_HIGH / 2.0 <= block[i].high+20 )
+		if (real_positionX + HERO_WIDTH /2.0 >= block[i].begin_x - 13 
+			&& real_positionX + HERO_WIDTH /2.0 <= block[i].final_x +5 
+			&& cur_positionY + HERO_HIGH  >= block[i].high  
+			&& cur_positionY + HERO_HIGH  <= block[i].high+10 )
 		{
 			is_jump = 0;
 			cur_positionY -= shift_y(&hero_vy, TIME, GRAVITY);
@@ -228,14 +228,14 @@ void judge()
 
 	for (i = 0; i < 4; i++)
 	{
-		if (real_positionX + HERO_WIDTH / 2.0 >= block[i].begin_x - 40
+		if (real_positionX + HERO_WIDTH / 2.0 >= block[i].begin_x - 15
 			&& real_positionX + HERO_WIDTH / 2.0 <= block[i].begin_x 
-			&& cur_positionY + HERO_HIGH / 2.0 >= block[i].high
+			&& cur_positionY + HERO_HIGH   >= block[i].high+15
 			&&is_right == 1)
 		{
 			hero_vx = 0;
 			can_right = 0;
-		}
+		} //向右障碍判定
 
 		else if (GetAsyncKeyState(VK_LEFT)|| GetAsyncKeyState(VK_UP))
 			can_right = 1;
@@ -243,8 +243,8 @@ void judge()
 	for (i = 0; i < 4; i++)
 	{
 		if (real_positionX + HERO_WIDTH / 2.0 >= block[i].final_x 
-			&& real_positionX + HERO_WIDTH / 2.0 <= block[i].final_x+40
-			&& cur_positionY + HERO_HIGH / 2.0 >= block[i].high
+			&& real_positionX + HERO_WIDTH /2.0 <= block[i].final_x+15
+			&& cur_positionY + HERO_HIGH  >= block[i].high+15
 			&&is_left == 1)
 		{
 			hero_vx = 0;
@@ -253,8 +253,39 @@ void judge()
 
 		else if (GetAsyncKeyState(VK_RIGHT) || GetAsyncKeyState(VK_UP))
 			can_left = 1;
-	}
+	} //向左障碍判定
+	for (i = 0; i < 3; i++)
+	{
+		if (real_positionX >= gold[i].begin_x
+			&&real_positionX  <= gold[i].final_x
+			&&cur_positionY>=gold[i].begin_y
+			&&cur_positionY<=gold[i].final_y)
+		{
+			gold[i].is_touch = 1;
+		}
+		else if (real_positionX >= gold[i].begin_x
+			&&real_positionX <= gold[i].final_x
+			&&cur_positionY + HERO_HIGH >= gold[i].begin_y
+			&&cur_positionY + HERO_HIGH <= gold[i].final_y)
+		{
+			gold[i].is_touch = 1;
+		}
+		else if(real_positionX+HERO_WIDTH/2.0>= gold[i].begin_x
+			&&real_positionX+HERO_WIDTH/2.0<= gold[i].final_x
+			&&cur_positionY >= gold[i].begin_y
+			&&cur_positionY <= gold[i].final_y)
+		{
+			gold[i].is_touch = 1;
+		}
+		else if(real_positionX + HERO_WIDTH / 2.0 >= gold[i].begin_x
+			&&real_positionX + HERO_WIDTH / 2.0 <= gold[i].final_x
+			&&cur_positionY + HERO_HIGH >= gold[i].begin_y
+			&&cur_positionY + HERO_HIGH <= gold[i].final_y)
+		{
+			gold[i].is_touch = 1;
+		}
 
+	}
 	
 
 }

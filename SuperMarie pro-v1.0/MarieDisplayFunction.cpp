@@ -264,7 +264,16 @@ void preload()
 	gold[1].begin_y = 380;
 	gold[2].begin_x = 500;
 	gold[2].begin_y = 430;
-	 
+	for (int i = 0; i <= 2; i++) 
+	{
+		gold[i].final_x = gold[i].begin_x + 48;
+		gold[i].final_y = gold[i].begin_y + 44;
+	}
+	for (int i = 0; i <= 2; i++)
+	{
+		gold[i].is_touch = 0;
+	}
+
 	enemy[0].cur_positionX = 500;
 	enemy[0].cur_positionY = 590;
 }
@@ -418,5 +427,11 @@ void develop_mode()
 	char s6[50];
 	sprintf(s6, "old_positionX = %lf", old_positionX);
 	outtextxy(10, 130, s6);
+	char s7[50];
+	for (int i = 0; i < 3; i++)
+	{
+		sprintf(s7, "is_touch = %d", gold[i].is_touch);
+		outtextxy(10, 150+20*i, s7);
+	}
 }
 ///////////////////////////////////////////////////////////////////////
