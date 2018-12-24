@@ -176,8 +176,8 @@ void show()
 	gold_show();//显示金币
 	enemy_show(0);//显示敌人
 	//putimage(old_positionX, old_positionY, 35, 50, &img_level1, old_positionX, HERO_INIT_Y, SRCCOPY);
-	putimage(cur_positionX, cur_positionY, HERO_WIDTH, HERO_HIGH, &img_hero[2], 210 + 40 * num, 82, NOTSRCERASE);
-	putimage(cur_positionX, cur_positionY, HERO_WIDTH, HERO_HIGH, &img_hero[1], 210 + 40 * num, 82, SRCINVERT);
+	putimage(cur_positionX, cur_positionY, HERO_WIDTH, HERO_HIGH, &img_hero[2], 210 + 40 * num_hero, 82, NOTSRCERASE);
+	putimage(cur_positionX, cur_positionY, HERO_WIDTH, HERO_HIGH, &img_hero[1], 210 + 40 * num_hero, 82, SRCINVERT);
 
 	old_positionX = cur_positionX;
 	old_positionY = cur_positionY;
@@ -215,7 +215,8 @@ void begin()
 	loadimage(&img_level1, _T("res\\level1.jpg"));
 	loadimage(&img_hero_die[1], _T("res\\主角.png"));
 	loadimage(&img_hero_die[2], _T("res\\主角（遮罩）.png"));
-	loadimage(&img_gold,_T("res\\地图物件.png"));
+	loadimage(&img_gold[1],_T("res\\地图物件.png"));
+	loadimage(&img_gold[2], _T("res\\地图物件（掩码）.png"));
 	loadimage(&img_enemies,_T("res\\enemies.png"));
 
 	cleardevice();
@@ -246,7 +247,7 @@ void preload()
 	is_replay = 0;
 	can_forward = 1;
 	game_state = 1;
-	num = 0; //实现人物的步伐动作
+	num_hero = 0; //实现人物的步伐动作
 
 	gold[0].begin_x = 400;//初始化金币位置
 	gold[0].begin_y = 430;
@@ -256,7 +257,7 @@ void preload()
 	gold[2].begin_y = 430;
 	 
 	enemy[0].cur_positionX = 500;
-	enemy[0].cur_positionY = 620;
+	enemy[0].cur_positionY = 590;
 }
 
 void map_show()
@@ -266,17 +267,22 @@ void map_show()
 
 void gold_show() //显示金币
 {
-	putimage(gold[0].begin_x-map_position,gold[0].begin_y,15,16,&img_gold,0,96);
-	putimage(gold[1].begin_x - map_position, gold[1].begin_y, 15, 16, &img_gold, 0, 96);
-	putimage(gold[2].begin_x - map_position, gold[2].begin_y, 15, 16, &img_gold, 0, 96);
+	putimage(gold[0].begin_x - map_position, gold[0].begin_y, 48, 44, &img_gold[2], 0 + 50 * num_gold, 340, NOTSRCERASE);
+	putimage(gold[1].begin_x - map_position, gold[1].begin_y, 48, 44, &img_gold[2], 0 + 50 * num_gold, 340, NOTSRCERASE);
+	putimage(gold[2].begin_x - map_position, gold[2].begin_y, 48, 44, &img_gold[2], 0 + 50 * num_gold, 340, NOTSRCERASE);
+	putimage(gold[0].begin_x - map_position, gold[0].begin_y, 48, 44, &img_gold[1], 0 + 50 * num_gold, 340, SRCINVERT);
+	putimage(gold[1].begin_x - map_position, gold[1].begin_y, 48, 44, &img_gold[1], 0 + 50 * num_gold, 340, SRCINVERT);
+	putimage(gold[2].begin_x - map_position, gold[2].begin_y, 48, 44, &img_gold[1], 0 + 50 * num_gold, 340, SRCINVERT);
 //	putimage(gold[0].begin_x - map_position, gold[0].begin_y, 15, 16, &img_gold, 0, 96);
 //	putimage(gold[0].begin_x - map_position, gold[0].begin_y, 15, 16, &img_gold, 0, 96);
 //	putimage(gold[0].begin_x - map_position, gold[0].begin_y, 15, 16, &img_gold, 0, 96);
+	num_gold++;
+	num_gold %= 4;
 }
 
 void enemy_show(int i) //i代表是第几个敌人
 {
-	putimage(enemy[i].cur_positionX-map_position,enemy[i].cur_positionY, 16, 16, &img_enemies, 0, 15);
+	putimage(enemy[i].cur_positionX-map_position,enemy[i].cur_positionY, 50, 50, &img_enemies,0, 46);
 	enemy[i].cur_positionX -= 0.3;//每次敌人位置改变
 }
 

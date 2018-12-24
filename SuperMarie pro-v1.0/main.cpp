@@ -37,11 +37,11 @@ int is_replay = 0;
 int can_forward = 1;
 int game_state = 1;
 int temp = 0;
-int num = 0; //实现人物的步伐动作
+int num_hero = 0,num_gold = 0; //实现人物的步伐动作
 Gold gold[10];
 Enemy enemy[5];
 IMAGE img_hero[3], img_level1;
-IMAGE img_hero_die[3],img_gold,img_enemies;
+IMAGE img_hero_die[3],img_gold[3],img_enemies;
 
 /*游戏状态标识
  =====================================

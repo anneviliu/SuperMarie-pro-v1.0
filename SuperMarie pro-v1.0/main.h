@@ -20,9 +20,9 @@ extern double real_positionY;
 extern double map_position;
 extern double hero_vx;
 extern double hero_vy;
-extern int num;
+extern int num_hero,num_gold;
 extern IMAGE img_hero[3],img_level1;
-extern IMAGE img_hero_die[3],img_gold,img_enemies;
+extern IMAGE img_hero_die[3],img_gold[3],img_enemies;
 
 extern double cur_vx;
 extern double cur_vy;

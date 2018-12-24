@@ -50,9 +50,9 @@ void hero_move()
 			cur_positionX += shift_temp; //设定一个加速度，改变水平坐标
 			//real_positionX += shift_x(&hero_vx, TIME, FRICTION - ACCELERATION);
 			real_positionX += shift_temp;
-			num++;
-			if (num == 4)
-				num = 1;
+			num_hero++;
+			if (num_hero == 4)
+				num_hero = 1;
 		}
 
 	}
@@ -87,9 +87,9 @@ void hero_move()
 
 	   //real_positionX = cur_positionX; //记录真实坐标
 
-		num++; //num用于实现步伐行走图
-		if (num == 4)
-			num = 1;
+		num_hero++; //num_hero_hero用于实现步伐行走图
+		if (num_hero == 4)
+			num_hero = 1;
 
 	}
 	else //右键释放
