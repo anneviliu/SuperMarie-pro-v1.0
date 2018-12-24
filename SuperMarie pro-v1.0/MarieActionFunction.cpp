@@ -257,35 +257,57 @@ void judge()
 	for (i = 0; i < 3; i++)
 	{
 		if (real_positionX >= gold[i].begin_x
-			&&real_positionX  <= gold[i].final_x
-			&&cur_positionY>=gold[i].begin_y
-			&&cur_positionY<=gold[i].final_y)
+			&&real_positionX <= gold[i].final_x
+			&&cur_positionY >= gold[i].begin_y
+			&&cur_positionY <= gold[i].final_y)
 		{
 			gold[i].is_touch = 1;
 		}
-		else if (real_positionX >= gold[i].begin_x
+		else
+		{
+			gold[i].is_touch = 0;
+
+		}
+		if (real_positionX >= gold[i].begin_x
 			&&real_positionX <= gold[i].final_x
 			&&cur_positionY + HERO_HIGH >= gold[i].begin_y
 			&&cur_positionY + HERO_HIGH <= gold[i].final_y)
 		{
 			gold[i].is_touch = 1;
 		}
-		else if(real_positionX+HERO_WIDTH/2.0>= gold[i].begin_x
-			&&real_positionX+HERO_WIDTH/2.0<= gold[i].final_x
+		else
+		{
+			gold[i].is_touch = 0;
+
+		}
+		if (real_positionX + HERO_WIDTH / 2.0 >= gold[i].begin_x
+			&&real_positionX + HERO_WIDTH / 2.0 <= gold[i].final_x
 			&&cur_positionY >= gold[i].begin_y
 			&&cur_positionY <= gold[i].final_y)
 		{
 			gold[i].is_touch = 1;
 		}
-		else if(real_positionX + HERO_WIDTH / 2.0 >= gold[i].begin_x
+		else
+		{
+			gold[i].is_touch = 0;
+
+		}
+		if (real_positionX + HERO_WIDTH / 2.0 >= gold[i].begin_x
 			&&real_positionX + HERO_WIDTH / 2.0 <= gold[i].final_x
 			&&cur_positionY + HERO_HIGH >= gold[i].begin_y
 			&&cur_positionY + HERO_HIGH <= gold[i].final_y)
 		{
 			gold[i].is_touch = 1;
 		}
+		else
+		{
+			gold[i].is_touch = 0;
+
+		}
 
 	}
+	
+
 	
 
 }
