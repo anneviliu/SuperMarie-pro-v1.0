@@ -18,6 +18,9 @@
 #define DIE_TIME 1.5
 #define H_MAX 400
 
+#define ENEMY_SHIFT_LEFT -0.3
+#define ENEMY_SHIFT_RIGHT 0.3
+
 
 #define ESC 27 //ESC键对应的键码
 #define CMD_LEFT 4 //主角左移
@@ -29,3 +32,4 @@
 #define HERO_DIE_WIDTH 40 //人物死亡图宽
 #define HERO_DIE_HIGH  40 //人物死亡图高
 #endif //MDEFINE_H
+ 
