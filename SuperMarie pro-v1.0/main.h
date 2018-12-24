@@ -11,9 +11,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 //全局变量
-extern double cur_positionX;
-extern double cur_positionY;
-extern double old_positionX;
+extern double cur_positionX; //人物当前横坐标	
+extern double cur_positionY; //人物当前纵坐标
+extern double old_positionX; 
 extern double old_positionY;
 extern double real_positionX;
 extern double real_positionY;
@@ -23,20 +23,22 @@ extern double hero_vy;
 extern int num_hero,num_gold;
 extern IMAGE img_hero[3],img_level1;
 extern IMAGE img_hero_die[3],img_gold[3],img_enemies;
+extern IMAGE img_hero_left[3],img_hero_right[3];
 
 extern double cur_vx;
 extern double cur_vy;
 extern double h_now;
-extern double acceleration_left;
-extern double acceleration_right;
-extern double friction; 
-extern double friction_n;
 extern int is_jump;
 extern int is_die;
 extern int is_replay;
 extern int can_forward;
 extern int temp;
 extern int game_state;
+extern int is_left;
+extern int is_right;
+extern int can_left;
+extern int can_right;
+extern int develop_flag;
 extern struct Blank;
 extern struct Block;
 typedef struct Gold {
@@ -48,6 +50,8 @@ typedef struct Enemy {
 	double cur_positionX, cur_positionY;
 }Enemy;
 extern Enemy enemy[5];
+
+
 
 
 #endif

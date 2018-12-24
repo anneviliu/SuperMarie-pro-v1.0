@@ -24,8 +24,6 @@ struct Block
 };
 Block block[4];
 
-
-
 void HpSleep(int ms)
 {
 	static clock_t oldclock = clock();		// 静态变量，记录上一次 tick
@@ -42,8 +40,11 @@ void HpSleep(int ms)
 void hero_move()
 {
 	//用GetAsynckeyState函数解决按键延迟问题
-	if (GetAsyncKeyState(VK_LEFT) && cur_positionX > 0 && can_forward==1)
+	if (GetAsyncKeyState(VK_LEFT) && cur_positionX > 0 && can_left==1)
 	{
+		old_positionX = real_positionX;
+		is_left = 1;
+		is_right = 0;
 		if (cur_positionX > 45)
 		{
 			double shift_temp = shift_x(&hero_vx, TIME, FRICTION - ACCELERATION);//使用一个变量存此次位移量
@@ -59,6 +60,8 @@ void hero_move()
 
 	else //方向左键释放
 	{
+		old_positionX = real_positionX;
+
 		if (hero_vx < 0)
 		{
 			double shift_temp = shift_x(&hero_vx, TIME, FRICTION);
@@ -68,8 +71,12 @@ void hero_move()
 		}
 	}
 
-	if (GetAsyncKeyState(VK_RIGHT) && cur_positionX <= WIDTH && can_forward == 1)
+	if (GetAsyncKeyState(VK_RIGHT) && cur_positionX <= WIDTH && can_right == 1)
 	{
+		old_positionX = real_positionX;
+
+		is_right = 1;
+		is_left = 0;
 		if (cur_positionX >= WIDTH / 2.0 && map_position <= 4800)
 		{
 			double shift_temp = shift_x(&hero_vx, TIME, ACCELERATION - FRICTION);//存此次位移量
@@ -94,6 +101,8 @@ void hero_move()
 	}
 	else //右键释放
 	{
+		old_positionX = real_positionX;
+
 		if (hero_vx > 0)
 		{
 			if (real_positionX <= WIDTH / 2.0)
@@ -136,24 +145,24 @@ void hero_move()
 
 double shift_x(double *v, double t, double a)
 {
-	double s = *v * t + 1 / 2.0*a*t*t;//位移量
+	double s = *v * t + 1 / 2.0*a*t*t;
 
-	if (fabs(*v) >= 4 && a*(*v) > 0)//限制最大速度
+	if (fabs(*v) >= 5 && a*(*v) > 0)
 		return s;
 
-	*v = *v + a * t;//速度更新
+	*v = *v + a * t;
 	cur_vx = *v;
 	return s;
 }
 
 double shift_y(double *v, double t, double a)
 {
-	double s = *v * t + 1 / 2.0*a*t*t;//位移量
+	double s = *v * t + 1 / 2.0*a*t*t;
 
-	if (fabs(*v) >= 10 && a*(*v) > 0)//限制最大速度
+	if (fabs(*v) >= 10 && a*(*v) > 0)
 		return s;
 
-	*v = *v + a * t;//速度更新
+	*v = *v + a * t;
 	cur_vy = *v;
 	return s;
 }
@@ -172,7 +181,7 @@ void judge()
 	block[2].high = 440;
 	block[3].begin_x = 2945;
 	block[3].final_x = 3045;
-	block[3].high = 440;   //初始化阻挡物
+	block[3].high = 438;   //初始化阻挡物
 
 	blank[0].begin_x = 3570;
 	blank[0].final_x = 3680;
@@ -191,7 +200,7 @@ void judge()
 			//hero_die_menu_show();//死亡特效（待添加）
 		}
 	}
-	if (real_positionX - HERO_WIDTH / 2 >= blank[1].begin_x &&real_positionX + HERO_WIDTH / 2 <= blank[1].final_x)
+	if (real_positionX - HERO_WIDTH/2.0 >= blank[1].begin_x &&real_positionX + HERO_WIDTH/2.0 <= blank[1].final_x)
 	{
 		if (is_jump == 0)
 		{
@@ -203,6 +212,7 @@ void judge()
 			//死亡特效（待添加）
 		}
 	}
+	
 	for (i = 0; i < 4; i++)
 	{
 		if (real_positionX + HERO_WIDTH / 2.0 >= block[i].begin_x - 20 
@@ -213,7 +223,37 @@ void judge()
 			is_jump = 0;
 			cur_positionY -= shift_y(&hero_vy, TIME, GRAVITY);
 		}
-	} //支撑判定
+	}
+	 //支撑判定
+
+	for (i = 0; i < 4; i++)
+	{
+		if (real_positionX + HERO_WIDTH / 2.0 >= block[i].begin_x - 40
+			&& real_positionX + HERO_WIDTH / 2.0 <= block[i].begin_x 
+			&& cur_positionY + HERO_HIGH / 2.0 >= block[i].high
+			&&is_right == 1)
+		{
+			hero_vx = 0;
+			can_right = 0;
+		}
+
+		else if (GetAsyncKeyState(VK_LEFT)|| GetAsyncKeyState(VK_UP))
+			can_right = 1;
+	}
+	for (i = 0; i < 4; i++)
+	{
+		if (real_positionX + HERO_WIDTH / 2.0 >= block[i].final_x 
+			&& real_positionX + HERO_WIDTH / 2.0 <= block[i].final_x+40
+			&& cur_positionY + HERO_HIGH / 2.0 >= block[i].high
+			&&is_left == 1)
+		{
+			hero_vx = 0;
+			can_left = 0;
+		}
+
+		else if (GetAsyncKeyState(VK_RIGHT) || GetAsyncKeyState(VK_UP))
+			can_left = 1;
+	}
 
 	
 

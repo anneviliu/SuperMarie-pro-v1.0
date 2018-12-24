@@ -9,9 +9,10 @@
 #define ENEMY_STEP 1 //敌人每走一步相距的像素个数
 #define HERO_INIT_Y HIGH-120
 
-#define GRAVITY 1.0//重力加速度
-#define ACCELERATION 2.5 //水平加速度
-#define FRICTION 1.0//摩擦力
+
+#define GRAVITY 1.0
+#define ACCELERATION 2.5 
+#define FRICTION 1.0
 #define DIE_A 90
 #define TIME 0.25
 #define DIE_TIME 1.5
