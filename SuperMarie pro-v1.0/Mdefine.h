@@ -25,7 +25,7 @@
 #define CMD_JUMP 8 //主角跳跃
 #define CMD_RELEASE 0 //按键处在放开状态
 #define HERO_WIDTH 35 //人物宽度
-#define HERO_HIGH 42 //人物高度
+#define HERO_HIGH 41 //人物高度
 #define HERO_DIE_WIDTH 40 //人物死亡图宽
 #define HERO_DIE_HIGH  40 //人物死亡图高
 #endif //MDEFINE_H

@@ -186,8 +186,17 @@ void show()
 	gold_show();
 	enemy_show(0);
 	//putimage(old_positionX, old_positionY, 35, 50, &img_level1, old_positionX, HERO_INIT_Y, SRCCOPY);
-	putimage(cur_positionX, cur_positionY, HERO_WIDTH, HERO_HIGH, &img_hero_right[2], 210 + 40 * num_hero, 82, NOTSRCERASE);
-	putimage(cur_positionX, cur_positionY, HERO_WIDTH, HERO_HIGH, &img_hero_right[1], 210 + 40 * num_hero, 82, SRCINVERT);
+	if (is_right == 1)
+	{
+		putimage(cur_positionX, cur_positionY, HERO_WIDTH, HERO_HIGH, &img_hero_right[2], 210 + 40 * num_hero, 82, NOTSRCERASE);
+		putimage(cur_positionX, cur_positionY, HERO_WIDTH, HERO_HIGH, &img_hero_right[1], 210 + 40 * num_hero, 82, SRCINVERT);
+
+	}
+	if (is_left == 1)
+	{
+		putimage(cur_positionX, cur_positionY, HERO_WIDTH, HERO_HIGH, &img_hero_left[2], 958 - 40 * num_hero, 82, NOTSRCERASE);
+		putimage(cur_positionX, cur_positionY, HERO_WIDTH, HERO_HIGH, &img_hero_left[1], 756 - 40 * num_hero, 82, SRCINVERT);
+	}
 
 	old_positionX = cur_positionX;
 	old_positionY = cur_positionY;
