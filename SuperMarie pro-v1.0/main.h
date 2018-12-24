@@ -49,4 +49,5 @@ typedef struct Enemy {
 }Enemy;
 extern Enemy enemy[5];
 
+
 #endif
