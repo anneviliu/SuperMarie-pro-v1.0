@@ -22,9 +22,9 @@ extern double hero_vx;
 extern double hero_vy;
 extern int num_hero,num_gold;
 extern IMAGE img_hero[3],img_level1;
-extern IMAGE img_hero_die[3],img_gold[3],img_enemies;
+extern IMAGE img_hero_die[3],img_gold[3],img_enemies[3];
 extern IMAGE img_hero_left[3],img_hero_right[3];
-
+extern IMAGE img_brick[3];
 extern double cur_vx;
 extern double cur_vy;
 extern double h_now;
@@ -53,7 +53,10 @@ typedef struct Enemy {
 }Enemy;
 extern Enemy enemy[5];
 
+typedef struct Brick {
+	double brick_positionX, brick_positionY;
+}Brick;
+extern Brick brick[5];
 
 
-
-#endif
+#endif 

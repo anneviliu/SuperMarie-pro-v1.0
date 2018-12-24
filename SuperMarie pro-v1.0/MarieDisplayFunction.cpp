@@ -38,7 +38,7 @@ void game_start()
 
 	////////////////////////////////////////////////////////////////////////////////////////////
 
-	
+
 
 
 		//图片输出
@@ -160,9 +160,9 @@ void introduction_Page()
 
 }
 
-/////////////////////////////////////////////////////////////
+////////////////////////////////////////
 
-///////////////游戏正式开始主界面///////////////////////
+///////////////游戏正式开始主界面/////////
 void game_show()
 {
 	BeginBatchDraw();
@@ -185,6 +185,7 @@ void show()
 	map_show();
 	gold_show();
 	enemy_show(0);
+	brick_show();
 	//putimage(old_positionX, old_positionY, 35, 50, &img_level1, old_positionX, HERO_INIT_Y, SRCCOPY);
 	if (is_right == 1)
 	{
@@ -197,6 +198,7 @@ void show()
 		putimage(cur_positionX, cur_positionY, HERO_WIDTH, HERO_HIGH, &img_hero_left[2], 958 - 40 * num_hero, 82, NOTSRCERASE);
 		putimage(cur_positionX, cur_positionY, HERO_WIDTH, HERO_HIGH, &img_hero_left[1], 756 - 40 * num_hero, 82, SRCINVERT);
 	}
+
 
 	old_positionX = cur_positionX;
 	old_positionY = cur_positionY;
@@ -214,7 +216,7 @@ void begin()
 	//mciSendString("play music_back", NULL, 0, NULL);
 	HWND hwnd = GetHWnd(); //获取窗口句柄
 	SetWindowText(hwnd, "超级玛丽魔改版-V1.0"); //设置窗口标题
-	//GameStart(); //显示菜单界面
+	game_start(); //显示菜单界面
 
 	loadimage(&img_hero_right[1], _T("res\\主角.png"));
 	loadimage(&img_hero_right[2], _T("res\\主角（遮罩）.png"));
@@ -223,9 +225,12 @@ void begin()
 	loadimage(&img_level1, _T("res\\level1.jpg"));
 	loadimage(&img_hero_die[1], _T("res\\主角.png"));
 	loadimage(&img_hero_die[2], _T("res\\主角（遮罩）.png"));
-	loadimage(&img_gold[1],_T("res\\地图物件.png"));
+	loadimage(&img_gold[1], _T("res\\地图物件.png"));
 	loadimage(&img_gold[2], _T("res\\地图物件（掩码）.png"));
-	loadimage(&img_enemies,_T("res\\enemies.png"));
+	loadimage(&img_enemies[1], _T("res\\enemies.png"));
+	loadimage(&img_enemies[2], _T("res\\enemies(mask).png"));
+	loadimage(&img_brick[1], _T("res\\tile_set.png"));
+	loadimage(&img_brick[2], _T("res\\tile_set(mask).png"));
 
 	//cleardevice();
 }
@@ -255,7 +260,6 @@ void preload()
 	is_die = 0;
 	is_replay = 0;
 	can_forward = 1;
-	game_state = 1;
 	num_hero = 0; //实现人物的步伐动作
 
 	gold[0].begin_x = 400;//初始化金币位置
@@ -291,25 +295,37 @@ void gold_show() //显示金币
 	putimage(gold[0].begin_x - map_position, gold[0].begin_y, 48, 44, &img_gold[1], 0 + 50 * num_gold, 340, SRCINVERT);
 	putimage(gold[1].begin_x - map_position, gold[1].begin_y, 48, 44, &img_gold[1], 0 + 50 * num_gold, 340, SRCINVERT);
 	putimage(gold[2].begin_x - map_position, gold[2].begin_y, 48, 44, &img_gold[1], 0 + 50 * num_gold, 340, SRCINVERT);
-//	putimage(gold[0].begin_x - map_position, gold[0].begin_y, 15, 16, &img_gold, 0, 96);
-//	putimage(gold[0].begin_x - map_position, gold[0].begin_y, 15, 16, &img_gold, 0, 96);
-//	putimage(gold[0].begin_x - map_position, gold[0].begin_y, 15, 16, &img_gold, 0, 96);
+	//	putimage(gold[0].begin_x - map_position, gold[0].begin_y, 15, 16, &img_gold, 0, 96);
+	//	putimage(gold[0].begin_x - map_position, gold[0].begin_y, 15, 16, &img_gold, 0, 96);
+	//	putimage(gold[0].begin_x - map_position, gold[0].begin_y, 15, 16, &img_gold, 0, 96);
 	num_gold++;
 	num_gold %= 4;
 }
 
 void enemy_show(int i) //i代表是第几个敌人
 {
-	putimage(enemy[i].cur_positionX-map_position,enemy[i].cur_positionY, 50, 50, &img_enemies,0, 46);
-	enemy[i].cur_positionX -= 0.3;//每次敌人位置改变
-}
+	putimage(enemy[i].cur_positionX - map_position, enemy[i].cur_positionY, 50, 50, &img_enemies[2], 0, 46, NOTSRCERASE);
+	putimage(enemy[i].cur_positionX - map_position, enemy[i].cur_positionY, 50, 50, &img_enemies[1], 0, 46, SRCINVERT);
+	enemy[i].cur_positionX += ENEMY_SHIFT_LEFT;//每次敌人位置改变
 
+}
+ 
+void brick_show()
+{
+	putimage(600 - map_position, 460, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
+	putimage(600 - map_position, 460, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
+	putimage(697 - map_position, 460, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
+	putimage(697 - map_position, 460, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
+	putimage(794 - map_position, 460, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
+	putimage(794 - map_position, 460, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
+	putimage(891 - map_position, 400, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
+	putimage(891 - map_position, 400, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
+}
 void hero_die_show()
 {
-	mciSendString("stop music_back", NULL, 0, NULL);
-
+	mciSendString("close music_back", NULL, 0, NULL);
 	mciSendString("open res\\death.wav alias music_die", NULL, 0, NULL);
-	mciSendString("play music_die", NULL, 0, NULL);
+	mciSendString("play music_die from 0", NULL, 0, NULL);
 	putimage(cur_positionX, cur_positionY, HERO_DIE_WIDTH, HERO_DIE_HIGH, &img_hero_die[2], 410, 79, NOTSRCERASE);
 	putimage(cur_positionX, cur_positionY, HERO_DIE_WIDTH, HERO_DIE_HIGH, &img_hero_die[1], 410, 79, SRCINVERT);
 	//HpSleep(1.0 * 1000);
@@ -318,7 +334,7 @@ void hero_die_show()
 
 void hero_die_menu_show()
 {
-	IMAGE img_die_menu, img_replay, img_back_home,img_replay_icon,img_home_icon;
+	IMAGE img_die_menu, img_replay, img_back_home, img_replay_icon, img_home_icon;
 
 	int die_menu_flag = 1;
 
@@ -328,7 +344,7 @@ void hero_die_menu_show()
 	loadimage(&img_replay_icon, _T("res\\重新开始图标.png"));
 	loadimage(&img_home_icon, _T("res\\主菜单图标.png"));
 
-	mciSendString("stop music_die", NULL, 0, NULL);
+	mciSendString("close music_die", NULL, 0, NULL);
 	mciSendString("open res\\游戏结束.mp3 alias music_gameover", NULL, 0, NULL);
 	mciSendString("play music_gameover", NULL, 0, NULL);
 
@@ -345,20 +361,21 @@ void hero_die_menu_show()
 		case WM_LBUTTONDOWN:
 			if (click.x >= 520 && click.x <= 720 && click.y >= 200 && click.y <= 250 && die_menu_flag == 1 && is_replay == 0)
 			{
-				
+
 				is_replay = 1;
 				die_menu_flag = 0;
-				mciSendString("stop music_gameover", NULL, 0, NULL);
-				mciSendString("stop music_back", NULL, 0, NULL);
+				
 				game_state = 2; //游戏状态改变
+				mciSendString("close music_gameover", NULL, 0, NULL);
+				mciSendString("close music_back", NULL, 0, NULL);
 				break;
 			}
 			if (click.x >= 520 && click.x <= 720 && click.y >= 400 && click.y <= 450 && die_menu_flag == 1 && is_replay == 0)
 			{
 				game_state = 1;
 				die_menu_flag = 0;
-				mciSendString("stop music_gameover", NULL, 0, NULL);
-				mciSendString("stop music_back", NULL, 0, NULL);
+				mciSendString("close music_gameover", NULL, 0, NULL);
+				mciSendString("close music_back", NULL, 0, NULL);
 				//cleardevice();
 				//exit(0);
 				break;
@@ -393,7 +410,7 @@ void mic_control()
 {
 	if (is_jump == 1)
 	{
-		
+
 		mciSendString("play music_jump from 0", NULL, 0, NULL);
 	}
 }

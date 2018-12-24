@@ -44,7 +44,7 @@ int num_hero = 0,num_gold = 0; //实现人物的步伐动作
 Gold gold[10];
 Enemy enemy[5];
 IMAGE img_hero[3], img_level1;
-IMAGE img_hero_die[3],img_gold[3],img_enemies;
+IMAGE img_hero_die[3],img_gold[3],img_enemies[3], img_brick[3];
 IMAGE img_hero_left[3], img_hero_right[3];
 
 /*游戏状态标识
@@ -71,11 +71,11 @@ int main()
 		{
 			preload(); //预加载 初始化数据
 			begin(); //开始前
-			game_start();
+			//game_start();
 			game_show(); //游戏初始界面
 		}
-		if (game_state == 2)
-		{
+		else if (game_state == 2)
+		{ 
 			BeginBatchDraw();
 			hero_move(); //人物移动
 			judge(); // 障碍判定等
