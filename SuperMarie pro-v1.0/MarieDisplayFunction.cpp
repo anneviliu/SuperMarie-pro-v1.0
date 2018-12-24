@@ -289,12 +289,18 @@ void map_show()
 
 void gold_show() //显示金币
 {
-	putimage(gold[0].begin_x - map_position, gold[0].begin_y, 48, 44, &img_gold[2], 0 + 50 * num_gold, 340, NOTSRCERASE);
-	putimage(gold[1].begin_x - map_position, gold[1].begin_y, 48, 44, &img_gold[2], 0 + 50 * num_gold, 340, NOTSRCERASE);
-	putimage(gold[2].begin_x - map_position, gold[2].begin_y, 48, 44, &img_gold[2], 0 + 50 * num_gold, 340, NOTSRCERASE);
-	putimage(gold[0].begin_x - map_position, gold[0].begin_y, 48, 44, &img_gold[1], 0 + 50 * num_gold, 340, SRCINVERT);
-	putimage(gold[1].begin_x - map_position, gold[1].begin_y, 48, 44, &img_gold[1], 0 + 50 * num_gold, 340, SRCINVERT);
-	putimage(gold[2].begin_x - map_position, gold[2].begin_y, 48, 44, &img_gold[1], 0 + 50 * num_gold, 340, SRCINVERT);
+	if (!gold[0].is_touch)
+		putimage(gold[0].begin_x - map_position, gold[0].begin_y, 48, 44, &img_gold[2], 0 + 50 * num_gold, 340, NOTSRCERASE);
+	if (!gold[1].is_touch)
+		putimage(gold[1].begin_x - map_position, gold[1].begin_y, 48, 44, &img_gold[2], 0 + 50 * num_gold, 340, NOTSRCERASE);
+	if (!gold[2].is_touch)
+		putimage(gold[2].begin_x - map_position, gold[2].begin_y, 48, 44, &img_gold[2], 0 + 50 * num_gold, 340, NOTSRCERASE);
+	if (!gold[0].is_touch)
+		putimage(gold[0].begin_x - map_position, gold[0].begin_y, 48, 44, &img_gold[1], 0 + 50 * num_gold, 340, SRCINVERT);
+	if (!gold[1].is_touch)
+		putimage(gold[1].begin_x - map_position, gold[1].begin_y, 48, 44, &img_gold[1], 0 + 50 * num_gold, 340, SRCINVERT);
+	if (!gold[2].is_touch)
+		putimage(gold[2].begin_x - map_position, gold[2].begin_y, 48, 44, &img_gold[1], 0 + 50 * num_gold, 340, SRCINVERT);
 	//	putimage(gold[0].begin_x - map_position, gold[0].begin_y, 15, 16, &img_gold, 0, 96);
 	//	putimage(gold[0].begin_x - map_position, gold[0].begin_y, 15, 16, &img_gold, 0, 96);
 	//	putimage(gold[0].begin_x - map_position, gold[0].begin_y, 15, 16, &img_gold, 0, 96);
