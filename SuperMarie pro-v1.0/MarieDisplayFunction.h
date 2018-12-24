@@ -4,8 +4,10 @@
 #include <stdio.h>
 
 
-void game_start(); //游戏开始主界面
+void GameStart(); //游戏开始主界面
 void show();
+void gold_show();//显示金币函数
+void enemy_show(int i);//显示敌人
 void game_show();
 void help_page();  //游戏操作说明界面
 void introduction_Page(); //游戏简介界面
@@ -17,6 +19,6 @@ void preload();
 void map_show();
 void hero_die_show();
 void hero_die_menu_show();
-void mic_control();
+
 
 #endif
