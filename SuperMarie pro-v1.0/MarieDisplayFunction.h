@@ -12,7 +12,7 @@ void introduction_Page(); //游戏简介界面
 //void Hero_TurnLeft(); //主角向左移动
 //void Hero_TurnRight(); //主角向右移动
 void gold_show();
-void enemy_show(int i);
+void enemy_show(int i, int direction);
 void begin();
 void preload();
 void map_show();

@@ -184,7 +184,8 @@ void show()
 	BeginBatchDraw();
 	map_show();
 	gold_show();
-	enemy_show(0);
+	enemy_show(0,0);
+	enemy_show(1, 1);
 	brick_show();
 	//putimage(old_positionX, old_positionY, 35, 50, &img_level1, old_positionX, HERO_INIT_Y, SRCCOPY);
 	if (is_right == 1)
@@ -286,8 +287,18 @@ void preload()
 		gold[i].is_get_score = 0;
 	}
 
-	enemy[0].cur_positionX = 500;
-	enemy[0].cur_positionY = 590;
+	enemy[0].cur_begin_x = 500;
+	enemy[0].cur_begin_y = 594;
+	enemy[1].cur_begin_x = 570;
+	enemy[1].cur_begin_y = 594;
+	for (int i = 0; i <= 1; i++) {
+		enemy[i].cur_final_x = enemy[i].cur_begin_x + 50;
+		enemy[i].cur_final_y = enemy[i].cur_begin_y + 50;
+		enemy[i].is_touch = 0;
+		enemy[i].is_exist = 1;
+	}
+
+
 }
 
 void map_show()
@@ -333,11 +344,23 @@ void gold_show() //显示金币
 	num_gold %= 4;
 }
 
-void enemy_show(int i) //i代表是第几个敌人
+void enemy_show(int i, int direction)//i代表是第几个敌人
 {
-	putimage(enemy[i].cur_positionX - map_position, enemy[i].cur_positionY, 50, 50, &img_enemies[2], 0, 46, NOTSRCERASE);
-	putimage(enemy[i].cur_positionX - map_position, enemy[i].cur_positionY, 50, 50, &img_enemies[1], 0, 46, SRCINVERT);
-	enemy[i].cur_positionX += ENEMY_SHIFT_LEFT;//每次敌人位置改变
+	putimage(enemy[i].cur_begin_x - map_position, enemy[i].cur_begin_y, 50, 50, &img_enemies[2], 0, 46, NOTSRCERASE);
+	putimage(enemy[i].cur_begin_x - map_position, enemy[i].cur_begin_y, 50, 50, &img_enemies[1], 0, 46, SRCINVERT);
+	
+	
+		if (!direction)
+		{
+			enemy[i].cur_begin_x += ENEMY_SHIFT_LEFT;//敌人向左
+			enemy[i].cur_final_x = enemy[i].cur_begin_x + 50;
+		}
+		else {
+			enemy[i].cur_begin_x += ENEMY_SHIFT_RIGHT;//敌人向右
+			enemy[i].cur_final_x = enemy[i].cur_begin_x + 50;
+		}
+	
+
 
 }
 
@@ -503,5 +526,11 @@ void develop_mode()
 	char s9[50];
 	sprintf(s9, "touch_count = %d", touch_count);
 	outtextxy(10, 230, s9);
+	char s10[50];
+	for (int i = 0; i < 2; i++)
+	{
+		sprintf(s10, "enemy[i].is_touch = %d", enemy[i].is_touch);
+		outtextxy(10, 230 + 20 * i, s10);
+	}
 }
 ///////////////////////////////////////////////////////////////////////

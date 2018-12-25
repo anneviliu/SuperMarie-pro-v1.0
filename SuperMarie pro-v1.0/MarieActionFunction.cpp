@@ -255,7 +255,7 @@ void judge()
 			can_left = 1;
 	} //向左障碍判定
 
-	//触碰金币
+	
 	for (i = 0; i < 3; i++)
 	{
 		if (real_positionX >= gold[i].begin_x
@@ -323,7 +323,39 @@ void judge()
 			gold[i].is_get_score = 0;
 
 		}
-	}
+	} //触碰金币
+	for (i = 0; i < 2; i++)
+	{
+		if (enemy[i].is_exist == 1)
+		{
+			if (real_positionX >= enemy[i].cur_begin_x
+				&&real_positionX <= enemy[i].cur_final_x
+				&&cur_positionY + HERO_HIGH >= enemy[i].cur_begin_y - 10
+				&& cur_positionY + HERO_HIGH <= enemy[i].cur_begin_y)
+			{
+				enemy[i].is_touch = 1;
+				enemy[i].is_exist = 0;
+			}
 
+			if (real_positionX + HERO_WIDTH / 2.0 >= enemy[i].cur_begin_x
+				&&real_positionX + HERO_WIDTH / 2.0 <= enemy[i].cur_final_x
+				&&cur_positionY + HERO_HIGH >= enemy[i].cur_begin_y - 10
+				&& cur_positionY + HERO_HIGH <= enemy[i].cur_begin_y)
+			{
+				enemy[i].is_touch = 1;
+				enemy[i].is_exist = 0;
+			}
+			if (real_positionX >= enemy[i].cur_final_x
+				&&real_positionX <= enemy[i].cur_final_x + 10
+				&& cur_positionY + HERO_HIGH >= enemy[i].cur_begin_y)
+				is_die = 1;
+
+			if (real_positionX + HERO_WIDTH / 2.0 >= enemy[i].cur_begin_x - 10
+				&& real_positionX + HERO_WIDTH / 2.0 <= enemy[i].cur_begin_x
+				&& cur_positionY + HERO_HIGH >= enemy[i].cur_begin_y)
+				is_die = 1;
+
+		}
+	}
 
 }

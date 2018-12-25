@@ -56,9 +56,13 @@ typedef struct Gold {
 extern Gold gold[10];//金币数组
 
 typedef struct Enemy {
-	double cur_positionX, cur_positionY;
+	double cur_begin_x, cur_begin_y;
+	double cur_final_x, cur_final_y;
+	int is_touch;
+	int is_exist;
 }Enemy;
 extern Enemy enemy[5];
+
 
 typedef struct Brick {
 	double brick_positionX, brick_positionY;
