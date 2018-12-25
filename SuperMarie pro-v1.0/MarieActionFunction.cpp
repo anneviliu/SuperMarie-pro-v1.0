@@ -222,8 +222,29 @@ void judge()
 		{
 			is_jump = 0;
 			cur_positionY -= shift_y(&hero_vy, TIME, GRAVITY);
-		}
+		}//水管支撑
 	}
+	if (real_positionX + HERO_WIDTH / 2.0 >= 600
+		&& real_positionX + HERO_WIDTH / 2.0 <= 600 + 97 * 3
+		&& cur_positionY + HERO_HIGH >= 460 && cur_positionY + HERO_HIGH <= 470)
+	{
+		is_jump = 0;
+		cur_positionY -= shift_y(&hero_vy, TIME, GRAVITY);
+	}
+	if (real_positionX + HERO_WIDTH / 2.0 >= 891
+		&& real_positionX + HERO_WIDTH / 2.0 <= 891 + 97 + 49
+		&& cur_positionY + HERO_HIGH >= 400 && cur_positionY + HERO_HIGH <= 410)
+	{
+		is_jump = 0;
+		cur_positionY -= shift_y(&hero_vy, TIME, GRAVITY);
+	}
+	if (real_positionX + HERO_WIDTH / 2.0 >= 2600
+		&& real_positionX + HERO_WIDTH / 2.0 <= 2600 + 97 * 2
+		&& cur_positionY + HERO_HIGH >= 400 && cur_positionY + HERO_HIGH <= 410)
+	{
+		is_jump = 0;
+		cur_positionY -= shift_y(&hero_vy, TIME, GRAVITY);
+	} //砖块支撑
 	//支撑判定
 
 	for (i = 0; i < 4; i++)
@@ -255,8 +276,118 @@ void judge()
 			can_left = 1;
 	} //向左障碍判定
 
+	if(real_positionX+HERO_WIDTH/2.0>=590&&real_positionX+HERO_WIDTH/2.0<=600
+		&&cur_positionY+HERO_HIGH<=460+48&&cur_positionY+HERO_HIGH>=460&&is_right==1)
+	{
+		hero_vx = 0;
+		can_right = 0;
+	}
+	else
+	{
+		can_right = 1;
+	}
+
+	if (real_positionX + HERO_WIDTH / 2.0 >= 2590 && real_positionX + HERO_WIDTH / 2.0 <= 2600
+		&& cur_positionY + HERO_HIGH <= 400+48 && cur_positionY + HERO_HIGH >= 400 && is_right == 1)
+	{
+		hero_vx = 0;
+		can_right = 0;
+	}
+	else
+	{
+		can_right = 1;
+	}
+
+	if (real_positionX + HERO_WIDTH / 2.0 >= 881 && real_positionX + HERO_WIDTH / 2.0 <= 891
+		&& cur_positionY + HERO_HIGH <= 460 && cur_positionY + HERO_HIGH >= 400 && is_right == 1)
+	{
+		hero_vx = 0;
+		can_right = 0;
+	}
+	else
+	{
+		can_right = 1;
+	} //砖块左边界
+
+	if (real_positionX + HERO_WIDTH / 2.0 >= 600+97*3 && real_positionX + HERO_WIDTH / 2.0 <= 600+97*3+10
+		&& cur_positionY + HERO_HIGH <= 460+48 && cur_positionY + HERO_HIGH >= 460 && is_left == 1)
+	{
+		hero_vx = 0;
+		can_left = 0;
+	}
+	else
+	{
+		can_left = 1;
+	}
+
+	if (real_positionX + HERO_WIDTH / 2.0 >= 988 + 47  && real_positionX + HERO_WIDTH / 2.0 <= 988+47+10
+		&& cur_positionY + HERO_HIGH <= 447 && cur_positionY + HERO_HIGH >= 400 && is_left == 1)
+	{
+		hero_vx = 0;
+		can_left = 0;
+	}
+	else
+	{
+		can_left = 1;
+	}
+
+	if (real_positionX + HERO_WIDTH / 2.0 >= 2697+97 && real_positionX + HERO_WIDTH / 2.0 <= 2697+97 + 10
+		&& cur_positionY + HERO_HIGH <= 447 && cur_positionY + HERO_HIGH >= 400 && is_left == 1)
+	{
+		hero_vx = 0;
+		can_left = 0;
+	}
+	else
+	{
+		can_left = 1;
+	} //砖块右边界
+
+	if (real_positionX + HERO_WIDTH / 2.0 >= 600 && real_positionX + HERO_WIDTH / 2.0 <= 600 + 3 * 97
+		&& cur_positionY >= 460+47 && cur_positionY <= 470+47)
+	{
+		hero_vy = 0;
+		cur_vy = 0;
+		cur_positionY += shift_y(&hero_vy, TIME, GRAVITY);
+		if (cur_positionY >= 600)
+		{
+			cur_positionY = HIGH - 120;
+			
+			is_jump = 0;
+		}
+	}
+
+	if (real_positionX + HERO_WIDTH / 2.0 >= 891 && real_positionX + HERO_WIDTH / 2.0 <= 891+47+97
+		&& cur_positionY >= 400 + 47 && cur_positionY <= 410 + 47)
+	{
+		hero_vy = 0;
+		cur_vy = 0;
+		cur_positionY += shift_y(&hero_vy, TIME, GRAVITY);
+		if (cur_positionY >= 600)
+		{
+			cur_positionY = HIGH - 120;
+
+			is_jump = 0;
+		}
+	}
+
+	if (real_positionX + HERO_WIDTH / 2.0 >= 2600 && real_positionX + HERO_WIDTH / 2.0 <= 2600+97*2
+		&& cur_positionY >= 400 + 47 && cur_positionY <= 410 + 47)
+	{
+		hero_vy = 0;
+		cur_vy = 0;
+		cur_positionY += shift_y(&hero_vy, TIME, GRAVITY);
+		if (cur_positionY >= 600)
+		{
+			cur_positionY = HIGH - 120;
+
+			is_jump = 0;
+		}
+	} //砖块下边界 
+
+
+
 	
-	for (i = 0; i < 3; i++)
+    for (i = 0; i < 3; i++)
 	{
 		if (real_positionX >= gold[i].begin_x
 			&&real_positionX <= gold[i].final_x
@@ -312,11 +443,9 @@ void judge()
 			&&cur_positionY + HERO_HIGH <= gold[i].final_y)
 		{
 			gold[i].is_touch = 1;
-			if(touch_count==0)
+			if (touch_count == 0)
 				gold[i].is_get_score = 1;
 			touch_count++;
-
-
         }
 		else
 		{
@@ -356,6 +485,7 @@ void judge()
 				is_die = 1;
 
 		}
-	}
+	}  //触碰敌人判定
 
+	
 }
