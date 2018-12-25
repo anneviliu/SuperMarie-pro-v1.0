@@ -37,22 +37,49 @@ int can_right= 1;
 int is_jump = 0; //是否跳跃
 int is_die = 0;
 int is_replay = 0;
+int is_get_score = 0;
 int can_forward = 1;
 int game_state = 1;
+int touch_count = 0;
 int temp = 0;
-int num_hero = 0,num_gold = 0; //实现人物的步伐动作
+int num_hero = 0,num_gold = 0, num_brick=0; //实现人物的步伐动作
 Gold gold[10];
 Enemy enemy[5];
 IMAGE img_hero[3], img_level1;
-IMAGE img_hero_die[3],img_gold[3],img_enemies[3], img_brick[3];
+IMAGE img_hero_die[3],img_gold[3],img_enemies[3], img_brick[3],img_wh_brick[3];
 IMAGE img_hero_left[3], img_hero_right[3];
-
+IMAGE img_score[3];
 /*游戏状态标识
  =====================================
  *	game_state	|	1	  |		2	 *
  *______________|_________|__________*
  *	   意义	    |游戏主菜单|游戏主界面 *
  =====================================
+*/
+/*
+VOID A(PVOID p) //线程A
+{
+	
+	while (1)
+	{
+		gold_show();
+		HpSleep(50);
+	}
+}
+VOID B(PVOID p) //线程B
+{
+	while (1)
+	{
+		show();
+		//HpSleep(4);
+	}
+}
+
+void C()
+{
+	_beginthread(A, 0, 0);  //启动A
+	_beginthread(B, 0, 0);  //启动B
+}
 */
 
 int main()
@@ -81,7 +108,6 @@ int main()
 			judge(); // 障碍判定等
 			mic_control();
 			show(); //显示画面
-			
 			if (is_die == 1) //如果人物死亡
 			{
 				hero_die_show(); //人物死亡形象

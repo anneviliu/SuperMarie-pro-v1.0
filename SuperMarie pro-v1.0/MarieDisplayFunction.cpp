@@ -231,6 +231,10 @@ void begin()
 	loadimage(&img_enemies[2], _T("res\\enemies(mask).png"));
 	loadimage(&img_brick[1], _T("res\\tile_set.png"));
 	loadimage(&img_brick[2], _T("res\\tile_set(mask).png"));
+	loadimage(&img_score[1], _T("res\\ani.bmp"));
+	loadimage(&img_score[2], _T("res\\ani(mask).png"));
+	loadimage(&img_wh_brick[1], _T("res\\tile_set.png"));
+	loadimage(&img_wh_brick[2], _T("res\\tile_set(mask).png"));
 
 	//cleardevice();
 }
@@ -239,7 +243,7 @@ void preload()
 {
 	mciSendString("open res\\小跳跃.mp3 alias music_jump", NULL, 0, NULL);
 	mciSendString("open res\\背景音乐.mp3 alias music_back", NULL, 0, NULL);
-	mciSendString("play music_back", NULL, 0, NULL); //背景音乐
+	mciSendString("play music_back repeat", NULL, 0, NULL); //背景音乐
 	mciSendString("setaudio music_back volume to 70", NULL, 0, NULL);
 	cur_positionX = 0;
 	cur_positionY = HIGH - 120;
@@ -268,7 +272,7 @@ void preload()
 	gold[1].begin_y = 380;
 	gold[2].begin_x = 500;
 	gold[2].begin_y = 430;
-	for (int i = 0; i <= 2; i++) 
+	for (int i = 0; i <= 2; i++)
 	{
 		gold[i].final_x = gold[i].begin_x + 48;
 		gold[i].final_y = gold[i].begin_y + 44;
@@ -276,6 +280,10 @@ void preload()
 	for (int i = 0; i <= 2; i++)
 	{
 		gold[i].is_touch = 0;
+	}
+	for (int i = 0; i < 3; i++)
+	{
+		gold[i].is_get_score = 0;
 	}
 
 	enemy[0].cur_positionX = 500;
@@ -291,16 +299,33 @@ void gold_show() //显示金币
 {
 	if (!gold[0].is_touch)
 		putimage(gold[0].begin_x - map_position, gold[0].begin_y, 48, 44, &img_gold[2], 0 + 50 * num_gold, 340, NOTSRCERASE);
+	if (gold[0].is_get_score == 1)
+		putimage(gold[0].begin_x - map_position, gold[0].begin_y, 35, 33, &img_score[2], 0 + 35 * num_gold, 352, NOTSRCERASE);
+
 	if (!gold[1].is_touch)
 		putimage(gold[1].begin_x - map_position, gold[1].begin_y, 48, 44, &img_gold[2], 0 + 50 * num_gold, 340, NOTSRCERASE);
+	if (gold[1].is_get_score == 1)
+		putimage(gold[1].begin_x - map_position, gold[1].begin_y, 35, 33, &img_score[2], 0 + 35 * num_gold, 352, NOTSRCERASE);
+
 	if (!gold[2].is_touch)
 		putimage(gold[2].begin_x - map_position, gold[2].begin_y, 48, 44, &img_gold[2], 0 + 50 * num_gold, 340, NOTSRCERASE);
+	if (gold[2].is_get_score == 1)
+		putimage(gold[2].begin_x - map_position, gold[2].begin_y, 35, 33, &img_score[2], 0 + 35 * num_gold, 352, NOTSRCERASE);
+
 	if (!gold[0].is_touch)
 		putimage(gold[0].begin_x - map_position, gold[0].begin_y, 48, 44, &img_gold[1], 0 + 50 * num_gold, 340, SRCINVERT);
+	if (gold[0].is_get_score == 1)
+		putimage(gold[0].begin_x - map_position, gold[0].begin_y, 35, 33, &img_score[1], 0 + 35 * num_gold, 321, SRCINVERT);
+
 	if (!gold[1].is_touch)
 		putimage(gold[1].begin_x - map_position, gold[1].begin_y, 48, 44, &img_gold[1], 0 + 50 * num_gold, 340, SRCINVERT);
+	if (gold[1].is_get_score == 1)
+		putimage(gold[1].begin_x - map_position, gold[1].begin_y, 35, 33, &img_score[1], 0 + 35 * num_gold, 321, SRCINVERT);
+
 	if (!gold[2].is_touch)
 		putimage(gold[2].begin_x - map_position, gold[2].begin_y, 48, 44, &img_gold[1], 0 + 50 * num_gold, 340, SRCINVERT);
+	if (gold[2].is_get_score == 1)
+		putimage(gold[2].begin_x - map_position, gold[2].begin_y, 35, 33, &img_score[1], 0 + 35 * num_gold, 321, SRCINVERT);
 	//	putimage(gold[0].begin_x - map_position, gold[0].begin_y, 15, 16, &img_gold, 0, 96);
 	//	putimage(gold[0].begin_x - map_position, gold[0].begin_y, 15, 16, &img_gold, 0, 96);
 	//	putimage(gold[0].begin_x - map_position, gold[0].begin_y, 15, 16, &img_gold, 0, 96);
@@ -315,7 +340,7 @@ void enemy_show(int i) //i代表是第几个敌人
 	enemy[i].cur_positionX += ENEMY_SHIFT_LEFT;//每次敌人位置改变
 
 }
- 
+
 void brick_show()
 {
 	putimage(600 - map_position, 460, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
@@ -326,12 +351,27 @@ void brick_show()
 	putimage(794 - map_position, 460, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
 	putimage(891 - map_position, 400, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
 	putimage(891 - map_position, 400, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
+	putimage(988 - map_position, 400, 47, 47, &img_wh_brick[2], 1154 + 47 * num_brick, 0, NOTSRCERASE);
+	putimage(988 - map_position, 400, 47, 47, &img_wh_brick[1], 1154 + 47 * num_brick, 0, SRCINVERT);
+	num_brick++;
+	num_brick %= 4;
+	if (real_positionX >= 2400)
+	{
+		SetWorkingImage(&img_level1);
+		putimage(2600 , 400, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
+		putimage(2600 , 400, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
+		putimage(2697, 400, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
+		putimage(2697, 400, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
+	}
+	SetWorkingImage(NULL);
 }
 void hero_die_show()
 {
 	mciSendString("close music_back", NULL, 0, NULL);
 	mciSendString("open res\\death.wav alias music_die", NULL, 0, NULL);
 	mciSendString("play music_die from 0", NULL, 0, NULL);
+	mciSendString("setaudio music_die volume to 70", NULL, 0, NULL);
+
 	putimage(cur_positionX, cur_positionY, HERO_DIE_WIDTH, HERO_DIE_HIGH, &img_hero_die[2], 410, 79, NOTSRCERASE);
 	putimage(cur_positionX, cur_positionY, HERO_DIE_WIDTH, HERO_DIE_HIGH, &img_hero_die[1], 410, 79, SRCINVERT);
 	//HpSleep(1.0 * 1000);
@@ -353,6 +393,7 @@ void hero_die_menu_show()
 	mciSendString("close music_die", NULL, 0, NULL);
 	mciSendString("open res\\游戏结束.mp3 alias music_gameover", NULL, 0, NULL);
 	mciSendString("play music_gameover", NULL, 0, NULL);
+	mciSendString("setaudio music_gameover volume to 100", NULL, 0, NULL);
 
 	putimage(220, 60, 800, 500, &img_die_menu, 0, 0, SRCCOPY);
 	putimage(520, 200, 200, 50, &img_replay, 0, 0);
@@ -370,7 +411,7 @@ void hero_die_menu_show()
 
 				is_replay = 1;
 				die_menu_flag = 0;
-				
+
 				game_state = 2; //游戏状态改变
 				mciSendString("close music_gameover", NULL, 0, NULL);
 				mciSendString("close music_back", NULL, 0, NULL);
@@ -454,7 +495,13 @@ void develop_mode()
 	for (int i = 0; i < 3; i++)
 	{
 		sprintf(s7, "is_touch = %d", gold[i].is_touch);
-		outtextxy(10, 150+20*i, s7);
+		outtextxy(10, 150 + 20 * i, s7);
 	}
+	char s8[50];
+	sprintf(s8, "is_get_score = %d", is_get_score);
+	outtextxy(10, 210, s8);
+	char s9[50];
+	sprintf(s9, "touch_count = %d", touch_count);
+	outtextxy(10, 230, s9);
 }
 ///////////////////////////////////////////////////////////////////////

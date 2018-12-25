@@ -40,7 +40,7 @@ void HpSleep(int ms)
 void hero_move()
 {
 	//用GetAsynckeyState函数解决按键延迟问题
-	if (GetAsyncKeyState(VK_LEFT) && cur_positionX > 0 && can_left==1)
+	if (GetAsyncKeyState(VK_LEFT) && cur_positionX > 0 && can_left == 1)
 	{
 		old_positionX = real_positionX;
 		is_left = 1;
@@ -196,11 +196,11 @@ void judge()
 			is_jump = 1;
 			is_die = 1;
 			can_forward = 0;
-			cur_positionY += shift_y(&hero_vy, DIE_TIME, DIE_A);	
+			cur_positionY += shift_y(&hero_vy, DIE_TIME, DIE_A);
 			//hero_die_menu_show();//死亡特效（待添加）
 		}
 	}
-	if (real_positionX - HERO_WIDTH/2.0 >= blank[1].begin_x &&real_positionX + HERO_WIDTH/2.0 <= blank[1].final_x)
+	if (real_positionX - HERO_WIDTH / 2.0 >= blank[1].begin_x &&real_positionX + HERO_WIDTH / 2.0 <= blank[1].final_x)
 	{
 		if (is_jump == 0)
 		{
@@ -212,40 +212,40 @@ void judge()
 			//死亡特效（待添加）
 		}
 	}
-	
+
 	for (i = 0; i < 4; i++)
 	{
-		if (real_positionX + HERO_WIDTH /2.0 >= block[i].begin_x - 13 
-			&& real_positionX + HERO_WIDTH /2.0 <= block[i].final_x +5 
-			&& cur_positionY + HERO_HIGH  >= block[i].high  
-			&& cur_positionY + HERO_HIGH  <= block[i].high+10 )
+		if (real_positionX + HERO_WIDTH / 2.0 >= block[i].begin_x - 13
+			&& real_positionX + HERO_WIDTH / 2.0 <= block[i].final_x + 5
+			&& cur_positionY + HERO_HIGH >= block[i].high
+			&& cur_positionY + HERO_HIGH <= block[i].high + 10)
 		{
 			is_jump = 0;
 			cur_positionY -= shift_y(&hero_vy, TIME, GRAVITY);
 		}
 	}
-	 //支撑判定
+	//支撑判定
 
 	for (i = 0; i < 4; i++)
 	{
 		if (real_positionX + HERO_WIDTH / 2.0 >= block[i].begin_x - 15
-			&& real_positionX + HERO_WIDTH / 2.0 <= block[i].begin_x 
-			&& cur_positionY + HERO_HIGH   >= block[i].high+15
-			&&is_right == 1)
+			&& real_positionX + HERO_WIDTH / 2.0 <= block[i].begin_x
+			&& cur_positionY + HERO_HIGH >= block[i].high + 15
+			&& is_right == 1)
 		{
 			hero_vx = 0;
 			can_right = 0;
 		} //向右障碍判定
 
-		else if (GetAsyncKeyState(VK_LEFT)|| GetAsyncKeyState(VK_UP))
+		else if (GetAsyncKeyState(VK_LEFT) || GetAsyncKeyState(VK_UP))
 			can_right = 1;
 	}
 	for (i = 0; i < 4; i++)
 	{
-		if (real_positionX + HERO_WIDTH / 2.0 >= block[i].final_x 
-			&& real_positionX + HERO_WIDTH /2.0 <= block[i].final_x+15
-			&& cur_positionY + HERO_HIGH  >= block[i].high+15
-			&&is_left == 1)
+		if (real_positionX + HERO_WIDTH / 2.0 >= block[i].final_x
+			&& real_positionX + HERO_WIDTH / 2.0 <= block[i].final_x + 15
+			&& cur_positionY + HERO_HIGH >= block[i].high + 15
+			&& is_left == 1)
 		{
 			hero_vx = 0;
 			can_left = 0;
@@ -255,38 +255,75 @@ void judge()
 			can_left = 1;
 	} //向左障碍判定
 
-
+	//触碰金币
 	for (i = 0; i < 3; i++)
 	{
 		if (real_positionX >= gold[i].begin_x
-			&&real_positionX  <= gold[i].final_x
-			&&cur_positionY>=gold[i].begin_y
-			&&cur_positionY<=gold[i].final_y)
+			&&real_positionX <= gold[i].final_x
+			&&cur_positionY >= gold[i].begin_y
+			&&cur_positionY <= gold[i].final_y)
 		{
 			gold[i].is_touch = 1;
+			if (touch_count == 0)
+				gold[i].is_get_score = 1;
+			touch_count++;
+
 		}
-		 if (real_positionX >= gold[i].begin_x
+		else
+		{
+			gold[i].is_get_score = 0;
+
+		}
+		if (real_positionX >= gold[i].begin_x
 			&&real_positionX <= gold[i].final_x
 			&&cur_positionY + HERO_HIGH >= gold[i].begin_y
 			&&cur_positionY + HERO_HIGH <= gold[i].final_y)
 		{
 			gold[i].is_touch = 1;
+			if (touch_count == 0)
+				gold[i].is_get_score = 1;
+			touch_count++;
+
 		}
-		 if(real_positionX+HERO_WIDTH/2.0>= gold[i].begin_x
-			&&real_positionX+HERO_WIDTH/2.0<= gold[i].final_x
+		else
+		{
+			gold[i].is_get_score = 0;
+
+		}
+		if (real_positionX + HERO_WIDTH / 2.0 >= gold[i].begin_x
+			&&real_positionX + HERO_WIDTH / 2.0 <= gold[i].final_x
 			&&cur_positionY >= gold[i].begin_y
 			&&cur_positionY <= gold[i].final_y)
 		{
 			gold[i].is_touch = 1;
+			if (touch_count == 0)
+				gold[i].is_get_score = 1;
+			touch_count++;
+
 		}
-		if(real_positionX + HERO_WIDTH / 2.0 >= gold[i].begin_x
+		else
+		{
+			gold[i].is_get_score = 0;
+
+		}
+		if (real_positionX + HERO_WIDTH / 2.0 >= gold[i].begin_x
 			&&real_positionX + HERO_WIDTH / 2.0 <= gold[i].final_x
 			&&cur_positionY + HERO_HIGH >= gold[i].begin_y
 			&&cur_positionY + HERO_HIGH <= gold[i].final_y)
 		{
 			gold[i].is_touch = 1;
+			if(touch_count==0)
+				gold[i].is_get_score = 1;
+			touch_count++;
+
+
+        }
+		else
+		{
+			gold[i].is_get_score = 0;
+
 		}
 	}
-	
+
 
 }
