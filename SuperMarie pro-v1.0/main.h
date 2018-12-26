@@ -22,6 +22,7 @@ extern double map_position;
 extern double hero_vx;
 extern double hero_vy;
 extern int num_hero,num_gold,num_brick,num_fw;
+extern int wh_brick_count;
 extern IMAGE img_hero[3],img_level1;
 extern IMAGE img_hero_die[3],img_gold[3],img_enemies[3];
 extern IMAGE img_hero_left[3],img_hero_right[3];

@@ -249,11 +249,11 @@ void begin()
 	loadimage(&img_flower[2], _T("res\\地图物件（掩码）.png"));
 	loadimage(&img_enemy_die[1], _T("res\\地图物件.png"));
 	loadimage(&img_enemy_die[2], _T("res\\地图物件（掩码）.png"));
-	loadimage(&img_final_step[1], _T("res\\终点.png"));
+	loadimage(&img_final_step[1], _T("res\\终点.jpg"));
 	loadimage(&img_final_step[2], _T("res\\终点（掩码）.png"));
-	loadimage(&img_final_flag[1], _T("res\\终点.png"));
+	loadimage(&img_final_flag[1], _T("res\\终点.jpg"));
 	loadimage(&img_final_flag[2], _T("res\\终点（掩码）.png"));
-	loadimage(&img_final_home[1], _T("res\\终点.png"));
+	loadimage(&img_final_home[1], _T("res\\终点.jpg"));
 	loadimage(&img_final_home[2], _T("res\\终点（掩码）.png"));
 
 	//cleardevice();
@@ -418,20 +418,53 @@ void enemy_show(int i, int direction) //i代表是第几个敌人，direction代
 		enemy[i].cur_final_x = enemy[i].cur_begin_x + 50;
 	}
 
-	for (i = 0; i < 6; i++)
-	{
-		if (enemy[i].is_die == 1)
+		if (enemy[1].is_die == 1)
 		{
-			enemy[i].cur_begin_x = enemy[i].rec_x;
-			enemy[i].cur_begin_y = enemy[i].rec_y;
-			putimage(enemy[i].cur_begin_x, enemy[i].cur_begin_y, 65, 65, &img_enemy_die[2], 324, 527, NOTSRCERASE);
-			putimage(enemy[i].cur_begin_x, enemy[i].cur_begin_y, 65, 65, &img_enemy_die[1], 324, 527, SRCINVERT);
+			enemy[1].cur_begin_x = enemy[1].rec_x;
+			enemy[1].cur_begin_y = enemy[1].rec_y;
+			putimage(enemy[1].cur_begin_x, enemy[1].cur_begin_y, 65, 65, &img_enemy_die[2], 324, 527, NOTSRCERASE);
+			putimage(enemy[1].cur_begin_x, enemy[1].cur_begin_y, 65, 65, &img_enemy_die[1], 324, 527, SRCINVERT);
 			
-			enemy[i].is_die = 0;
+			enemy[1].is_die = 0;
 		}			
-		
+		if (enemy[2].is_die == 1)
+		{
+			enemy[2].cur_begin_x = enemy[2].rec_x;
+			enemy[2].cur_begin_y = enemy[2].rec_y;
+			putimage(enemy[2].cur_begin_x, enemy[2].cur_begin_y, 65, 65, &img_enemy_die[2], 324, 527, NOTSRCERASE);
+			putimage(enemy[2].cur_begin_x, enemy[2].cur_begin_y, 65, 65, &img_enemy_die[1], 324, 527, SRCINVERT);
 
-	}
+			enemy[2].is_die = 0;
+		}
+		if (enemy[3].is_die == 1)
+		{
+			enemy[3].cur_begin_x = enemy[3].rec_x;
+			enemy[3].cur_begin_y = enemy[3].rec_y;
+			putimage(enemy[3].cur_begin_x, enemy[3].cur_begin_y, 65, 65, &img_enemy_die[2], 324, 527, NOTSRCERASE);
+			putimage(enemy[3].cur_begin_x, enemy[3].cur_begin_y, 65, 65, &img_enemy_die[1], 324, 527, SRCINVERT);
+
+			enemy[3].is_die = 0;
+		}
+		if (enemy[4].is_die == 1)
+		{
+			enemy[4].cur_begin_x = enemy[4].rec_x;
+			enemy[4].cur_begin_y = enemy[4].rec_y;
+			putimage(enemy[4].cur_begin_x, enemy[4].cur_begin_y, 65, 65, &img_enemy_die[2], 324, 527, NOTSRCERASE);
+			putimage(enemy[4].cur_begin_x, enemy[4].cur_begin_y, 65, 65, &img_enemy_die[1], 324, 527, SRCINVERT);
+
+			enemy[4].is_die = 0;
+		}
+		if (enemy[5].is_die == 1)
+		{
+			enemy[5].cur_begin_x = enemy[5].rec_x;
+			enemy[5].cur_begin_y = enemy[5].rec_y;
+			putimage(enemy[5].cur_begin_x, enemy[5].cur_begin_y, 65, 65, &img_enemy_die[2], 324, 527, NOTSRCERASE);
+			putimage(enemy[5].cur_begin_x, enemy[5].cur_begin_y, 65, 65, &img_enemy_die[1], 324, 527, SRCINVERT);
+
+			enemy[5].is_die = 0;
+		}
+	
+
 }
 
 void between_enemy_show(int i, double left, double right)//两个水管之间的敌人显示
@@ -464,15 +497,30 @@ void brick_show()
 	putimage(794 - map_position, 460, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
 	putimage(891 - map_position, 400, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
 	putimage(891 - map_position, 400, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
-	putimage(988 - map_position, 400, 47, 47, &img_wh_brick[2], 1154 + 47 * num_brick, 0, NOTSRCERASE);
-	putimage(988 - map_position, 400, 47, 47, &img_wh_brick[1], 1154 + 47 * num_brick, 0, SRCINVERT);
+
+	putimage(988 - map_position, 400, 47, 47, &img_wh_brick[2], 1154 + 47, 0, NOTSRCERASE);
+	putimage(988 - map_position, 400, 47, 47, &img_wh_brick[1], 1154 + 47, 0, SRCINVERT);
+	wh_brick_count++;
+	if (wh_brick_count == 2)
+	{
+		putimage(988 - map_position, 400, 47, 47, &img_wh_brick[2], 1154 + 47 * num_brick, 0, NOTSRCERASE);
+		putimage(988 - map_position, 400, 47, 47, &img_wh_brick[1], 1154 + 47 * num_brick, 0, SRCINVERT);
+	}
+	if (wh_brick_count == 2)
+	{
+		wh_brick_count = 0;
+		num_brick++;
+	num_brick %= 4;
+	}
+	
+	
 	putimage(4000 - map_position, 420, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
 	putimage(4000 - map_position, 420, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
 	putimage(4097 - map_position, 420, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
 	putimage(4097 - map_position, 420, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
 	//FlushBatchDraw();
-	num_brick++;
-	num_brick %= 4;
+	
+	
 	if (real_positionX >= 2400)
 	{
 		SetWorkingImage(&img_level1);
@@ -649,7 +697,6 @@ void flower_show()
 	if (real_positionX >= 2240&&num_fw<=100)
 	{
 		SetWorkingImage(&img_level1);
-
 		putimage(2410, 468 - 100, 50, -30 + 100, &img_flower[2], 0, 100, NOTSRCERASE);
 		putimage(2410, 468 - 100, 50, -30 + 100, &img_flower[1], 0, 100, SRCINVERT);
 

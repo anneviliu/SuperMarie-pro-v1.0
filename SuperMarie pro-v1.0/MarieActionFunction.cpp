@@ -131,7 +131,8 @@ void hero_move()
 	else
 	{
 		cur_positionY += shift_y(&hero_vy, TIME, GRAVITY);
-		if (cur_positionY >= 600) {//是否落地
+		if (cur_positionY >= 600) 
+		{//是否落地
 			cur_positionY = HIGH - 120;
 			hero_vy = 0;
 			cur_vy = 0;
@@ -139,7 +140,7 @@ void hero_move()
 		}
 	}
 
-	HpSleep(4);
+	HpSleep(2);
 
 }
 

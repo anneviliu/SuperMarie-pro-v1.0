@@ -43,7 +43,8 @@ int can_forward = 1;
 int game_state = 1;
 int touch_count = 0;
 int temp = 0;
-int num_hero = 0,num_gold = 0, num_brick=0,num_fw=0; //实现人物的步伐动作
+int num_hero = 0,num_gold = 0, num_brick=1 ,num_fw=0; //实现人物的步伐动作
+int wh_brick_count = 0;
 int cur_direction[7] = { 0 };
 Gold gold[11];
 Enemy enemy[6];
