@@ -21,12 +21,16 @@ extern double real_positionY;
 extern double map_position;
 extern double hero_vx;
 extern double hero_vy;
-extern int num_hero,num_gold,num_brick;
+extern int num_hero,num_gold,num_brick,num_fw;
 extern IMAGE img_hero[3],img_level1;
 extern IMAGE img_hero_die[3],img_gold[3],img_enemies[3];
 extern IMAGE img_hero_left[3],img_hero_right[3];
 extern IMAGE img_brick[3], img_wh_brick[3];
 extern IMAGE img_score[3];
+extern IMAGE img_flower[3], img_enemy_die[3];
+extern IMAGE img_final_step[3];
+extern IMAGE img_final_flag[3];
+extern IMAGE img_final_home[3];
 extern double cur_vx;
 extern double cur_vy;
 extern double h_now;
@@ -40,6 +44,7 @@ extern int game_state;
 extern int is_left;
 extern int is_right;
 extern int is_get_score;
+extern int is_touch_gold;
 extern int can_left;
 extern int can_right;
 extern int develop_flag;
@@ -62,7 +67,9 @@ typedef struct Enemy {
 	double cur_final_x, cur_final_y;
 	int is_touch;
 	int is_exist;
-
+	int is_die;
+	int rec_x;
+	int rec_y;
 }Enemy;
 extern Enemy enemy[6];
 

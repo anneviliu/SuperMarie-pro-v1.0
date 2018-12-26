@@ -77,7 +77,7 @@ void hero_move()
 
 		is_right = 1;
 		is_left = 0;
-		if (cur_positionX >= WIDTH / 2.0 && map_position <= 4800)
+		if (cur_positionX >= WIDTH / 2.0 && map_position <= 5000)
 		{
 			double shift_temp = shift_x(&hero_vx, TIME, ACCELERATION - FRICTION);//存此次位移量
 			map_position += shift_temp;
@@ -187,6 +187,7 @@ void judge()
 	blank[0].final_x = 3680;
 	blank[1].begin_x = 4450;
 	blank[1].final_x = 4610; //初始化空地
+
 
 	if (real_positionX - HERO_WIDTH / 2 >= blank[0].begin_x &&real_positionX + HERO_WIDTH / 2 <= blank[0].final_x)
 
@@ -477,7 +478,9 @@ void judge()
 		{
 			gold[i].is_touch = 1;
 			if (touch_count == 0)
+			{
 				gold[i].is_get_score = 1;
+			}
 			touch_count++;
 
 		}
@@ -493,8 +496,10 @@ void judge()
 		{
 			gold[i].is_touch = 1;
 			if (touch_count == 0)
+			{
 				gold[i].is_get_score = 1;
-			touch_count++;
+			}
+				touch_count++;
 
 		}
 		else
@@ -509,7 +514,9 @@ void judge()
 		{
 			gold[i].is_touch = 1;
 			if (touch_count == 0)
+			{
 				gold[i].is_get_score = 1;
+			}
 			touch_count++;
 
 		}
@@ -525,7 +532,9 @@ void judge()
 		{
 			gold[i].is_touch = 1;
 			if (touch_count == 0)
+			{
 				gold[i].is_get_score = 1;
+			}
 			touch_count++;
         }
 		else
@@ -534,6 +543,7 @@ void judge()
 
 		}
 	} //触碰金币
+
 	for (i = 0; i < 6; i++)
 	{
 		if (enemy[i].is_exist == 1)
@@ -545,6 +555,10 @@ void judge()
 			{
 				enemy[i].is_touch = 1;
 				enemy[i].is_exist = 0;
+				enemy[i].is_die = 1;
+				enemy[i].rec_x = enemy[i].cur_begin_x;
+				enemy[i].rec_y = enemy[i].cur_begin_y;
+
 			}
 
 			if (real_positionX + HERO_WIDTH / 2.0 >= enemy[i].cur_begin_x
@@ -554,16 +568,22 @@ void judge()
 			{
 				enemy[i].is_touch = 1;
 				enemy[i].is_exist = 0;
+				enemy[i].is_die = 1;
+
 			}
+
 			if (real_positionX >= enemy[i].cur_final_x
 				&&real_positionX <= enemy[i].cur_final_x + 10
 				&& cur_positionY + HERO_HIGH >= enemy[i].cur_begin_y)
+			{
 				is_die = 1;
-
+			}
 			if (real_positionX + HERO_WIDTH / 2.0 >= enemy[i].cur_begin_x - 10
 				&& real_positionX + HERO_WIDTH / 2.0 <= enemy[i].cur_begin_x
 				&& cur_positionY + HERO_HIGH >= enemy[i].cur_begin_y)
+			{
 				is_die = 1;
+			}
 
 		}
 	}  //触碰敌人判定

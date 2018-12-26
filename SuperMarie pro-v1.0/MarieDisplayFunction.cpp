@@ -182,7 +182,9 @@ void game_show()
 void show()
 {
 	BeginBatchDraw();
+
 	map_show();
+	flower_show();
 	gold_show();
 	enemy_show(0, 0);
 	enemy_show(1, 0);
@@ -190,8 +192,9 @@ void show()
 	between_enemy_show(3, 2481, 2962);//3670 4438
 	between_enemy_show(4, 3672, 4473);
 	between_enemy_show(5, 4700, 5600);
-
 	brick_show();
+	final_show();
+
 	//putimage(old_positionX, old_positionY, 35, 50, &img_level1, old_positionX, HERO_INIT_Y, SRCCOPY);
 	if (is_right == 1)
 	{
@@ -212,6 +215,7 @@ void show()
 	{
 		develop_mode();
 	}
+	FlushBatchDraw();
 	EndBatchDraw();
 }
 
@@ -228,7 +232,7 @@ void begin()
 	loadimage(&img_hero_right[2], _T("res\\主角（遮罩）.png"));
 	loadimage(&img_hero_left[1], _T("res\\主角朝左.png"));
 	loadimage(&img_hero_left[2], _T("res\\主角朝左（遮罩）.png"));
-	loadimage(&img_level1, _T("res\\level1.jpg"));
+	loadimage(&img_level1, _T("res\\level1.png"));
 	loadimage(&img_hero_die[1], _T("res\\主角.png"));
 	loadimage(&img_hero_die[2], _T("res\\主角（遮罩）.png"));
 	loadimage(&img_gold[1], _T("res\\地图物件.png"));
@@ -241,13 +245,23 @@ void begin()
 	loadimage(&img_score[2], _T("res\\ani(mask).png"));
 	loadimage(&img_wh_brick[1], _T("res\\tile_set.png"));
 	loadimage(&img_wh_brick[2], _T("res\\tile_set(mask).png"));
+	loadimage(&img_flower[1], _T("res\\地图物件.png"));
+	loadimage(&img_flower[2], _T("res\\地图物件（掩码）.png"));
+	loadimage(&img_enemy_die[1], _T("res\\地图物件.png"));
+	loadimage(&img_enemy_die[2], _T("res\\地图物件（掩码）.png"));
+	loadimage(&img_final_step[1], _T("res\\终点.png"));
+	loadimage(&img_final_step[2], _T("res\\终点（掩码）.png"));
+	loadimage(&img_final_flag[1], _T("res\\终点.png"));
+	loadimage(&img_final_flag[2], _T("res\\终点（掩码）.png"));
+	loadimage(&img_final_home[1], _T("res\\终点.png"));
+	loadimage(&img_final_home[2], _T("res\\终点（掩码）.png"));
 
 	//cleardevice();
 }
 
 void preload()
 {
-	mciSendString("open res\\小跳跃.mp3 alias music_jump", NULL, 0, NULL);
+	mciSendString("open res\\跳.mp3 alias music_jump", NULL, 0, NULL);
 	mciSendString("open res\\背景音乐.mp3 alias music_back", NULL, 0, NULL);
 	mciSendString("play music_back repeat", NULL, 0, NULL); //背景音乐
 	mciSendString("setaudio music_back volume to 70", NULL, 0, NULL);
@@ -290,9 +304,9 @@ void preload()
 	gold[7].begin_y = 375;
 	gold[8].begin_x = 4140;
 	gold[8].begin_y = 375;
-	gold[9].begin_x = 5300;
+	gold[9].begin_x = 4900;
 	gold[9].begin_y = 525;
-	gold[10].begin_x = 5370;
+	gold[10].begin_x = 4970;
 	gold[10].begin_y = 525;
 	for (int i = 0; i <= 10; i++)
 	{
@@ -320,6 +334,9 @@ void preload()
 		enemy[i].cur_final_x = enemy[i].cur_begin_x + 50;
 		enemy[i].cur_final_y = enemy[i].cur_begin_y + 50;
 		enemy[i].is_exist = 1;
+		enemy[i].is_die = 0;
+		enemy[i].rec_x = 0;
+		enemy[i].rec_y = 0;
 	}
 
 
@@ -380,6 +397,8 @@ void gold_show() //显示金币
 		putimage(gold[10].begin_x - map_position, gold[10].begin_y, 48, 44, &img_gold[1], 0 + 50 * num_gold, 340, SRCINVERT);
 	num_gold++;
 	num_gold %= 4;
+	//FlushBatchDraw();
+
 }
 
 void enemy_show(int i, int direction) //i代表是第几个敌人，direction代表移动方向，is_in代表是否在管子中间
@@ -388,13 +407,30 @@ void enemy_show(int i, int direction) //i代表是第几个敌人，direction代
 	putimage(enemy[i].cur_begin_x - map_position, enemy[i].cur_begin_y, 50, 50, &img_enemies[1], 0, 46, SRCINVERT);
 	if (!direction)
 	{
+		
 		enemy[i].cur_begin_x += ENEMY_SHIFT_LEFT;//敌人向左
 		enemy[i].cur_final_x = enemy[i].cur_begin_x + 50;
+
 	}
 	else
 	{
 		enemy[i].cur_begin_x += ENEMY_SHIFT_RIGHT;//敌人向右
 		enemy[i].cur_final_x = enemy[i].cur_begin_x + 50;
+	}
+
+	for (i = 0; i < 6; i++)
+	{
+		if (enemy[i].is_die == 1)
+		{
+			enemy[i].cur_begin_x = enemy[i].rec_x;
+			enemy[i].cur_begin_y = enemy[i].rec_y;
+			putimage(enemy[i].cur_begin_x, enemy[i].cur_begin_y, 65, 65, &img_enemy_die[2], 324, 527, NOTSRCERASE);
+			putimage(enemy[i].cur_begin_x, enemy[i].cur_begin_y, 65, 65, &img_enemy_die[1], 324, 527, SRCINVERT);
+			
+			enemy[i].is_die = 0;
+		}			
+		
+
 	}
 }
 
@@ -434,17 +470,18 @@ void brick_show()
 	putimage(4000 - map_position, 420, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
 	putimage(4097 - map_position, 420, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
 	putimage(4097 - map_position, 420, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
+	//FlushBatchDraw();
 	num_brick++;
 	num_brick %= 4;
 	if (real_positionX >= 2400)
 	{
 		SetWorkingImage(&img_level1);
-		putimage(2600 , 400, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
-		putimage(2600 , 400, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
+		putimage(2600, 400, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
+		putimage(2600, 400, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
 		putimage(2697, 400, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
 		putimage(2697, 400, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
 	}
-	if(real_positionX>=3410&&is_jump==1)
+	if (real_positionX >= 3410 && is_jump == 1)
 	{
 		SetWorkingImage(&img_level1);
 		putimage(3410, 480, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
@@ -542,13 +579,19 @@ void hero_die_menu_show()
 	}
 }
 
-void mic_control()
+void acmusic_control()
 {
 	if (is_jump == 1)
 	{
-
+		mciSendString("open res\\跳.mp3 alias music_jump", NULL, 0, NULL);
 		mciSendString("play music_jump from 0", NULL, 0, NULL);
 	}
+	else
+	{
+		mciSendString("close music_jump", NULL, 0, NULL);
+
+	}
+
 }
 
 void develop_mode()
@@ -598,5 +641,34 @@ void develop_mode()
 		sprintf(s10, "enemy[i].is_touch = %d", enemy[i].is_touch);
 		outtextxy(10, 230 + 20 * i, s10);
 	}
+}
+
+void flower_show()
+{
+
+	if (real_positionX >= 2240&&num_fw<=100)
+	{
+		SetWorkingImage(&img_level1);
+
+		putimage(2410, 468 - 100, 50, -30 + 100, &img_flower[2], 0, 100, NOTSRCERASE);
+		putimage(2410, 468 - 100, 50, -30 + 100, &img_flower[1], 0, 100, SRCINVERT);
+
+		//num_fw++;
+	}
+	SetWorkingImage(NULL);
+}
+
+void final_show()
+{  //5310,393
+	SetWorkingImage(&img_level1);
+	putimage(5310, 290, 347, 357, &img_final_step[2], 0, 394, NOTSRCERASE);
+	putimage(5310, 290, 349, 357, &img_final_step[1], 0, 394, SRCINVERT);
+	putimage(5810, 157, 200, 485, &img_final_flag[2], 565, 261, NOTSRCERASE);
+	putimage(5810, 157, 200, 485, &img_final_flag[1], 565, 261, SRCINVERT);
+	putimage(6100, 420, 238, 229, &img_final_home[2], 855, 520, NOTSRCERASE);
+	putimage(6100, 420, 238, 229, &img_final_home[1], 855, 520, SRCINVERT);
+	//FlushBatchDraw();
+	SetWorkingImage(NULL);
+	
 }
 ///////////////////////////////////////////////////////////////////////

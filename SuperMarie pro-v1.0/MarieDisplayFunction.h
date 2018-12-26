@@ -3,7 +3,6 @@
 #define MARIEDISPLAYFUNCTION_H
 #include <stdio.h>
 
-
 void game_start(); //游戏开始主界面
 void show();
 void game_show();
@@ -20,7 +19,10 @@ void map_show();
 void hero_die_show();
 void hero_die_menu_show();
 void brick_show();
-void mic_control();
+void acmusic_control();
+void flower_show();
+void final_show();
+
 void develop_mode(); //开发调试模式，看变量状态
 
 

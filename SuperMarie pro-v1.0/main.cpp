@@ -38,11 +38,12 @@ int is_jump = 0; //是否跳跃
 int is_die = 0;
 int is_replay = 0;
 int is_get_score = 0;
+int is_touch_gold = 0;
 int can_forward = 1;
 int game_state = 1;
 int touch_count = 0;
 int temp = 0;
-int num_hero = 0,num_gold = 0, num_brick=0; //实现人物的步伐动作
+int num_hero = 0,num_gold = 0, num_brick=0,num_fw=0; //实现人物的步伐动作
 int cur_direction[7] = { 0 };
 Gold gold[11];
 Enemy enemy[6];
@@ -50,6 +51,9 @@ IMAGE img_hero[3], img_level1;
 IMAGE img_hero_die[3],img_gold[3],img_enemies[3], img_brick[3],img_wh_brick[3];
 IMAGE img_hero_left[3], img_hero_right[3];
 IMAGE img_score[3];
+IMAGE img_flower[3], img_enemy_die[3];
+IMAGE img_final_step[3], img_final_flag[3];
+IMAGE img_final_home[3];
 /*游戏状态标识
  =====================================
  *	game_state	|	1	  |		2	 *
@@ -75,8 +79,9 @@ int main()
 			BeginBatchDraw();
 			hero_move(); //人物移动
 			judge(); // 障碍判定等
-			mic_control();
+			//acmusic_control();	
 			show(); //显示画面
+
 			if (is_die == 1) //如果人物死亡
 			{
 				hero_die_show(); //人物死亡形象
@@ -106,7 +111,7 @@ int main()
 	//抵达终点后动画与音效
 	//通关动画与音效
 	//返回菜单或进入下一关
-
+	mciSendString("clase all", NULL, 0, NULL);//关闭所有多媒体音乐文件
 	closegraph();
 	system("pause");
 	return 0;
