@@ -184,8 +184,13 @@ void show()
 	BeginBatchDraw();
 	map_show();
 	gold_show();
-	enemy_show(0,0);
-	enemy_show(1, 1);
+	enemy_show(0, 0);
+	enemy_show(1, 0);
+	between_enemy_show(2, 1555, 1978);//1546 1938   2066 2353
+	between_enemy_show(3, 2481, 2962);//3670 4438
+	between_enemy_show(4, 3672, 4473);
+	between_enemy_show(5, 4700, 5600);
+
 	brick_show();
 	//putimage(old_positionX, old_positionY, 35, 50, &img_level1, old_positionX, HERO_INIT_Y, SRCCOPY);
 	if (is_right == 1)
@@ -273,30 +278,49 @@ void preload()
 	gold[1].begin_y = 380;
 	gold[2].begin_x = 500;
 	gold[2].begin_y = 430;
-	for (int i = 0; i <= 2; i++)
+	gold[3].begin_x = 2600;
+	gold[3].begin_y = 600;
+	gold[4].begin_x = 2670;
+	gold[4].begin_y = 600;
+	gold[5].begin_x = 2740;
+	gold[5].begin_y = 600;
+	gold[6].begin_x = 4000;
+	gold[6].begin_y = 375;
+	gold[7].begin_x = 4070;
+	gold[7].begin_y = 375;
+	gold[8].begin_x = 4140;
+	gold[8].begin_y = 375;
+	gold[9].begin_x = 5300;
+	gold[9].begin_y = 525;
+	gold[10].begin_x = 5370;
+	gold[10].begin_y = 525;
+	for (int i = 0; i <= 10; i++)
 	{
 		gold[i].final_x = gold[i].begin_x + 48;
 		gold[i].final_y = gold[i].begin_y + 44;
 	}
-	for (int i = 0; i <= 2; i++)
+	for (int i = 0; i <= 10; i++)
 	{
 		gold[i].is_touch = 0;
-	}
-	for (int i = 0; i < 3; i++)
-	{
-		gold[i].is_get_score = 0;
 	}
 
 	enemy[0].cur_begin_x = 500;
 	enemy[0].cur_begin_y = 594;
 	enemy[1].cur_begin_x = 570;
 	enemy[1].cur_begin_y = 594;
-	for (int i = 0; i <= 1; i++) {
+	enemy[2].cur_begin_x = 1800;//1546 1938   2066 2353
+	enemy[2].cur_begin_y = 594;
+	enemy[3].cur_begin_x = 2600;
+	enemy[3].cur_begin_y = 594;
+	enemy[4].cur_begin_x = 4200;
+	enemy[4].cur_begin_y = 594;
+	enemy[5].cur_begin_x = 5300;
+	enemy[5].cur_begin_y = 594;
+	for (int i = 0; i <= 5; i++) {
 		enemy[i].cur_final_x = enemy[i].cur_begin_x + 50;
 		enemy[i].cur_final_y = enemy[i].cur_begin_y + 50;
-		enemy[i].is_touch = 0;
-		enemy[i].is_exist = 1;
 	}
+
 
 
 }
@@ -310,58 +334,87 @@ void gold_show() //显示金币
 {
 	if (!gold[0].is_touch)
 		putimage(gold[0].begin_x - map_position, gold[0].begin_y, 48, 44, &img_gold[2], 0 + 50 * num_gold, 340, NOTSRCERASE);
-	if (gold[0].is_get_score == 1)
-		putimage(gold[0].begin_x - map_position, gold[0].begin_y, 35, 33, &img_score[2], 0 + 35 * num_gold, 352, NOTSRCERASE);
-
 	if (!gold[1].is_touch)
 		putimage(gold[1].begin_x - map_position, gold[1].begin_y, 48, 44, &img_gold[2], 0 + 50 * num_gold, 340, NOTSRCERASE);
-	if (gold[1].is_get_score == 1)
-		putimage(gold[1].begin_x - map_position, gold[1].begin_y, 35, 33, &img_score[2], 0 + 35 * num_gold, 352, NOTSRCERASE);
-
 	if (!gold[2].is_touch)
 		putimage(gold[2].begin_x - map_position, gold[2].begin_y, 48, 44, &img_gold[2], 0 + 50 * num_gold, 340, NOTSRCERASE);
-	if (gold[2].is_get_score == 1)
-		putimage(gold[2].begin_x - map_position, gold[2].begin_y, 35, 33, &img_score[2], 0 + 35 * num_gold, 352, NOTSRCERASE);
+	if (!gold[3].is_touch)
+		putimage(gold[3].begin_x - map_position, gold[3].begin_y, 48, 44, &img_gold[2], 0 + 50 * num_gold, 340, NOTSRCERASE);
+	if (!gold[4].is_touch)
+		putimage(gold[4].begin_x - map_position, gold[4].begin_y, 48, 44, &img_gold[2], 0 + 50 * num_gold, 340, NOTSRCERASE);
+	if (!gold[5].is_touch)
+		putimage(gold[5].begin_x - map_position, gold[5].begin_y, 48, 44, &img_gold[2], 0 + 50 * num_gold, 340, NOTSRCERASE);
+	if (!gold[6].is_touch)
+		putimage(gold[6].begin_x - map_position, gold[6].begin_y, 48, 44, &img_gold[2], 0 + 50 * num_gold, 340, NOTSRCERASE);
+	if (!gold[7].is_touch)
+		putimage(gold[7].begin_x - map_position, gold[7].begin_y, 48, 44, &img_gold[2], 0 + 50 * num_gold, 340, NOTSRCERASE);
+	if (!gold[8].is_touch)
+		putimage(gold[8].begin_x - map_position, gold[8].begin_y, 48, 44, &img_gold[2], 0 + 50 * num_gold, 340, NOTSRCERASE);
+	if (!gold[9].is_touch)
+		putimage(gold[9].begin_x - map_position, gold[9].begin_y, 48, 44, &img_gold[2], 0 + 50 * num_gold, 340, NOTSRCERASE);
+	if (!gold[10].is_touch)
+		putimage(gold[10].begin_x - map_position, gold[10].begin_y, 48, 44, &img_gold[2], 0 + 50 * num_gold, 340, NOTSRCERASE);
 
 	if (!gold[0].is_touch)
 		putimage(gold[0].begin_x - map_position, gold[0].begin_y, 48, 44, &img_gold[1], 0 + 50 * num_gold, 340, SRCINVERT);
-	if (gold[0].is_get_score == 1)
-		putimage(gold[0].begin_x - map_position, gold[0].begin_y, 35, 33, &img_score[1], 0 + 35 * num_gold, 321, SRCINVERT);
-
 	if (!gold[1].is_touch)
 		putimage(gold[1].begin_x - map_position, gold[1].begin_y, 48, 44, &img_gold[1], 0 + 50 * num_gold, 340, SRCINVERT);
-	if (gold[1].is_get_score == 1)
-		putimage(gold[1].begin_x - map_position, gold[1].begin_y, 35, 33, &img_score[1], 0 + 35 * num_gold, 321, SRCINVERT);
-
 	if (!gold[2].is_touch)
 		putimage(gold[2].begin_x - map_position, gold[2].begin_y, 48, 44, &img_gold[1], 0 + 50 * num_gold, 340, SRCINVERT);
-	if (gold[2].is_get_score == 1)
-		putimage(gold[2].begin_x - map_position, gold[2].begin_y, 35, 33, &img_score[1], 0 + 35 * num_gold, 321, SRCINVERT);
-	//	putimage(gold[0].begin_x - map_position, gold[0].begin_y, 15, 16, &img_gold, 0, 96);
-	//	putimage(gold[0].begin_x - map_position, gold[0].begin_y, 15, 16, &img_gold, 0, 96);
-	//	putimage(gold[0].begin_x - map_position, gold[0].begin_y, 15, 16, &img_gold, 0, 96);
+	if (!gold[3].is_touch)
+		putimage(gold[3].begin_x - map_position, gold[3].begin_y, 48, 44, &img_gold[1], 0 + 50 * num_gold, 340, SRCINVERT);
+	if (!gold[4].is_touch)
+		putimage(gold[4].begin_x - map_position, gold[4].begin_y, 48, 44, &img_gold[1], 0 + 50 * num_gold, 340, SRCINVERT);
+	if (!gold[5].is_touch)
+		putimage(gold[5].begin_x - map_position, gold[5].begin_y, 48, 44, &img_gold[1], 0 + 50 * num_gold, 340, SRCINVERT);
+	if (!gold[6].is_touch)
+		putimage(gold[6].begin_x - map_position, gold[6].begin_y, 48, 44, &img_gold[1], 0 + 50 * num_gold, 340, SRCINVERT);
+	if (!gold[7].is_touch)
+		putimage(gold[7].begin_x - map_position, gold[7].begin_y, 48, 44, &img_gold[1], 0 + 50 * num_gold, 340, SRCINVERT);
+	if (!gold[8].is_touch)
+		putimage(gold[8].begin_x - map_position, gold[8].begin_y, 48, 44, &img_gold[1], 0 + 50 * num_gold, 340, SRCINVERT);
+	if (!gold[9].is_touch)
+		putimage(gold[9].begin_x - map_position, gold[9].begin_y, 48, 44, &img_gold[1], 0 + 50 * num_gold, 340, SRCINVERT);
+	if (!gold[10].is_touch)
+		putimage(gold[10].begin_x - map_position, gold[10].begin_y, 48, 44, &img_gold[1], 0 + 50 * num_gold, 340, SRCINVERT);
 	num_gold++;
 	num_gold %= 4;
 }
 
-void enemy_show(int i, int direction)//i代表是第几个敌人
+void enemy_show(int i, int direction) //i代表是第几个敌人，direction代表移动方向，is_in代表是否在管子中间
 {
 	putimage(enemy[i].cur_begin_x - map_position, enemy[i].cur_begin_y, 50, 50, &img_enemies[2], 0, 46, NOTSRCERASE);
 	putimage(enemy[i].cur_begin_x - map_position, enemy[i].cur_begin_y, 50, 50, &img_enemies[1], 0, 46, SRCINVERT);
-	
-	
-		if (!direction)
-		{
-			enemy[i].cur_begin_x += ENEMY_SHIFT_LEFT;//敌人向左
-			enemy[i].cur_final_x = enemy[i].cur_begin_x + 50;
-		}
-		else {
-			enemy[i].cur_begin_x += ENEMY_SHIFT_RIGHT;//敌人向右
-			enemy[i].cur_final_x = enemy[i].cur_begin_x + 50;
-		}
-	
+	if (!direction)
+	{
+		enemy[i].cur_begin_x += ENEMY_SHIFT_LEFT;//敌人向左
+		enemy[i].cur_final_x = enemy[i].cur_begin_x + 50;
+	}
+	else
+	{
+		enemy[i].cur_begin_x += ENEMY_SHIFT_RIGHT;//敌人向右
+		enemy[i].cur_final_x = enemy[i].cur_begin_x + 50;
+	}
+}
 
-
+void between_enemy_show(int i, double left, double right)//两个水管之间的敌人显示
+{
+	if (enemy[i].cur_begin_x <= left)
+		cur_direction[i] = 1;
+	else if (enemy[i].cur_final_x >= right)
+		cur_direction[i] = 0;
+	putimage(enemy[i].cur_begin_x - map_position, enemy[i].cur_begin_y, 50, 50, &img_enemies[2], 0, 46, NOTSRCERASE);
+	putimage(enemy[i].cur_begin_x - map_position, enemy[i].cur_begin_y, 50, 50, &img_enemies[1], 0, 46, SRCINVERT);
+	if (!cur_direction[i])
+	{
+		enemy[i].cur_begin_x += ENEMY_SHIFT_LEFT;
+		enemy[i].cur_final_x = enemy[i].cur_begin_x + 50;
+	}
+	else
+	{
+		enemy[i].cur_begin_x += ENEMY_SHIFT_RIGHT;
+		enemy[i].cur_final_x = enemy[i].cur_begin_x + 50;
+	}
 }
 
 void brick_show()
@@ -388,6 +441,7 @@ void brick_show()
 	}
 	SetWorkingImage(NULL);
 }
+
 void hero_die_show()
 {
 	mciSendString("close music_back", NULL, 0, NULL);

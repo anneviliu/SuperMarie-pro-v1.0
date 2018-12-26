@@ -18,8 +18,8 @@
 #define DIE_TIME 1.5
 #define H_MAX 400
 
-#define ENEMY_SHIFT_LEFT -0.3
-#define ENEMY_SHIFT_RIGHT 0.3
+#define ENEMY_SHIFT_LEFT -0.5
+#define ENEMY_SHIFT_RIGHT 0.5
 
 
 #define ESC 27 //ESC键对应的键码

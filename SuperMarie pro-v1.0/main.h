@@ -43,25 +43,28 @@ extern int is_get_score;
 extern int can_left;
 extern int can_right;
 extern int develop_flag;
+extern int cur_direction[7];
 VOID B(PVOID p); //线程B
 VOID A(PVOID p);//线程B
 extern struct Blank;
 extern struct Block;
+
 typedef struct Gold {
 	double begin_x, begin_y;
 	double final_x, final_y;
 	int is_touch;
 	int is_get_score;
 }Gold;
-extern Gold gold[10];//金币数组
+extern Gold gold[11];//金币数组
 
 typedef struct Enemy {
 	double cur_begin_x, cur_begin_y;
 	double cur_final_x, cur_final_y;
 	int is_touch;
 	int is_exist;
+
 }Enemy;
-extern Enemy enemy[5];
+extern Enemy enemy[6];
 
 
 typedef struct Brick {
