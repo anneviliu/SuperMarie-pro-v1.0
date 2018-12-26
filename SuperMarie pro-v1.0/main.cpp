@@ -41,13 +41,16 @@ int is_get_score = 0;
 int is_touch_gold = 0;
 int can_forward = 1;
 int game_state = 1;
-int touch_count = 0;
+int touch_count[11] = {0};
 int temp = 0;
 int num_hero = 0,num_gold = 0, num_brick=1 ,num_fw=0; //实现人物的步伐动作
 int wh_brick_count = 0;
 int cur_direction[7] = { 0 };
+int score = 0;
+int enemy_can_move = 1;
 Gold gold[11];
 Enemy enemy[6];
+
 IMAGE img_hero[3], img_level1;
 IMAGE img_hero_die[3],img_gold[3],img_enemies[3], img_brick[3],img_wh_brick[3];
 IMAGE img_hero_left[3], img_hero_right[3];
@@ -80,9 +83,7 @@ int main()
 			BeginBatchDraw();
 			hero_move(); //人物移动
 			judge(); // 障碍判定等
-			//acmusic_control();	
 			show(); //显示画面
-
 			if (is_die == 1) //如果人物死亡
 			{
 				hero_die_show(); //人物死亡形象
@@ -90,6 +91,7 @@ int main()
 				hero_die_menu_show(); //人物死亡效果显示
 				preload(); //初始化数据
 			}
+			
 			EndBatchDraw();
 		}
 	}

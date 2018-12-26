@@ -35,7 +35,10 @@ extern IMAGE img_final_home[3];
 extern double cur_vx;
 extern double cur_vy;
 extern double h_now;
-extern int touch_count;
+extern int touch_count[11];
+
+
+
 extern int is_jump;
 extern int is_die;
 extern int is_replay;
@@ -50,6 +53,8 @@ extern int can_left;
 extern int can_right;
 extern int develop_flag;
 extern int cur_direction[7];
+extern int score;
+extern int enemy_can_move;
 VOID B(PVOID p); //线程B
 VOID A(PVOID p);//线程B
 extern struct Blank;
@@ -59,7 +64,7 @@ typedef struct Gold {
 	double begin_x, begin_y;
 	double final_x, final_y;
 	int is_touch;
-	int is_get_score;
+	int is_first_touch;
 }Gold;
 extern Gold gold[11];//金币数组
 
@@ -71,6 +76,7 @@ typedef struct Enemy {
 	int is_die;
 	int rec_x;
 	int rec_y;
+	int is_first_touch;
 }Enemy;
 extern Enemy enemy[6];
 

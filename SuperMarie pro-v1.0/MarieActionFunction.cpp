@@ -124,6 +124,8 @@ void hero_move()
 
 	if (GetAsyncKeyState(VK_UP) && !is_jump)
 	{
+		mciSendString("play music_jump from 0", NULL, 0, NULL);//跳跃音效
+
 		hero_vy = -23;//跳跃初速度
 		is_jump = 1;//是否跳跃
 		cur_positionY += shift_y(&hero_vy, TIME, GRAVITY);
@@ -131,7 +133,7 @@ void hero_move()
 	else
 	{
 		cur_positionY += shift_y(&hero_vy, TIME, GRAVITY);
-		if (cur_positionY >= 600) 
+		if (cur_positionY >= 600)
 		{//是否落地
 			cur_positionY = HIGH - 120;
 			hero_vy = 0;
@@ -246,9 +248,9 @@ void judge()
 	{
 		is_jump = 0;
 		cur_positionY -= shift_y(&hero_vy, TIME, GRAVITY);
-	} 
+	}
 	if (real_positionX + HERO_WIDTH / 2.0 >= 4000
-		&& real_positionX + HERO_WIDTH / 2.0 <= 4000+97*2
+		&& real_positionX + HERO_WIDTH / 2.0 <= 4000 + 97 * 2
 		&& cur_positionY + HERO_HIGH >= 420 && cur_positionY + HERO_HIGH <= 430)
 	{
 		is_jump = 0;
@@ -286,8 +288,8 @@ void judge()
 			can_left = 1;
 	} //向左障碍判定
 
-	if(real_positionX+HERO_WIDTH/2.0>=590&&real_positionX+HERO_WIDTH/2.0<=600
-		&&cur_positionY+HERO_HIGH<=460+48&&cur_positionY+HERO_HIGH>=460&&is_right==1)
+	if (real_positionX + HERO_WIDTH / 2.0 >= 590 && real_positionX + HERO_WIDTH / 2.0 <= 600
+		&& cur_positionY + HERO_HIGH <= 460 + 48 && cur_positionY + HERO_HIGH >= 460 && is_right == 1)
 	{
 		hero_vx = 0;
 		can_right = 0;
@@ -298,7 +300,7 @@ void judge()
 	}
 
 	if (real_positionX + HERO_WIDTH / 2.0 >= 2590 && real_positionX + HERO_WIDTH / 2.0 <= 2600
-		&& cur_positionY + HERO_HIGH <= 400+48 && cur_positionY + HERO_HIGH >= 400 && is_right == 1)
+		&& cur_positionY + HERO_HIGH <= 400 + 48 && cur_positionY + HERO_HIGH >= 400 && is_right == 1)
 	{
 		hero_vx = 0;
 		can_right = 0;
@@ -317,7 +319,7 @@ void judge()
 	else
 	{
 		can_right = 1;
-	} 
+	}
 	if (real_positionX + HERO_WIDTH / 2.0 >= 3990 && real_positionX + HERO_WIDTH / 2.0 <= 4000
 		&& cur_positionY + HERO_HIGH <= 468 && cur_positionY + HERO_HIGH >= 420 && is_right == 1)
 	{
@@ -329,8 +331,8 @@ void judge()
 		can_right = 1;
 	}
 
-	if (real_positionX + HERO_WIDTH / 2.0 >= 3400 && real_positionX + HERO_WIDTH / 2.0 <=3410
-		&& cur_positionY + HERO_HIGH <= 480+47 && cur_positionY + HERO_HIGH >= 480 && is_right == 1)
+	if (real_positionX + HERO_WIDTH / 2.0 >= 3400 && real_positionX + HERO_WIDTH / 2.0 <= 3410
+		&& cur_positionY + HERO_HIGH <= 480 + 47 && cur_positionY + HERO_HIGH >= 480 && is_right == 1)
 	{
 		hero_vx = 0;
 		can_right = 0;
@@ -341,8 +343,8 @@ void judge()
 	}
 	//砖块左边界
 
-	if (real_positionX + HERO_WIDTH / 2.0 >= 600+97*3 && real_positionX + HERO_WIDTH / 2.0 <= 600+97*3+10
-		&& cur_positionY + HERO_HIGH <= 460+48 && cur_positionY + HERO_HIGH >= 460 && is_left == 1)
+	if (real_positionX + HERO_WIDTH / 2.0 >= 600 + 97 * 3 && real_positionX + HERO_WIDTH / 2.0 <= 600 + 97 * 3 + 10
+		&& cur_positionY + HERO_HIGH <= 460 + 48 && cur_positionY + HERO_HIGH >= 460 && is_left == 1)
 	{
 		hero_vx = 0;
 		can_left = 0;
@@ -352,7 +354,7 @@ void judge()
 		can_left = 1;
 	}
 
-	if (real_positionX + HERO_WIDTH / 2.0 >= 988 + 47  && real_positionX + HERO_WIDTH / 2.0 <= 988+47+10
+	if (real_positionX + HERO_WIDTH / 2.0 >= 988 + 47 && real_positionX + HERO_WIDTH / 2.0 <= 988 + 47 + 10
 		&& cur_positionY + HERO_HIGH <= 447 && cur_positionY + HERO_HIGH >= 400 && is_left == 1)
 	{
 		hero_vx = 0;
@@ -363,7 +365,7 @@ void judge()
 		can_left = 1;
 	}
 
-	if (real_positionX + HERO_WIDTH / 2.0 >= 2697+97 && real_positionX + HERO_WIDTH / 2.0 <= 2697+97 + 10
+	if (real_positionX + HERO_WIDTH / 2.0 >= 2697 + 97 && real_positionX + HERO_WIDTH / 2.0 <= 2697 + 97 + 10
 		&& cur_positionY + HERO_HIGH <= 447 && cur_positionY + HERO_HIGH >= 400 && is_left == 1)
 	{
 		hero_vx = 0;
@@ -373,7 +375,7 @@ void judge()
 	{
 		can_left = 1;
 	}
-	if (real_positionX + HERO_WIDTH / 2.0 >= 4000+2*97 && real_positionX + HERO_WIDTH / 2.0 <= 4000+2*97+ 10
+	if (real_positionX + HERO_WIDTH / 2.0 >= 4000 + 2 * 97 && real_positionX + HERO_WIDTH / 2.0 <= 4000 + 2 * 97 + 10
 		&& cur_positionY + HERO_HIGH <= 467 && cur_positionY + HERO_HIGH >= 420 && is_left == 1)
 	{
 		hero_vx = 0;
@@ -384,8 +386,8 @@ void judge()
 		can_left = 1;
 	}
 
-	if (real_positionX + HERO_WIDTH / 2.0 >= 3410 +  97 && real_positionX + HERO_WIDTH / 2.0 <= 3410 + 97 + 10
-		&& cur_positionY + HERO_HIGH <= 480+47 && cur_positionY + HERO_HIGH >= 480 && is_left == 1)
+	if (real_positionX + HERO_WIDTH / 2.0 >= 3410 + 97 && real_positionX + HERO_WIDTH / 2.0 <= 3410 + 97 + 10
+		&& cur_positionY + HERO_HIGH <= 480 + 47 && cur_positionY + HERO_HIGH >= 480 && is_left == 1)
 	{
 		hero_vx = 0;
 		can_left = 0;
@@ -397,7 +399,7 @@ void judge()
 	//砖块右边界
 
 	if (real_positionX + HERO_WIDTH / 2.0 >= 600 && real_positionX + HERO_WIDTH / 2.0 <= 600 + 3 * 97
-		&& cur_positionY >= 460+47 && cur_positionY <= 470+47)
+		&& cur_positionY >= 460 + 47 && cur_positionY <= 470 + 47)
 	{
 		hero_vy = 0;
 		cur_vy = 0;
@@ -405,12 +407,12 @@ void judge()
 		if (cur_positionY >= 600)
 		{
 			cur_positionY = HIGH - 120;
-			
+
 			is_jump = 0;
 		}
 	}
 
-	if (real_positionX + HERO_WIDTH / 2.0 >= 891 && real_positionX + HERO_WIDTH / 2.0 <= 891+47+97
+	if (real_positionX + HERO_WIDTH / 2.0 >= 891 && real_positionX + HERO_WIDTH / 2.0 <= 891 + 47 + 97
 		&& cur_positionY >= 400 + 47 && cur_positionY <= 410 + 47)
 	{
 		hero_vy = 0;
@@ -424,7 +426,7 @@ void judge()
 		}
 	}
 
-	if (real_positionX + HERO_WIDTH / 2.0 >= 2600 && real_positionX + HERO_WIDTH / 2.0 <= 2600+97*2
+	if (real_positionX + HERO_WIDTH / 2.0 >= 2600 && real_positionX + HERO_WIDTH / 2.0 <= 2600 + 97 * 2
 		&& cur_positionY >= 400 + 47 && cur_positionY <= 410 + 47)
 	{
 		hero_vy = 0;
@@ -452,7 +454,7 @@ void judge()
 		}
 	}
 
-	if (real_positionX + HERO_WIDTH / 2.0 >= 3410 && real_positionX + HERO_WIDTH / 2.0 <= 3410 + 97 
+	if (real_positionX + HERO_WIDTH / 2.0 >= 3410 && real_positionX + HERO_WIDTH / 2.0 <= 3410 + 97
 		&& cur_positionY >= 480 + 47 && cur_positionY <= 490 + 47)
 	{
 		hero_vy = 0;
@@ -469,8 +471,8 @@ void judge()
 
 
 
-	
-    for (i = 0; i < 11; i++)
+
+	for (i = 0; i < 11; i++)
 	{
 		if (real_positionX >= gold[i].begin_x
 			&&real_positionX <= gold[i].final_x
@@ -478,71 +480,65 @@ void judge()
 			&&cur_positionY <= gold[i].final_y)
 		{
 			gold[i].is_touch = 1;
-			if (touch_count == 0)
+
+			if (gold[i].is_first_touch == 1 && gold[i].is_touch == 1)
 			{
-				gold[i].is_get_score = 1;
+				score += 10;
+				gold[i].is_first_touch =0;
+				mciSendString("play music_gold from 0", NULL, 0, NULL); //吃金币音效
+
 			}
-			touch_count++;
+			
 
 		}
-		else
-		{
-			gold[i].is_get_score = 0;
-
-		}
+	
 		if (real_positionX >= gold[i].begin_x
 			&&real_positionX <= gold[i].final_x
 			&&cur_positionY + HERO_HIGH >= gold[i].begin_y
 			&&cur_positionY + HERO_HIGH <= gold[i].final_y)
 		{
 			gold[i].is_touch = 1;
-			if (touch_count == 0)
+
+			if (gold[i].is_first_touch == 1 && gold[i].is_touch == 1)
 			{
-				gold[i].is_get_score = 1;
+				score += 10;
+				gold[i].is_first_touch = 0;
+				mciSendString("play music_gold from 0", NULL, 0, NULL); //吃金币音效
+
 			}
-				touch_count++;
-
 		}
-		else
-		{
-			gold[i].is_get_score = 0;
 
-		}
+
 		if (real_positionX + HERO_WIDTH / 2.0 >= gold[i].begin_x
 			&&real_positionX + HERO_WIDTH / 2.0 <= gold[i].final_x
 			&&cur_positionY >= gold[i].begin_y
 			&&cur_positionY <= gold[i].final_y)
 		{
 			gold[i].is_touch = 1;
-			if (touch_count == 0)
+			if (gold[i].is_first_touch == 1 && gold[i].is_touch == 1)
 			{
-				gold[i].is_get_score = 1;
+				score += 10;
+				gold[i].is_first_touch = 0;
+				mciSendString("play music_gold from 0", NULL, 0, NULL); //吃金币音效
+
 			}
-			touch_count++;
-
 		}
-		else
-		{
-			gold[i].is_get_score = 0;
 
-		}
 		if (real_positionX + HERO_WIDTH / 2.0 >= gold[i].begin_x
 			&&real_positionX + HERO_WIDTH / 2.0 <= gold[i].final_x
 			&&cur_positionY + HERO_HIGH >= gold[i].begin_y
 			&&cur_positionY + HERO_HIGH <= gold[i].final_y)
 		{
 			gold[i].is_touch = 1;
-			if (touch_count == 0)
+			if (gold[i].is_first_touch == 1 && gold[i].is_touch == 1)
 			{
-				gold[i].is_get_score = 1;
+				
+				score += 10;
+				gold[i].is_first_touch = 0;
+				mciSendString("play music_gold from 0", NULL, 0, NULL); //吃金币音效
 			}
-			touch_count++;
-        }
-		else
-		{
-			gold[i].is_get_score = 0;
-
 		}
+
 	} //触碰金币
 
 	for (i = 0; i < 6; i++)
@@ -555,10 +551,16 @@ void judge()
 				&& cur_positionY + HERO_HIGH <= enemy[i].cur_begin_y)
 			{
 				enemy[i].is_touch = 1;
-				enemy[i].is_exist = 0;
-				enemy[i].is_die = 1;
-				enemy[i].rec_x = enemy[i].cur_begin_x;
-				enemy[i].rec_y = enemy[i].cur_begin_y;
+
+				if (enemy[i].is_first_touch == 1 && enemy[i].is_touch == 1)
+				{
+					enemy[i].is_exist = 0;
+					enemy[i].is_die = 1;
+					score += 20;
+					enemy[i].is_first_touch == 0;
+					mciSendString("play music_enemy from 0", NULL, 0, NULL); //踩敌人
+
+				}
 
 			}
 
@@ -568,8 +570,16 @@ void judge()
 				&& cur_positionY + HERO_HIGH <= enemy[i].cur_begin_y)
 			{
 				enemy[i].is_touch = 1;
-				enemy[i].is_exist = 0;
-				enemy[i].is_die = 1;
+
+				if (enemy[i].is_first_touch == 1 && enemy[i].is_touch == 1)
+				{
+					enemy[i].is_exist = 0;
+					enemy[i].is_die = 1;
+					score += 20;
+					enemy[i].is_first_touch == 0;
+					mciSendString("play music_enemy from 0", NULL, 0, NULL); //踩敌人
+
+				}
 
 			}
 
@@ -579,6 +589,7 @@ void judge()
 			{
 				is_die = 1;
 			}
+
 			if (real_positionX + HERO_WIDTH / 2.0 >= enemy[i].cur_begin_x - 10
 				&& real_positionX + HERO_WIDTH / 2.0 <= enemy[i].cur_begin_x
 				&& cur_positionY + HERO_HIGH >= enemy[i].cur_begin_y)
@@ -589,5 +600,12 @@ void judge()
 		}
 	}  //触碰敌人判定
 
-	
+	if (real_positionX >= 6000 )
+	{
+		can_forward = 0;
+		mciSendString("stop music_back", NULL, 0, NULL); //背景音乐停止
+		mciSendString("play music_success from 0", NULL, 0, NULL); //背景音乐
+	}
+
+
 }

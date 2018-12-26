@@ -184,8 +184,10 @@ void show()
 {
 	BeginBatchDraw();
 	map_show();
+	develop_mode();
 	flower_show();
 	gold_show();
+	score_show();
 	enemy_show(0, 0);
 	enemy_show(1, 0);
 	between_enemy_show(2, 1555, 1978);//1546 1938   2066 2353
@@ -193,6 +195,7 @@ void show()
 	between_enemy_show(4, 3672, 4473);
 	between_enemy_show(5, 4700, 5600);
 	brick_show();
+	
 	//final_show();
 
 	//putimage(old_positionX, old_positionY, 35, 50, &img_level1, old_positionX, HERO_INIT_Y, SRCCOPY);
@@ -211,16 +214,18 @@ void show()
 
 	old_positionX = cur_positionX;
 	old_positionY = cur_positionY;
-	if (GetAsyncKeyState(VK_F5) && develop_flag == 0)
-	{
-		develop_mode();
-	}
+	
+	
 	FlushBatchDraw();
 	EndBatchDraw();
 }
 
 void begin()
 {
+	mciSendString("open res\\金币.mp3 alias music_gold", NULL, 0, NULL);
+	mciSendString("open res\\跳.mp3 alias music_jump", NULL, 0, NULL);
+	mciSendString("open res\\踩敌人.mp3 alias music_enemy", NULL, 0, NULL);
+	mciSendString("open res\\通关.mp3 alias music_success", NULL, 0, NULL);
 
 	//mciSendString("open res\\背景音乐.mp3 alias music_back", NULL, 0, NULL);
 	//mciSendString("play music_back", NULL, 0, NULL);
@@ -285,7 +290,7 @@ void preload()
 	is_replay = 0;
 	can_forward = 1;
 	num_hero = 0; //实现人物的步伐动作
-
+	score = 0;
 	gold[0].begin_x = 400;//初始化金币位置
 	gold[0].begin_y = 430;
 	gold[1].begin_x = 450;
@@ -312,12 +317,10 @@ void preload()
 	{
 		gold[i].final_x = gold[i].begin_x + 48;
 		gold[i].final_y = gold[i].begin_y + 44;
-	}
-	for (int i = 0; i <= 10; i++)
-	{
 		gold[i].is_touch = 0;
+		gold[i].is_first_touch = 1;
 	}
-
+//===================================================//
 	enemy[0].cur_begin_x = 500;
 	enemy[0].cur_begin_y = 594;
 	enemy[1].cur_begin_x = 570;
@@ -330,13 +333,15 @@ void preload()
 	enemy[4].cur_begin_y = 594;
 	enemy[5].cur_begin_x = 5300;
 	enemy[5].cur_begin_y = 594;
-	for (int i = 0; i <= 5; i++) {
+	for (int i = 0; i <= 5; i++) 
+	{
 		enemy[i].cur_final_x = enemy[i].cur_begin_x + 50;
 		enemy[i].cur_final_y = enemy[i].cur_begin_y + 50;
 		enemy[i].is_exist = 1;
 		enemy[i].is_die = 0;
 		enemy[i].rec_x = 0;
 		enemy[i].rec_y = 0;
+		enemy[i].is_first_touch = 1;
 	}
 
 
@@ -405,14 +410,14 @@ void enemy_show(int i, int direction) //i代表是第几个敌人，direction代
 {
 	putimage(enemy[i].cur_begin_x - map_position, enemy[i].cur_begin_y, 50, 50, &img_enemies[2], 0, 46, NOTSRCERASE);
 	putimage(enemy[i].cur_begin_x - map_position, enemy[i].cur_begin_y, 50, 50, &img_enemies[1], 0, 46, SRCINVERT);
-	if (!direction)
+	if (!direction&&enemy_can_move==1)
 	{
 		
 		enemy[i].cur_begin_x += ENEMY_SHIFT_LEFT;//敌人向左
 		enemy[i].cur_final_x = enemy[i].cur_begin_x + 50;
 
 	}
-	else
+	if(direction!=0&& enemy_can_move==1)
 	{
 		enemy[i].cur_begin_x += ENEMY_SHIFT_RIGHT;//敌人向右
 		enemy[i].cur_final_x = enemy[i].cur_begin_x + 50;
@@ -420,8 +425,9 @@ void enemy_show(int i, int direction) //i代表是第几个敌人，direction代
 
 		if (enemy[1].is_die == 1)
 		{
-			enemy[1].cur_begin_x = enemy[1].rec_x;
-			enemy[1].cur_begin_y = enemy[1].rec_y;
+			
+			//enemy[1].cur_begin_y = 10000;
+			enemy_can_move = 0;
 			putimage(enemy[1].cur_begin_x, enemy[1].cur_begin_y, 65, 65, &img_enemy_die[2], 324, 527, NOTSRCERASE);
 			putimage(enemy[1].cur_begin_x, enemy[1].cur_begin_y, 65, 65, &img_enemy_die[1], 324, 527, SRCINVERT);
 			
@@ -429,41 +435,15 @@ void enemy_show(int i, int direction) //i代表是第几个敌人，direction代
 		}			
 		if (enemy[2].is_die == 1)
 		{
-			enemy[2].cur_begin_x = enemy[2].rec_x;
-			enemy[2].cur_begin_y = enemy[2].rec_y;
+			enemy_can_move = 0;
+			//enemy[2].cur_begin_y = 10000;
+			
 			putimage(enemy[2].cur_begin_x, enemy[2].cur_begin_y, 65, 65, &img_enemy_die[2], 324, 527, NOTSRCERASE);
 			putimage(enemy[2].cur_begin_x, enemy[2].cur_begin_y, 65, 65, &img_enemy_die[1], 324, 527, SRCINVERT);
 
 			enemy[2].is_die = 0;
 		}
-		if (enemy[3].is_die == 1)
-		{
-			enemy[3].cur_begin_x = enemy[3].rec_x;
-			enemy[3].cur_begin_y = enemy[3].rec_y;
-			putimage(enemy[3].cur_begin_x, enemy[3].cur_begin_y, 65, 65, &img_enemy_die[2], 324, 527, NOTSRCERASE);
-			putimage(enemy[3].cur_begin_x, enemy[3].cur_begin_y, 65, 65, &img_enemy_die[1], 324, 527, SRCINVERT);
-
-			enemy[3].is_die = 0;
-		}
-		if (enemy[4].is_die == 1)
-		{
-			enemy[4].cur_begin_x = enemy[4].rec_x;
-			enemy[4].cur_begin_y = enemy[4].rec_y;
-			putimage(enemy[4].cur_begin_x, enemy[4].cur_begin_y, 65, 65, &img_enemy_die[2], 324, 527, NOTSRCERASE);
-			putimage(enemy[4].cur_begin_x, enemy[4].cur_begin_y, 65, 65, &img_enemy_die[1], 324, 527, SRCINVERT);
-
-			enemy[4].is_die = 0;
-		}
-		if (enemy[5].is_die == 1)
-		{
-			enemy[5].cur_begin_x = enemy[5].rec_x;
-			enemy[5].cur_begin_y = enemy[5].rec_y;
-			putimage(enemy[5].cur_begin_x, enemy[5].cur_begin_y, 65, 65, &img_enemy_die[2], 324, 527, NOTSRCERASE);
-			putimage(enemy[5].cur_begin_x, enemy[5].cur_begin_y, 65, 65, &img_enemy_die[1], 324, 527, SRCINVERT);
-
-			enemy[5].is_die = 0;
-		}
-	
+		
 
 }
 
@@ -475,16 +455,48 @@ void between_enemy_show(int i, double left, double right)//两个水管之间的
 		cur_direction[i] = 0;
 	putimage(enemy[i].cur_begin_x - map_position, enemy[i].cur_begin_y, 50, 50, &img_enemies[2], 0, 46, NOTSRCERASE);
 	putimage(enemy[i].cur_begin_x - map_position, enemy[i].cur_begin_y, 50, 50, &img_enemies[1], 0, 46, SRCINVERT);
-	if (!cur_direction[i])
+
+	if (!cur_direction[i]&&enemy_can_move)
 	{
 		enemy[i].cur_begin_x += ENEMY_SHIFT_LEFT;
 		enemy[i].cur_final_x = enemy[i].cur_begin_x + 50;
 	}
-	else
+	if(cur_direction&&enemy_can_move)
 	{
 		enemy[i].cur_begin_x += ENEMY_SHIFT_RIGHT;
 		enemy[i].cur_final_x = enemy[i].cur_begin_x + 50;
 	}
+
+
+	if (enemy[3].is_die == 1)
+	{
+		enemy_can_move = 0;
+		//putimage(enemy[3].cur_begin_x, enemy[3].cur_begin_y, 65, 65, &img_enemy_die[2], 324, 527, NOTSRCERASE);
+		//putimage(enemy[3].cur_begin_x, enemy[3].cur_begin_y, 65, 65, &img_enemy_die[1], 324, 527, SRCINVERT);
+		enemy[3].cur_begin_y = 10000;
+
+		enemy[3].is_die = 0;
+	}
+	if (enemy[4].is_die == 1)
+	{
+		enemy_can_move = 0;
+		//putimage(enemy[4].cur_begin_x, enemy[4].cur_begin_y, 65, 65, &img_enemy_die[2], 324, 527, NOTSRCERASE);
+		//putimage(enemy[4].cur_begin_x, enemy[4].cur_begin_y, 65, 65, &img_enemy_die[1], 324, 527, SRCINVERT);
+		enemy[4].cur_begin_y = 10000;
+
+		enemy[4].is_die = 0;
+	}
+	if (enemy[5].is_die == 1)
+	{
+		enemy_can_move = 0;
+		
+		//putimage(enemy[5].cur_begin_x, enemy[5].cur_begin_y, 65, 65, &img_enemy_die[2], 324, 527, NOTSRCERASE);
+		//putimage(enemy[5].cur_begin_x, enemy[5].cur_begin_y, 65, 65, &img_enemy_die[1], 324, 527, SRCINVERT);
+		enemy[5].cur_begin_y = 10000;
+
+		enemy[5].is_die = 0;
+	}
+
 }
 
 void brick_show()
@@ -523,20 +535,22 @@ void brick_show()
 	
 	if (real_positionX >= 2400)
 	{
-//		SetWorkingImage(&img_level1);
+		//SetWorkingImage(&img_level1);
 		putimage(2600-map_position, 400, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
 		putimage(2600-map_position, 400, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
 		putimage(2697-map_position, 400, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
 		putimage(2697-map_position, 400, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
+		//SetWorkingImage();
 	}
 	if (real_positionX >= 3410 && is_jump == 1)
 	{
-//		SetWorkingImage(&img_level1);
+    	//SetWorkingImage(&img_level1);
 		putimage(3410-map_position, 480, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
-		putimage(3410-map_position, 480, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
+		putimage(3410-map_position, 480, 97, 48, &img_brick[1], 48, 0, SRCINVERT);  
+		//SetWorkingImage();
 	}
 
-//	SetWorkingImage(NULL);
+      
 }
 
 void hero_die_show()
@@ -627,20 +641,6 @@ void hero_die_menu_show()
 	}
 }
 
-void acmusic_control()
-{
-	if (is_jump == 1)
-	{
-		mciSendString("open res\\跳.mp3 alias music_jump", NULL, 0, NULL);
-		mciSendString("play music_jump from 0", NULL, 0, NULL);
-	}
-	else
-	{
-		mciSendString("close music_jump", NULL, 0, NULL);
-
-	}
-
-}
 
 void develop_mode()
 {
@@ -684,10 +684,22 @@ void develop_mode()
 	sprintf(s9, "touch_count = %d", touch_count);
 	outtextxy(10, 230, s9);
 	char s10[50];
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < 6; i++)
 	{
-		sprintf(s10, "enemy[i].is_touch = %d", enemy[i].is_touch);
-		outtextxy(10, 230 + 20 * i, s10);
+		sprintf(s10, "enemy[%d].is_touch = %d", i,enemy[i].is_touch);
+		outtextxy(10, 250 + 20 * i, s10);
+	}
+	char s11[50];
+	for (int i = 0; i < 11; i++)
+	{
+		sprintf(s11, "gold[%d].is_touch = %d", i, gold[i].is_touch);
+		outtextxy(430, 0+ 20 * i, s11);
+	}
+	char s12[50];
+	for (int i = 0; i < 6; i++)
+	{
+		sprintf(s12, "enemy[%d].beginX = %lf", i, enemy[i].cur_begin_x);
+		outtextxy(630,  + 20 * i, s12);
 	}
 }
 
@@ -696,18 +708,18 @@ void flower_show()
 
 	if (real_positionX >= 2240&&num_fw<=100)
 	{
-//		SetWorkingImage(&img_level1);
+		//SetWorkingImage(&img_level1);
 		putimage(2410-map_position, 468 - 100, 50, -30 + 100, &img_flower[2], 0, 100, NOTSRCERASE);
 		putimage(2410-map_position, 468 - 100, 50, -30 + 100, &img_flower[1], 0, 100, SRCINVERT);
 
 		//num_fw++;
 	}
-//	SetWorkingImage(NULL);
+	//SetWorkingImage(NULL);
 }
 
 void final_show()
 {  //5310,393
-//	SetWorkingImage(&img_level1);
+	SetWorkingImage(&img_level1);
 	putimage(5310 - map_position, 290, 347, 357, &img_final_step[2], 0, 394, NOTSRCERASE);
 	putimage(5310 - map_position, 290, 349, 357, &img_final_step[1], 0, 394, SRCINVERT);
 	putimage(5810 - map_position, 157, 200, 485, &img_final_flag[2], 565, 261, NOTSRCERASE);
@@ -715,7 +727,20 @@ void final_show()
 	putimage(6100 - map_position, 420, 238, 229, &img_final_home[2], 855, 520, NOTSRCERASE);
 	putimage(6100 - map_position, 420, 238, 229, &img_final_home[1], 855, 520, SRCINVERT);
 	//FlushBatchDraw();
-//	SetWorkingImage(NULL);
+	SetWorkingImage();
+	
 	
 }
+
+void score_show()
+{
+		
+	settextcolor(RED);
+	settextstyle(35, 0, "楷体");
+	setbkmode(TRANSPARENT);
+	char score_txt[50];
+	sprintf(score_txt, "得分 = %d", score);
+	outtextxy(1000, 20, score_txt);
+}
+
 ///////////////////////////////////////////////////////////////////////
