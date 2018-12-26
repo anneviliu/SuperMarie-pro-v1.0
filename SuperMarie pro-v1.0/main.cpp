@@ -90,7 +90,7 @@ int main()
 				hero_die_menu_show(); //人物死亡效果显示
 				preload(); //初始化数据
 			}
-			FlushBatchDraw();
+			EndBatchDraw();
 		}
 	}
 	//背景移动

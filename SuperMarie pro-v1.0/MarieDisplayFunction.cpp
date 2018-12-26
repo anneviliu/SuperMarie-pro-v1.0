@@ -170,6 +170,7 @@ void game_show()
 	putimage(map_position, 0, WIDTH, HIGH, &img_level1, 0, 0);
 	putimage(cur_positionX, HIGH - 120, HERO_WIDTH, HERO_HIGH, &img_hero_right[2], 210, 80, NOTSRCERASE);
 	putimage(cur_positionX, HIGH - 120, HERO_WIDTH, HERO_HIGH, &img_hero_right[1], 210, 80, SRCINVERT);
+	final_show();
 	EndBatchDraw();
 	old_positionX = cur_positionX;
 
@@ -182,7 +183,6 @@ void game_show()
 void show()
 {
 	BeginBatchDraw();
-
 	map_show();
 	flower_show();
 	gold_show();
@@ -193,7 +193,7 @@ void show()
 	between_enemy_show(4, 3672, 4473);
 	between_enemy_show(5, 4700, 5600);
 	brick_show();
-	final_show();
+	//final_show();
 
 	//putimage(old_positionX, old_positionY, 35, 50, &img_level1, old_positionX, HERO_INIT_Y, SRCCOPY);
 	if (is_right == 1)
@@ -501,12 +501,12 @@ void brick_show()
 	putimage(988 - map_position, 400, 47, 47, &img_wh_brick[2], 1154 + 47, 0, NOTSRCERASE);
 	putimage(988 - map_position, 400, 47, 47, &img_wh_brick[1], 1154 + 47, 0, SRCINVERT);
 	wh_brick_count++;
-	if (wh_brick_count == 2)
+	if (wh_brick_count == 3)
 	{
 		putimage(988 - map_position, 400, 47, 47, &img_wh_brick[2], 1154 + 47 * num_brick, 0, NOTSRCERASE);
 		putimage(988 - map_position, 400, 47, 47, &img_wh_brick[1], 1154 + 47 * num_brick, 0, SRCINVERT);
 	}
-	if (wh_brick_count == 2)
+	if (wh_brick_count == 3)
 	{
 		wh_brick_count = 0;
 		num_brick++;
