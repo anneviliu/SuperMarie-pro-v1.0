@@ -523,20 +523,20 @@ void brick_show()
 	
 	if (real_positionX >= 2400)
 	{
-		SetWorkingImage(&img_level1);
-		putimage(2600, 400, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
-		putimage(2600, 400, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
-		putimage(2697, 400, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
-		putimage(2697, 400, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
+//		SetWorkingImage(&img_level1);
+		putimage(2600-map_position, 400, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
+		putimage(2600-map_position, 400, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
+		putimage(2697-map_position, 400, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
+		putimage(2697-map_position, 400, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
 	}
 	if (real_positionX >= 3410 && is_jump == 1)
 	{
-		SetWorkingImage(&img_level1);
-		putimage(3410, 480, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
-		putimage(3410, 480, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
+//		SetWorkingImage(&img_level1);
+		putimage(3410-map_position, 480, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
+		putimage(3410-map_position, 480, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
 	}
 
-	SetWorkingImage(NULL);
+//	SetWorkingImage(NULL);
 }
 
 void hero_die_show()
@@ -696,26 +696,26 @@ void flower_show()
 
 	if (real_positionX >= 2240&&num_fw<=100)
 	{
-		SetWorkingImage(&img_level1);
-		putimage(2410, 468 - 100, 50, -30 + 100, &img_flower[2], 0, 100, NOTSRCERASE);
-		putimage(2410, 468 - 100, 50, -30 + 100, &img_flower[1], 0, 100, SRCINVERT);
+//		SetWorkingImage(&img_level1);
+		putimage(2410-map_position, 468 - 100, 50, -30 + 100, &img_flower[2], 0, 100, NOTSRCERASE);
+		putimage(2410-map_position, 468 - 100, 50, -30 + 100, &img_flower[1], 0, 100, SRCINVERT);
 
 		//num_fw++;
 	}
-	SetWorkingImage(NULL);
+//	SetWorkingImage(NULL);
 }
 
 void final_show()
 {  //5310,393
-	SetWorkingImage(&img_level1);
-	putimage(5310, 290, 347, 357, &img_final_step[2], 0, 394, NOTSRCERASE);
-	putimage(5310, 290, 349, 357, &img_final_step[1], 0, 394, SRCINVERT);
-	putimage(5810, 157, 200, 485, &img_final_flag[2], 565, 261, NOTSRCERASE);
-	putimage(5810, 157, 200, 485, &img_final_flag[1], 565, 261, SRCINVERT);
-	putimage(6100, 420, 238, 229, &img_final_home[2], 855, 520, NOTSRCERASE);
-	putimage(6100, 420, 238, 229, &img_final_home[1], 855, 520, SRCINVERT);
+//	SetWorkingImage(&img_level1);
+	putimage(5310 - map_position, 290, 347, 357, &img_final_step[2], 0, 394, NOTSRCERASE);
+	putimage(5310 - map_position, 290, 349, 357, &img_final_step[1], 0, 394, SRCINVERT);
+	putimage(5810 - map_position, 157, 200, 485, &img_final_flag[2], 565, 261, NOTSRCERASE);
+	putimage(5810 - map_position, 157, 200, 485, &img_final_flag[1], 565, 261, SRCINVERT);
+	putimage(6100 - map_position, 420, 238, 229, &img_final_home[2], 855, 520, NOTSRCERASE);
+	putimage(6100 - map_position, 420, 238, 229, &img_final_home[1], 855, 520, SRCINVERT);
 	//FlushBatchDraw();
-	SetWorkingImage(NULL);
+//	SetWorkingImage(NULL);
 	
 }
 ///////////////////////////////////////////////////////////////////////
