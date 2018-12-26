@@ -319,6 +319,7 @@ void preload()
 	for (int i = 0; i <= 5; i++) {
 		enemy[i].cur_final_x = enemy[i].cur_begin_x + 50;
 		enemy[i].cur_final_y = enemy[i].cur_begin_y + 50;
+		enemy[i].is_exist = 1;
 	}
 
 
@@ -429,6 +430,10 @@ void brick_show()
 	putimage(891 - map_position, 400, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
 	putimage(988 - map_position, 400, 47, 47, &img_wh_brick[2], 1154 + 47 * num_brick, 0, NOTSRCERASE);
 	putimage(988 - map_position, 400, 47, 47, &img_wh_brick[1], 1154 + 47 * num_brick, 0, SRCINVERT);
+	putimage(4000 - map_position, 420, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
+	putimage(4000 - map_position, 420, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
+	putimage(4097 - map_position, 420, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
+	putimage(4097 - map_position, 420, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
 	num_brick++;
 	num_brick %= 4;
 	if (real_positionX >= 2400)
@@ -439,6 +444,13 @@ void brick_show()
 		putimage(2697, 400, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
 		putimage(2697, 400, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
 	}
+	if(real_positionX>=3410&&is_jump==1)
+	{
+		SetWorkingImage(&img_level1);
+		putimage(3410, 480, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
+		putimage(3410, 480, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
+	}
+
 	SetWorkingImage(NULL);
 }
 

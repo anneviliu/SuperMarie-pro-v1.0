@@ -244,7 +244,15 @@ void judge()
 	{
 		is_jump = 0;
 		cur_positionY -= shift_y(&hero_vy, TIME, GRAVITY);
-	} //砖块支撑
+	} 
+	if (real_positionX + HERO_WIDTH / 2.0 >= 4000
+		&& real_positionX + HERO_WIDTH / 2.0 <= 4000+97*2
+		&& cur_positionY + HERO_HIGH >= 420 && cur_positionY + HERO_HIGH <= 430)
+	{
+		is_jump = 0;
+		cur_positionY -= shift_y(&hero_vy, TIME, GRAVITY);
+	}
+	//砖块支撑
 	//支撑判定
 
 	for (i = 0; i < 4; i++)
@@ -307,7 +315,29 @@ void judge()
 	else
 	{
 		can_right = 1;
-	} //砖块左边界
+	} 
+	if (real_positionX + HERO_WIDTH / 2.0 >= 3990 && real_positionX + HERO_WIDTH / 2.0 <= 4000
+		&& cur_positionY + HERO_HIGH <= 468 && cur_positionY + HERO_HIGH >= 420 && is_right == 1)
+	{
+		hero_vx = 0;
+		can_right = 0;
+	}
+	else
+	{
+		can_right = 1;
+	}
+
+	if (real_positionX + HERO_WIDTH / 2.0 >= 3400 && real_positionX + HERO_WIDTH / 2.0 <=3410
+		&& cur_positionY + HERO_HIGH <= 480+47 && cur_positionY + HERO_HIGH >= 480 && is_right == 1)
+	{
+		hero_vx = 0;
+		can_right = 0;
+	}
+	else
+	{
+		can_right = 1;
+	}
+	//砖块左边界
 
 	if (real_positionX + HERO_WIDTH / 2.0 >= 600+97*3 && real_positionX + HERO_WIDTH / 2.0 <= 600+97*3+10
 		&& cur_positionY + HERO_HIGH <= 460+48 && cur_positionY + HERO_HIGH >= 460 && is_left == 1)
@@ -340,7 +370,29 @@ void judge()
 	else
 	{
 		can_left = 1;
-	} //砖块右边界
+	}
+	if (real_positionX + HERO_WIDTH / 2.0 >= 4000+2*97 && real_positionX + HERO_WIDTH / 2.0 <= 4000+2*97+ 10
+		&& cur_positionY + HERO_HIGH <= 467 && cur_positionY + HERO_HIGH >= 420 && is_left == 1)
+	{
+		hero_vx = 0;
+		can_left = 0;
+	}
+	else
+	{
+		can_left = 1;
+	}
+
+	if (real_positionX + HERO_WIDTH / 2.0 >= 3410 +  97 && real_positionX + HERO_WIDTH / 2.0 <= 3410 + 97 + 10
+		&& cur_positionY + HERO_HIGH <= 480+47 && cur_positionY + HERO_HIGH >= 480 && is_left == 1)
+	{
+		hero_vx = 0;
+		can_left = 0;
+	}
+	else
+	{
+		can_left = 1;
+	}
+	//砖块右边界
 
 	if (real_positionX + HERO_WIDTH / 2.0 >= 600 && real_positionX + HERO_WIDTH / 2.0 <= 600 + 3 * 97
 		&& cur_positionY >= 460+47 && cur_positionY <= 470+47)
@@ -382,12 +434,41 @@ void judge()
 
 			is_jump = 0;
 		}
-	} //砖块下边界 
+	}
+
+	if (real_positionX + HERO_WIDTH / 2.0 >= 4000 && real_positionX + HERO_WIDTH / 2.0 <= 4000 + 97 * 2
+		&& cur_positionY >= 420 + 47 && cur_positionY <= 430 + 47)
+	{
+		hero_vy = 0;
+		cur_vy = 0;
+		cur_positionY += shift_y(&hero_vy, TIME, GRAVITY);
+		if (cur_positionY >= 600)
+		{
+			cur_positionY = HIGH - 120;
+
+			is_jump = 0;
+		}
+	}
+
+	if (real_positionX + HERO_WIDTH / 2.0 >= 3410 && real_positionX + HERO_WIDTH / 2.0 <= 3410 + 97 
+		&& cur_positionY >= 480 + 47 && cur_positionY <= 490 + 47)
+	{
+		hero_vy = 0;
+		cur_vy = 0;
+		cur_positionY += shift_y(&hero_vy, TIME, GRAVITY);
+		if (cur_positionY >= 600)
+		{
+			cur_positionY = HIGH - 120;
+
+			is_jump = 0;
+		}
+	}
+	//砖块下边界 
 
 
 
 	
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < 11; i++)
 	{
 		if (real_positionX >= gold[i].begin_x
 			&&real_positionX <= gold[i].final_x
@@ -453,7 +534,7 @@ void judge()
 
 		}
 	} //触碰金币
-	for (i = 0; i < 2; i++)
+	for (i = 0; i < 6; i++)
 	{
 		if (enemy[i].is_exist == 1)
 		{
