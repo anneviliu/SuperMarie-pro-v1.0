@@ -522,7 +522,7 @@ void judge()
 	//砖块下边界 
 
 	if (real_positionX+HERO_WIDTH>=988 && real_positionX<=988+47
-		&&cur_positionY<=460&&cur_positionY>360 && is_jump) //988 - map_position, 400, 47, 47
+		&&cur_positionY<=460&&cur_positionY>=370 && is_jump) //988 - map_position, 400, 47, 47
 	{
 		is_touch_brick = 1;
 	}
@@ -670,7 +670,8 @@ void judge()
 	}
 	
 	if (real_positionX+HERO_WIDTH>=987 && real_positionX<=1037
-		&& cur_positionY+HERO_HIGH>=329&&cur_positionY<=399)
+		&& cur_positionY+HERO_HIGH>=329&&cur_positionY<=399
+		&&is_touch_brick)
 	{
 		is_die = 1;
 	}

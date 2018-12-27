@@ -282,6 +282,7 @@ void preload()
 	real_positionX = 0;
 	real_positionY = HIGH - 120;
 	map_position = 0;
+	is_touch_brick = 0;
 	hero_vx = 0;
 	hero_vy = 0; //
 	cur_vx = 0; //当前水平速度记录 录
