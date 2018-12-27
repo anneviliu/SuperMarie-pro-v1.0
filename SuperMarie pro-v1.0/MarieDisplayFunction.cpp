@@ -491,6 +491,8 @@ void brick_show()
 
 	putimage(988 - map_position, 400, 47, 47, &img_wh_brick[2], 1154 + 47, 0, NOTSRCERASE);
 	putimage(988 - map_position, 400, 47, 47, &img_wh_brick[1], 1154 + 47, 0, SRCINVERT);
+	putimage(2220 - map_position, 430, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
+	putimage(2220 - map_position, 430, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
 	wh_brick_count++;
 	if (wh_brick_count == 3)
 	{
@@ -515,10 +517,10 @@ void brick_show()
 	if (real_positionX >= 2400)
 	{
 		SetWorkingImage(&img_level1);
-		putimage(2600, 400, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
-		putimage(2600, 400, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
-		putimage(2697, 400, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
-		putimage(2697, 400, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
+		putimage(2550, 400, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
+		putimage(2550, 400, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
+		putimage(2550+97, 400, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
+		putimage(2550+97, 400, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
 		SetWorkingImage();
 	}
 	if (real_positionX >= 3410 && is_jump == 1)
