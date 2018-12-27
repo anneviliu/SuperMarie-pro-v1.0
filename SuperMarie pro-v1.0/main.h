@@ -22,7 +22,6 @@ extern double map_position;
 extern double hero_vx;
 extern double hero_vy;
 extern int num_hero,num_gold,num_brick,num_fw;
-extern int num_enemy_die;
 extern int wh_brick_count;
 extern IMAGE img_hero[3],img_level1;
 extern IMAGE img_hero_die[3],img_gold[3],img_enemies[3];
@@ -73,6 +72,7 @@ typedef struct Enemy {
 	double cur_begin_x, cur_begin_y;
 	double cur_final_x, cur_final_y;
 	int is_touch;
+	int first_die_put;
 	int is_exist;
 	int is_die;
 	int rec_x;

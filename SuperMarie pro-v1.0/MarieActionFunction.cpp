@@ -242,8 +242,8 @@ void judge()
 		is_jump = 0;
 		cur_positionY -= shift_y(&hero_vy, TIME, GRAVITY);
 	}
-	if (real_positionX + HERO_WIDTH / 2.0 >= 2520
-		&& real_positionX + HERO_WIDTH / 2.0 <= 2520 + 97 * 2
+	if (real_positionX + HERO_WIDTH / 2.0 >= 2550
+		&& real_positionX + HERO_WIDTH / 2.0 <= 2550+ 97 * 2
 		&& cur_positionY + HERO_HIGH >= 400 && cur_positionY + HERO_HIGH <= 410)
 	{
 		is_jump = 0;
@@ -252,6 +252,22 @@ void judge()
 	if (real_positionX + HERO_WIDTH / 2.0 >= 4000
 		&& real_positionX + HERO_WIDTH / 2.0 <= 4000 + 97 * 2
 		&& cur_positionY + HERO_HIGH >= 420 && cur_positionY + HERO_HIGH <= 430)
+	{
+		is_jump = 0;
+		cur_positionY -= shift_y(&hero_vy, TIME, GRAVITY);
+	}
+
+	if (real_positionX + HERO_WIDTH / 2.0 >= 2220
+		&& real_positionX + HERO_WIDTH / 2.0 <= 2220 + 97
+		&& cur_positionY + HERO_HIGH >= 430 && cur_positionY + HERO_HIGH <= 440)
+	{
+		is_jump = 0;
+		cur_positionY -= shift_y(&hero_vy, TIME, GRAVITY);
+	}
+
+	if (real_positionX + HERO_WIDTH / 2.0 >= 3410
+		&& real_positionX + HERO_WIDTH / 2.0 <= 3410 + 97
+		&& cur_positionY + HERO_HIGH >= 470 && cur_positionY + HERO_HIGH <= 480)
 	{
 		is_jump = 0;
 		cur_positionY -= shift_y(&hero_vy, TIME, GRAVITY);
@@ -270,7 +286,7 @@ void judge()
 			can_right = 0;
 		} //向右障碍判定
 
-		else if (GetAsyncKeyState(VK_LEFT) || GetAsyncKeyState(VK_UP))
+	    if (GetAsyncKeyState(VK_LEFT) || GetAsyncKeyState(VK_UP))
 			can_right = 1;
 	}
 	for (i = 0; i < 4; i++)
@@ -284,7 +300,7 @@ void judge()
 			can_left = 0;
 		}
 
-		else if (GetAsyncKeyState(VK_RIGHT) || GetAsyncKeyState(VK_UP))
+		if (GetAsyncKeyState(VK_RIGHT) || GetAsyncKeyState(VK_UP))
 			can_left = 1;
 	} //向左障碍判定
 
@@ -299,7 +315,7 @@ void judge()
 		can_right = 1;
 	}
 
-	if (real_positionX + HERO_WIDTH / 2.0 >= 2590 && real_positionX + HERO_WIDTH / 2.0 <= 2600
+	if (real_positionX + HERO_WIDTH / 2.0 >= 2540 && real_positionX + HERO_WIDTH / 2.0 <= 2550
 		&& cur_positionY + HERO_HIGH <= 400 + 48 && cur_positionY + HERO_HIGH >= 400 && is_right == 1)
 	{
 		hero_vx = 0;
@@ -341,6 +357,17 @@ void judge()
 	{
 		can_right = 1;
 	}
+
+	if (real_positionX + HERO_WIDTH / 2.0 >= 2220 && real_positionX + HERO_WIDTH / 2.0 <= 2230
+		&& cur_positionY + HERO_HIGH <= 430 + 47 && cur_positionY + HERO_HIGH >= 430 && is_right == 1)
+	{
+		hero_vx = 0;
+		can_right = 0;
+	}
+	else
+	{
+		can_right = 1;
+	}
 	//砖块左边界
 
 	if (real_positionX + HERO_WIDTH / 2.0 >= 600 + 97 * 3 && real_positionX + HERO_WIDTH / 2.0 <= 600 + 97 * 3 + 10
@@ -365,7 +392,7 @@ void judge()
 		can_left = 1;
 	}
 
-	if (real_positionX + HERO_WIDTH / 2.0 >= 2520 +2* 97 && real_positionX + HERO_WIDTH / 2.0 <= 2520 + 2 * 97 + 10
+	if (real_positionX + HERO_WIDTH / 2.0 >= 2550+97*2 && real_positionX + HERO_WIDTH / 2.0 <= 2550+97*2 + 10
 		&& cur_positionY + HERO_HIGH <= 447 && cur_positionY + HERO_HIGH >= 400 && is_left == 1)
 	{
 		hero_vx = 0;
@@ -388,6 +415,17 @@ void judge()
 
 	if (real_positionX + HERO_WIDTH / 2.0 >= 3410 + 97 && real_positionX + HERO_WIDTH / 2.0 <= 3410 + 97 + 10
 		&& cur_positionY + HERO_HIGH <= 480 + 47 && cur_positionY + HERO_HIGH >= 480 && is_left == 1)
+	{
+		hero_vx = 0;
+		can_left = 0;
+	}
+	else
+	{
+		can_left = 1;
+	}
+
+	if (real_positionX + HERO_WIDTH / 2.0 >= 2220 + 97 && real_positionX + HERO_WIDTH / 2.0 <= 2220 + 97 + 10
+		&& cur_positionY + HERO_HIGH <= 430 + 47 && cur_positionY + HERO_HIGH >= 430 && is_left == 1)
 	{
 		hero_vx = 0;
 		can_left = 0;
@@ -426,7 +464,7 @@ void judge()
 		}
 	}
 
-	if (real_positionX + HERO_WIDTH / 2.0 >= 2520 && real_positionX + HERO_WIDTH / 2.0 <= 2520 + 97 * 2
+	if (real_positionX + HERO_WIDTH / 2.0 >= 2550 && real_positionX + HERO_WIDTH / 2.0 <= 2550 + 97 * 2
 		&& cur_positionY >= 400 + 47 && cur_positionY <= 410 + 47)
 	{
 		hero_vy = 0;
@@ -467,49 +505,6 @@ void judge()
 			is_jump = 0;
 		}
 	}
-	//砖块下边界 
-
-	if (real_positionX + HERO_WIDTH / 2.0 >= 2220
-		&& real_positionX + HERO_WIDTH / 2.0 <= 2220 + 97
-		&& cur_positionY + HERO_HIGH >= 430 && cur_positionY + HERO_HIGH <= 440)
-	{
-		is_jump = 0;
-		cur_positionY -= shift_y(&hero_vy, TIME, GRAVITY);
-	}
-
-	if (real_positionX + HERO_WIDTH / 2.0 >= 2220 && real_positionX + HERO_WIDTH / 2.0 <= 2230
-		&& cur_positionY + HERO_HIGH <= 430 + 47 && cur_positionY + HERO_HIGH >= 430 && is_right == 1)
-	{
-		hero_vx = 0;
-		can_right = 0;
-	}
-	else
-	{
-		can_right = 1;
-	}
-
-	if (real_positionX + HERO_WIDTH / 2.0 >= 2220 && real_positionX + HERO_WIDTH / 2.0 <= 2230
-		&& cur_positionY + HERO_HIGH <= 430 + 47 && cur_positionY + HERO_HIGH >= 430 && is_right == 1)
-	{
-		hero_vx = 0;
-		can_right = 0;
-	}
-	else
-	{
-		can_right = 1;
-	}
-
-	if (real_positionX + HERO_WIDTH / 2.0 >= 2220 + 97 && real_positionX + HERO_WIDTH / 2.0 <= 2220 + 97 + 10
-		&& cur_positionY + HERO_HIGH <= 430 + 47 && cur_positionY + HERO_HIGH >= 430 && is_left == 1)
-	{
-		hero_vx = 0;
-		can_left = 0;
-	}
-	else
-	{
-		can_left = 1;
-	}
-
 
 	if (real_positionX + HERO_WIDTH / 2.0 >= 2220 && real_positionX + HERO_WIDTH / 2.0 <= 2220 + 97
 		&& cur_positionY >= 430 + 47 && cur_positionY <= 440 + 47)
@@ -524,13 +519,9 @@ void judge()
 			is_jump = 0;
 		}
 	}
-	if (real_positionX + HERO_WIDTH / 2.0 >= 3410
-		&& real_positionX + HERO_WIDTH / 2.0 <= 3410 + 97
-		&& cur_positionY + HERO_HIGH >= 470 && cur_positionY + HERO_HIGH <= 480)
-	{
-		is_jump = 0;
-		cur_positionY -= shift_y(&hero_vy, TIME, GRAVITY);
-	}
+	//砖块下边界 
+
+
 
 
 	for (i = 0; i < 11; i++)
