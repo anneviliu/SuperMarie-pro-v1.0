@@ -607,5 +607,11 @@ void judge()
 		mciSendString("play music_success from 0", NULL, 0, NULL); //背景音乐
 	}
 
+	if (real_positionX + HERO_WIDTH >= 2410 && real_positionX <= 2460
+		&& cur_positionY + HERO_HIGH >= 368 && cur_positionY <= 438)//2410-map_position, 468 - 100, 50, -30 + 100
+	{
+		is_die = 1;
+	}//触碰花判定
+
 
 }

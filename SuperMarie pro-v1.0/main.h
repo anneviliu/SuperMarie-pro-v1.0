@@ -77,6 +77,7 @@ typedef struct Enemy {
 	int rec_x;
 	int rec_y;
 	int is_first_touch;
+	int enemy_can_move;
 }Enemy;
 extern Enemy enemy[6];
 

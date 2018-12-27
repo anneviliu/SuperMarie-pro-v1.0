@@ -342,6 +342,7 @@ void preload()
 		enemy[i].rec_x = 0;
 		enemy[i].rec_y = 0;
 		enemy[i].is_first_touch = 1;
+		enemy[i].enemy_can_move = 1;
 	}
 
 
@@ -410,14 +411,14 @@ void enemy_show(int i, int direction) //i代表是第几个敌人，direction代
 {
 	putimage(enemy[i].cur_begin_x - map_position, enemy[i].cur_begin_y, 50, 50, &img_enemies[2], 0, 46, NOTSRCERASE);
 	putimage(enemy[i].cur_begin_x - map_position, enemy[i].cur_begin_y, 50, 50, &img_enemies[1], 0, 46, SRCINVERT);
-	if (!direction&&enemy_can_move==1)
+	if (!direction&&enemy[i].enemy_can_move==1)
 	{
 		
 		enemy[i].cur_begin_x += ENEMY_SHIFT_LEFT;//敌人向左
 		enemy[i].cur_final_x = enemy[i].cur_begin_x + 50;
 
 	}
-	if(direction!=0&& enemy_can_move==1)
+	if(direction!=0&& enemy[i].enemy_can_move ==1)
 	{
 		enemy[i].cur_begin_x += ENEMY_SHIFT_RIGHT;//敌人向右
 		enemy[i].cur_final_x = enemy[i].cur_begin_x + 50;
@@ -427,15 +428,15 @@ void enemy_show(int i, int direction) //i代表是第几个敌人，direction代
 		{
 			
 			//enemy[1].cur_begin_y = 10000;
-			enemy_can_move = 0;
+			enemy[1].enemy_can_move = 0;
 			putimage(enemy[1].cur_begin_x, enemy[1].cur_begin_y, 65, 65, &img_enemy_die[2], 324, 527, NOTSRCERASE);
 			putimage(enemy[1].cur_begin_x, enemy[1].cur_begin_y, 65, 65, &img_enemy_die[1], 324, 527, SRCINVERT);
 			
-			enemy[1].is_die = 0;
+			//enemy[1].is_die = 0;
 		}			
 		if (enemy[2].is_die == 1)
 		{
-			enemy_can_move = 0;
+			enemy[2].enemy_can_move = 0;
 			//enemy[2].cur_begin_y = 10000;
 			
 			putimage(enemy[2].cur_begin_x, enemy[2].cur_begin_y, 65, 65, &img_enemy_die[2], 324, 527, NOTSRCERASE);
@@ -456,12 +457,12 @@ void between_enemy_show(int i, double left, double right)//两个水管之间的
 	putimage(enemy[i].cur_begin_x - map_position, enemy[i].cur_begin_y, 50, 50, &img_enemies[2], 0, 46, NOTSRCERASE);
 	putimage(enemy[i].cur_begin_x - map_position, enemy[i].cur_begin_y, 50, 50, &img_enemies[1], 0, 46, SRCINVERT);
 
-	if (!cur_direction[i]&&enemy_can_move)
+	if (!cur_direction[i]&& enemy[i].enemy_can_move == 1)
 	{
 		enemy[i].cur_begin_x += ENEMY_SHIFT_LEFT;
 		enemy[i].cur_final_x = enemy[i].cur_begin_x + 50;
 	}
-	if(cur_direction&&enemy_can_move)
+	if(cur_direction&&enemy[i].enemy_can_move == 1)
 	{
 		enemy[i].cur_begin_x += ENEMY_SHIFT_RIGHT;
 		enemy[i].cur_final_x = enemy[i].cur_begin_x + 50;
@@ -470,31 +471,29 @@ void between_enemy_show(int i, double left, double right)//两个水管之间的
 
 	if (enemy[3].is_die == 1)
 	{
-		enemy_can_move = 0;
+		enemy[3].enemy_can_move = 0;
 		//putimage(enemy[3].cur_begin_x, enemy[3].cur_begin_y, 65, 65, &img_enemy_die[2], 324, 527, NOTSRCERASE);
 		//putimage(enemy[3].cur_begin_x, enemy[3].cur_begin_y, 65, 65, &img_enemy_die[1], 324, 527, SRCINVERT);
-		enemy[3].cur_begin_y = 10000;
+		//enemy[3].cur_begin_y = 10000;
 
-		enemy[3].is_die = 0;
+		//enemy[3].is_die = 0;
 	}
 	if (enemy[4].is_die == 1)
 	{
-		enemy_can_move = 0;
-		//putimage(enemy[4].cur_begin_x, enemy[4].cur_begin_y, 65, 65, &img_enemy_die[2], 324, 527, NOTSRCERASE);
+		enemy[4].enemy_can_move = 0;
+			//putimage(enemy[4].cur_begin_x, enemy[4].cur_begin_y, 65, 65, &img_enemy_die[2], 324, 527, NOTSRCERASE);
 		//putimage(enemy[4].cur_begin_x, enemy[4].cur_begin_y, 65, 65, &img_enemy_die[1], 324, 527, SRCINVERT);
-		enemy[4].cur_begin_y = 10000;
+		//enemy[4].cur_begin_y = 10000;
 
-		enemy[4].is_die = 0;
+		//enemy[4].is_die = 0;
 	}
 	if (enemy[5].is_die == 1)
 	{
-		enemy_can_move = 0;
-		
+		enemy[5].enemy_can_move = 0;
 		//putimage(enemy[5].cur_begin_x, enemy[5].cur_begin_y, 65, 65, &img_enemy_die[2], 324, 527, NOTSRCERASE);
 		//putimage(enemy[5].cur_begin_x, enemy[5].cur_begin_y, 65, 65, &img_enemy_die[1], 324, 527, SRCINVERT);
-		enemy[5].cur_begin_y = 10000;
-
-		enemy[5].is_die = 0;
+		//enemy[5].cur_begin_y = 10000;
+		//enemy[5].is_die = 0;
 	}
 
 }
