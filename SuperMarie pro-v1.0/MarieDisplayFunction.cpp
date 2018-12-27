@@ -250,6 +250,8 @@ void begin()
 	loadimage(&img_score[2], _T("res\\ani(mask).png"));
 	loadimage(&img_wh_brick[1], _T("res\\tile_set.png"));
 	loadimage(&img_wh_brick[2], _T("res\\tile_set(mask).png"));
+	loadimage(&img_qm_brick[1], _T("res\\tile_set.png"));
+	loadimage(&img_qm_brick[2], _T("res\\tile_set(mask).png"));
 	loadimage(&img_flower[1], _T("res\\地图物件.png"));
 	loadimage(&img_flower[2], _T("res\\地图物件（掩码）.png"));
 	loadimage(&img_enemy_die[1], _T("res\\地图物件.png"));
@@ -489,15 +491,28 @@ void brick_show()
 	putimage(891 - map_position, 400, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
 	putimage(891 - map_position, 400, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
 
-	putimage(988 - map_position, 400, 47, 47, &img_wh_brick[2], 1154 + 47, 0, NOTSRCERASE);
-	putimage(988 - map_position, 400, 47, 47, &img_wh_brick[1], 1154 + 47, 0, SRCINVERT);
+//	if (!is_touch_brick) 
+//	{
+		putimage(988 - map_position, 400, 47, 47, &img_wh_brick[2], 1154 +47 , 0, NOTSRCERASE);
+		putimage(988 - map_position, 400, 47, 47, &img_wh_brick[1], 1154 +47 , 0, SRCINVERT);
+//	}
+//	else
+//	{
+//		putimage(988 - map_position, 400, 47, 47, &img_qm_brick[2], 1299 , 0, NOTSRCERASE);
+//		putimage(988 - map_position, 400, 47, 47, &img_qm_brick[1], 1299 , 0, SRCINVERT);
+//	} */
 	putimage(2220 - map_position, 430, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
 	putimage(2220 - map_position, 430, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
 	wh_brick_count++;
-	if (wh_brick_count == 3)
+	if (wh_brick_count == 3&& !is_touch_brick)
 	{
 		putimage(988 - map_position, 400, 47, 47, &img_wh_brick[2], 1154 + 47 * num_brick, 0, NOTSRCERASE);
 		putimage(988 - map_position, 400, 47, 47, &img_wh_brick[1], 1154 + 47 * num_brick, 0, SRCINVERT);
+	}
+	else if(is_touch_brick)
+	{
+		putimage(988 - map_position, 400, 47, 47, &img_qm_brick[2], 1299, 0, NOTSRCERASE);
+		putimage(988 - map_position, 400, 47, 47, &img_qm_brick[1], 1299, 0, SRCINVERT);
 	}
 	if (wh_brick_count == 3)
 	{
@@ -686,6 +701,12 @@ void develop_mode()
 
 void flower_show()
 {
+	if (is_touch_brick)//988 - map_position, 400, 47, 47
+	{
+		putimage(987-map_position, 329, 50, -30 + 100, &img_flower[2], 0, 100, NOTSRCERASE);
+		putimage(987-map_position, 329, 50, -30 + 100, &img_flower[1], 0, 100, SRCINVERT);
+	}
+
 
 	if (real_positionX >= 2200&&num_fw<=100)
 	{
