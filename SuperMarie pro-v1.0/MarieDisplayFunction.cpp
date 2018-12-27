@@ -337,6 +337,7 @@ void preload()
 	{
 		enemy[i].cur_final_x = enemy[i].cur_begin_x + 50;
 		enemy[i].cur_final_y = enemy[i].cur_begin_y + 50;
+		enemy[i].first_die_put = 0;
 		enemy[i].is_exist = 1;
 		enemy[i].is_die = 0;
 		enemy[i].rec_x = 0;
@@ -407,10 +408,13 @@ void gold_show() //显示金币
 
 }
 
-void enemy_show(int i, int direction) //i代表是第几个敌人，direction代表移动方向，is_in代表是否在管子中间
+void enemy_show(int i, int direction) //i代表是第几个敌人，direction代表移动方向
 {
-	putimage(enemy[i].cur_begin_x - map_position, enemy[i].cur_begin_y, 50, 50, &img_enemies[2], 0, 46, NOTSRCERASE);
-	putimage(enemy[i].cur_begin_x - map_position, enemy[i].cur_begin_y, 50, 50, &img_enemies[1], 0, 46, SRCINVERT);
+	if (!enemy[i].is_die)
+	{
+		putimage(enemy[i].cur_begin_x - map_position, enemy[i].cur_begin_y, 50, 50, &img_enemies[2], 0, 46, NOTSRCERASE);
+		putimage(enemy[i].cur_begin_x - map_position, enemy[i].cur_begin_y, 50, 50, &img_enemies[1], 0, 46, SRCINVERT);
+	}
 	if (!direction&&enemy[i].enemy_can_move==1)
 	{
 		
@@ -424,29 +428,17 @@ void enemy_show(int i, int direction) //i代表是第几个敌人，direction代
 		enemy[i].cur_final_x = enemy[i].cur_begin_x + 50;
 	}
 
-		if (enemy[1].is_die == 1)
+		if (enemy[i].is_die == 1&&enemy[i].first_die_put<=15)
 		{
 			
 			//enemy[1].cur_begin_y = 10000;
-			enemy[1].enemy_can_move = 0;
-			putimage(enemy[1].cur_begin_x, enemy[1].cur_begin_y, 64, 54, &img_enemy_die[2], 333, 484+46*num_enemy_die, NOTSRCERASE);
-			putimage(enemy[1].cur_begin_x, enemy[1].cur_begin_y, 65, 54, &img_enemy_die[1], 333, 484+46*num_enemy_die, SRCINVERT);
-			num_enemy_die++;
-			num_enemy_die %= 2;
+			enemy[i].enemy_can_move = 0;
+			enemy[i].first_die_put++;
+			putimage(enemy[i].cur_begin_x, enemy[i].cur_begin_y, 65, 65, &img_enemy_die[2], 324, 527, NOTSRCERASE);
+			putimage(enemy[i].cur_begin_x, enemy[i].cur_begin_y, 65, 65, &img_enemy_die[1], 324, 527, SRCINVERT);
+			
 			//enemy[1].is_die = 0;
 		}			
-		if (enemy[2].is_die == 1)
-		{
-			enemy[2].enemy_can_move = 0;
-			//enemy[2].cur_begin_y = 10000;
-			putimage(enemy[2].cur_begin_x, enemy[2].cur_begin_y, 64, 54, &img_enemy_die[2], 333, 484 + 46 * num_enemy_die, NOTSRCERASE);
-			putimage(enemy[2].cur_begin_x, enemy[2].cur_begin_y, 65, 54, &img_enemy_die[1], 333, 484 + 46 * num_enemy_die, SRCINVERT);
-			num_enemy_die++;
-			num_enemy_die %= 2;
-
-			enemy[2].is_die = 0;
-		}
-		
 
 }
 
@@ -456,46 +448,32 @@ void between_enemy_show(int i, double left, double right)//两个水管之间的
 		cur_direction[i] = 1;
 	else if (enemy[i].cur_final_x >= right)
 		cur_direction[i] = 0;
-	putimage(enemy[i].cur_begin_x - map_position, enemy[i].cur_begin_y, 50, 50, &img_enemies[2], 0, 46, NOTSRCERASE);
-	putimage(enemy[i].cur_begin_x - map_position, enemy[i].cur_begin_y, 50, 50, &img_enemies[1], 0, 46, SRCINVERT);
-
+	if (!enemy[i].is_die)
+	{
+		putimage(enemy[i].cur_begin_x - map_position, enemy[i].cur_begin_y, 50, 50, &img_enemies[2], 0, 46, NOTSRCERASE);
+		putimage(enemy[i].cur_begin_x - map_position, enemy[i].cur_begin_y, 50, 50, &img_enemies[1], 0, 46, SRCINVERT);
+	}
 	if (!cur_direction[i]&& enemy[i].enemy_can_move == 1)
 	{
 		enemy[i].cur_begin_x += ENEMY_SHIFT_LEFT;
 		enemy[i].cur_final_x = enemy[i].cur_begin_x + 50;
 	}
-	if(cur_direction&&enemy[i].enemy_can_move == 1)
+	if(cur_direction[i]&&enemy[i].enemy_can_move == 1)
 	{
 		enemy[i].cur_begin_x += ENEMY_SHIFT_RIGHT;
 		enemy[i].cur_final_x = enemy[i].cur_begin_x + 50;
 	}
 
 
-	if (enemy[3].is_die == 1)
+	if (enemy[i].is_die == 1&& enemy[i].first_die_put<=15)
 	{
-		enemy[3].enemy_can_move = 0;
-		//putimage(enemy[3].cur_begin_x, enemy[3].cur_begin_y, 65, 65, &img_enemy_die[2], 324, 527, NOTSRCERASE);
-		//putimage(enemy[3].cur_begin_x, enemy[3].cur_begin_y, 65, 65, &img_enemy_die[1], 324, 527, SRCINVERT);
+		enemy[i].enemy_can_move = 0;
+		enemy[i].first_die_put ++;
+		putimage(enemy[i].cur_begin_x-map_position, enemy[i].cur_begin_y, 65, 65, &img_enemy_die[2], 324, 527, NOTSRCERASE);
+		putimage(enemy[i].cur_begin_x-map_position, enemy[i].cur_begin_y, 65, 65, &img_enemy_die[1], 324, 527, SRCINVERT);
 		//enemy[3].cur_begin_y = 10000;
 
 		//enemy[3].is_die = 0;
-	}
-	if (enemy[4].is_die == 1)
-	{
-		enemy[4].enemy_can_move = 0;
-			//putimage(enemy[4].cur_begin_x, enemy[4].cur_begin_y, 65, 65, &img_enemy_die[2], 324, 527, NOTSRCERASE);
-		//putimage(enemy[4].cur_begin_x, enemy[4].cur_begin_y, 65, 65, &img_enemy_die[1], 324, 527, SRCINVERT);
-		//enemy[4].cur_begin_y = 10000;
-
-		//enemy[4].is_die = 0;
-	}
-	if (enemy[5].is_die == 1)
-	{
-		enemy[5].enemy_can_move = 0;
-		//putimage(enemy[5].cur_begin_x, enemy[5].cur_begin_y, 65, 65, &img_enemy_die[2], 324, 527, NOTSRCERASE);
-		//putimage(enemy[5].cur_begin_x, enemy[5].cur_begin_y, 65, 65, &img_enemy_die[1], 324, 527, SRCINVERT);
-		//enemy[5].cur_begin_y = 10000;
-		//enemy[5].is_die = 0;
 	}
 
 }
@@ -531,25 +509,21 @@ void brick_show()
 	putimage(4000 - map_position, 420, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
 	putimage(4097 - map_position, 420, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
 	putimage(4097 - map_position, 420, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
-
-	putimage(2220 - map_position, 430, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
-	putimage(2220 - map_position, 430, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
-
 	//FlushBatchDraw();
 	
 	
 	if (real_positionX >= 2400)
 	{
 		SetWorkingImage(&img_level1);
-		putimage(2520, 400, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
-		putimage(2520, 400, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
-		putimage(2617, 400, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
-		putimage(2617, 400, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
+		putimage(2600, 400, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
+		putimage(2600, 400, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
+		putimage(2697, 400, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
+		putimage(2697, 400, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
 		SetWorkingImage();
 	}
 	if (real_positionX >= 3410 && is_jump == 1)
 	{
-		SetWorkingImage(&img_level1);
+    	SetWorkingImage(&img_level1);
 		putimage(3410, 480, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
 		putimage(3410, 480, 97, 48, &img_brick[1], 48, 0, SRCINVERT);  
 		SetWorkingImage();
@@ -711,26 +685,26 @@ void develop_mode()
 void flower_show()
 {
 
-	if (real_positionX >= 2240&&num_fw<=100)
+	if (real_positionX >= 2200&&num_fw<=100)
 	{
-		//SetWorkingImage(&img_level1);
-		putimage(2410-map_position, 468 - 100, 50, -30 + 100, &img_flower[2], 0, 100, NOTSRCERASE);
-		putimage(2410-map_position, 468 - 100, 50, -30 + 100, &img_flower[1], 0, 100, SRCINVERT);
+		SetWorkingImage(&img_level1);
+		putimage(2410, 468 - 100, 50, -30 + 100, &img_flower[2], 0, 100, NOTSRCERASE);
+		putimage(2410, 468 - 100, 50, -30 + 100, &img_flower[1], 0, 100, SRCINVERT);
 
 		//num_fw++;
 	}
-	//SetWorkingImage(NULL);
+	SetWorkingImage(NULL);
 }
 
 void final_show()
 {  //5310,393
 	SetWorkingImage(&img_level1);
-	putimage(5310 - map_position, 290, 347, 357, &img_final_step[2], 0, 394, NOTSRCERASE);
-	putimage(5310 - map_position, 290, 349, 357, &img_final_step[1], 0, 394, SRCINVERT);
-	putimage(5810 - map_position, 157, 200, 485, &img_final_flag[2], 565, 261, NOTSRCERASE);
-	putimage(5810 - map_position, 157, 200, 485, &img_final_flag[1], 565, 261, SRCINVERT);
-	putimage(6100 - map_position, 420, 238, 229, &img_final_home[2], 855, 520, NOTSRCERASE);
-	putimage(6100 - map_position, 420, 238, 229, &img_final_home[1], 855, 520, SRCINVERT);
+	putimage(5310, 290, 347, 357, &img_final_step[2], 0, 394, NOTSRCERASE);
+	putimage(5310, 290, 349, 357, &img_final_step[1], 0, 394, SRCINVERT);
+	putimage(5810, 157, 200, 485, &img_final_flag[2], 565, 261, NOTSRCERASE);
+	putimage(5810, 157, 200, 485, &img_final_flag[1], 565, 261, SRCINVERT);
+	putimage(6100, 420, 238, 229, &img_final_home[2], 855, 520, NOTSRCERASE);
+	putimage(6100, 420, 238, 229, &img_final_home[1], 855, 520, SRCINVERT);
 	//FlushBatchDraw();
 	SetWorkingImage();
 	

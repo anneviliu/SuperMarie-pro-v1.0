@@ -25,4 +25,7 @@ void final_show();
 void score_show();
 void develop_mode(); //开发调试模式，看变量状态
 
+
+
+
 #endif 

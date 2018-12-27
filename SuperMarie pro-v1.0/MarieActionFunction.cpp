@@ -242,8 +242,8 @@ void judge()
 		is_jump = 0;
 		cur_positionY -= shift_y(&hero_vy, TIME, GRAVITY);
 	}
-	if (real_positionX + HERO_WIDTH / 2.0 >= 2520
-		&& real_positionX + HERO_WIDTH / 2.0 <= 2520 + 97 * 2
+	if (real_positionX + HERO_WIDTH / 2.0 >= 2600
+		&& real_positionX + HERO_WIDTH / 2.0 <= 2600 + 97 * 2
 		&& cur_positionY + HERO_HIGH >= 400 && cur_positionY + HERO_HIGH <= 410)
 	{
 		is_jump = 0;
@@ -365,7 +365,7 @@ void judge()
 		can_left = 1;
 	}
 
-	if (real_positionX + HERO_WIDTH / 2.0 >= 2520 +2* 97 && real_positionX + HERO_WIDTH / 2.0 <= 2520 + 2 * 97 + 10
+	if (real_positionX + HERO_WIDTH / 2.0 >= 2697 + 97 && real_positionX + HERO_WIDTH / 2.0 <= 2697 + 97 + 10
 		&& cur_positionY + HERO_HIGH <= 447 && cur_positionY + HERO_HIGH >= 400 && is_left == 1)
 	{
 		hero_vx = 0;
@@ -426,7 +426,7 @@ void judge()
 		}
 	}
 
-	if (real_positionX + HERO_WIDTH / 2.0 >= 2520 && real_positionX + HERO_WIDTH / 2.0 <= 2520 + 97 * 2
+	if (real_positionX + HERO_WIDTH / 2.0 >= 2600 && real_positionX + HERO_WIDTH / 2.0 <= 2600 + 97 * 2
 		&& cur_positionY >= 400 + 47 && cur_positionY <= 410 + 47)
 	{
 		hero_vy = 0;
@@ -469,68 +469,7 @@ void judge()
 	}
 	//砖块下边界 
 
-	if (real_positionX + HERO_WIDTH / 2.0 >= 2220
-		&& real_positionX + HERO_WIDTH / 2.0 <= 2220 + 97
-		&& cur_positionY + HERO_HIGH >= 430 && cur_positionY + HERO_HIGH <= 440)
-	{
-		is_jump = 0;
-		cur_positionY -= shift_y(&hero_vy, TIME, GRAVITY);
-	}
 
-	if (real_positionX + HERO_WIDTH / 2.0 >= 2220 && real_positionX + HERO_WIDTH / 2.0 <= 2230
-		&& cur_positionY + HERO_HIGH <= 430 + 47 && cur_positionY + HERO_HIGH >= 430 && is_right == 1)
-	{
-		hero_vx = 0;
-		can_right = 0;
-	}
-	else
-	{
-		can_right = 1;
-	}
-
-	if (real_positionX + HERO_WIDTH / 2.0 >= 2220 && real_positionX + HERO_WIDTH / 2.0 <= 2230
-		&& cur_positionY + HERO_HIGH <= 430 + 47 && cur_positionY + HERO_HIGH >= 430 && is_right == 1)
-	{
-		hero_vx = 0;
-		can_right = 0;
-	}
-	else
-	{
-		can_right = 1;
-	}
-
-	if (real_positionX + HERO_WIDTH / 2.0 >= 2220 + 97 && real_positionX + HERO_WIDTH / 2.0 <= 2220 + 97 + 10
-		&& cur_positionY + HERO_HIGH <= 430 + 47 && cur_positionY + HERO_HIGH >= 430 && is_left == 1)
-	{
-		hero_vx = 0;
-		can_left = 0;
-	}
-	else
-	{
-		can_left = 1;
-	}
-
-
-	if (real_positionX + HERO_WIDTH / 2.0 >= 2220 && real_positionX + HERO_WIDTH / 2.0 <= 2220 + 97
-		&& cur_positionY >= 430 + 47 && cur_positionY <= 440 + 47)
-	{
-		hero_vy = 0;
-		cur_vy = 0;
-		cur_positionY += shift_y(&hero_vy, TIME, GRAVITY);
-		if (cur_positionY >= 600)
-		{
-			cur_positionY = HIGH - 120;
-
-			is_jump = 0;
-		}
-	}
-	if (real_positionX + HERO_WIDTH / 2.0 >= 3410
-		&& real_positionX + HERO_WIDTH / 2.0 <= 3410 + 97
-		&& cur_positionY + HERO_HIGH >= 470 && cur_positionY + HERO_HIGH <= 480)
-	{
-		is_jump = 0;
-		cur_positionY -= shift_y(&hero_vy, TIME, GRAVITY);
-	}
 
 
 	for (i = 0; i < 11; i++)
