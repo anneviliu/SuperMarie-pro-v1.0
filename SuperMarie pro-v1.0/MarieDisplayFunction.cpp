@@ -429,18 +429,20 @@ void enemy_show(int i, int direction) //i代表是第几个敌人，direction代
 			
 			//enemy[1].cur_begin_y = 10000;
 			enemy[1].enemy_can_move = 0;
-			putimage(enemy[1].cur_begin_x, enemy[1].cur_begin_y, 65, 65, &img_enemy_die[2], 324, 527, NOTSRCERASE);
-			putimage(enemy[1].cur_begin_x, enemy[1].cur_begin_y, 65, 65, &img_enemy_die[1], 324, 527, SRCINVERT);
-			
+			putimage(enemy[1].cur_begin_x, enemy[1].cur_begin_y, 64, 54, &img_enemy_die[2], 333, 484+46*num_enemy_die, NOTSRCERASE);
+			putimage(enemy[1].cur_begin_x, enemy[1].cur_begin_y, 65, 54, &img_enemy_die[1], 333, 484+46*num_enemy_die, SRCINVERT);
+			num_enemy_die++;
+			num_enemy_die %= 2;
 			//enemy[1].is_die = 0;
 		}			
 		if (enemy[2].is_die == 1)
 		{
 			enemy[2].enemy_can_move = 0;
 			//enemy[2].cur_begin_y = 10000;
-			
-			putimage(enemy[2].cur_begin_x, enemy[2].cur_begin_y, 65, 65, &img_enemy_die[2], 324, 527, NOTSRCERASE);
-			putimage(enemy[2].cur_begin_x, enemy[2].cur_begin_y, 65, 65, &img_enemy_die[1], 324, 527, SRCINVERT);
+			putimage(enemy[2].cur_begin_x, enemy[2].cur_begin_y, 64, 54, &img_enemy_die[2], 333, 484 + 46 * num_enemy_die, NOTSRCERASE);
+			putimage(enemy[2].cur_begin_x, enemy[2].cur_begin_y, 65, 54, &img_enemy_die[1], 333, 484 + 46 * num_enemy_die, SRCINVERT);
+			num_enemy_die++;
+			num_enemy_die %= 2;
 
 			enemy[2].is_die = 0;
 		}
@@ -529,24 +531,28 @@ void brick_show()
 	putimage(4000 - map_position, 420, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
 	putimage(4097 - map_position, 420, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
 	putimage(4097 - map_position, 420, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
+
+	putimage(2220 - map_position, 430, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
+	putimage(2220 - map_position, 430, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
+
 	//FlushBatchDraw();
 	
 	
 	if (real_positionX >= 2400)
 	{
-		//SetWorkingImage(&img_level1);
-		putimage(2600-map_position, 400, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
-		putimage(2600-map_position, 400, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
-		putimage(2697-map_position, 400, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
-		putimage(2697-map_position, 400, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
-		//SetWorkingImage();
+		SetWorkingImage(&img_level1);
+		putimage(2520, 400, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
+		putimage(2520, 400, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
+		putimage(2617, 400, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
+		putimage(2617, 400, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
+		SetWorkingImage();
 	}
 	if (real_positionX >= 3410 && is_jump == 1)
 	{
-    	//SetWorkingImage(&img_level1);
-		putimage(3410-map_position, 480, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
-		putimage(3410-map_position, 480, 97, 48, &img_brick[1], 48, 0, SRCINVERT);  
-		//SetWorkingImage();
+		SetWorkingImage(&img_level1);
+		putimage(3410, 480, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
+		putimage(3410, 480, 97, 48, &img_brick[1], 48, 0, SRCINVERT);  
+		SetWorkingImage();
 	}
 
       
