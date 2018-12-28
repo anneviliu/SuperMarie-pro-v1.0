@@ -39,6 +39,7 @@ int is_die = 0;
 int is_replay = 0;
 int is_get_score = 0;
 int is_touch_gold = 0;
+int is_touch_brick = 0;
 int can_forward = 1;
 int game_state = 1;
 int touch_count[11] = {0};
@@ -52,7 +53,7 @@ Gold gold[11];
 Enemy enemy[6];
 
 IMAGE img_hero[3], img_level1;
-IMAGE img_hero_die[3],img_gold[3],img_enemies[3], img_brick[3],img_wh_brick[3];
+IMAGE img_hero_die[3],img_gold[3],img_enemies[3], img_brick[3],img_wh_brick[3], img_qm_brick[3];
 IMAGE img_hero_left[3], img_hero_right[3];
 IMAGE img_score[3];
 IMAGE img_flower[3], img_enemy_die[3];
