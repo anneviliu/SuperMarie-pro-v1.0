@@ -21,7 +21,7 @@ void flower_show(); //花的显示
 void final_show(); //到达终点区域的相关物件显示
 void score_show(); //分数显示
 void develop_mode(); //开发调试模式，看变量状态
-
+void success_button(); 
 
 
 

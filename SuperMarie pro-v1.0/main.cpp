@@ -40,6 +40,7 @@ int is_replay = 0;
 int is_get_score = 0;
 int is_touch_gold = 0;
 int is_touch_brick = 0;
+int is_success = 0;
 int can_forward = 1;
 int game_state = 1;
 int touch_count[11] = {0};
@@ -51,19 +52,22 @@ int score = 0;
 int enemy_can_move = 1;
 Gold gold[11];
 Enemy enemy[6];
-
+IMAGE img_play_again[3];
+IMAGE img_quit_game[3];
 IMAGE img_hero[3], img_level1;
 IMAGE img_hero_die[3],img_gold[3],img_enemies[3], img_brick[3],img_wh_brick[3], img_qm_brick[3];
 IMAGE img_hero_left[3], img_hero_right[3];
 IMAGE img_score[3];
+IMAGE img_success[3];
 IMAGE img_flower[3], img_enemy_die[3];
 IMAGE img_final_step[3], img_final_flag[3];
 IMAGE img_final_home[3];
+
 /*游戏状态标识
- =====================================
- *	game_state	|	1	  |		2	 *
- *______________|_________|__________*
- *	   意义	    |游戏主菜单|游戏主界面 *
+ =============================================
+ *	game_state	|	1	  |		2	 |   3    *
+ *______________|_________|__________|______ _*
+ *	   意义	    |游戏主菜单|游戏主界面 |通关成功 *
  =====================================
 */
 
@@ -72,14 +76,14 @@ int main()
 
 	while (true)
 	{
-		if (game_state == 1)
+		if (game_state == 1) //菜单界面
 		{
 			preload(); //预加载 初始化数据
 			begin(); //开始前
 			//game_start();
 			game_show(); //游戏初始界面
 		}
-		else if (game_state == 2)
+		else if (game_state == 2) //游戏中
 		{ 
 			BeginBatchDraw();
 			hero_move(); //人物移动
@@ -93,29 +97,23 @@ int main()
 				preload(); //初始化数据
 			}
 			
+			else if (game_state ==3)  //通关
+			{
+				can_left = 0;
+				can_right = 0;
+				//can_forward = 0;
+				
+				putimage(220, 60, 800, 500, &img_success[1], 0, 0);
+				success_button();
+				mciSendString("clase all", NULL, 0, NULL); //关闭所有多媒体音乐文件
+				mciSendString("open res\\通关.mp3 alias music_success", NULL, 0, NULL); //加载通关音效
+				mciSendString("play music_success", NULL, 0, NULL); //背景音乐
+
+			}
+			
 			EndBatchDraw();
 		}
 	}
-	//背景移动
-	//人物射击（子弹发射，子弹飞行，子弹击中判定）
-	//人物射击动画与音效
-	//敌人显示，移动
-	//人物与敌人碰撞判定（人物矩形左部或右部与敌人矩形左部或右部，人物矩形下部与敌人上部）
-	//人物死亡判定
-	//人物死亡动画与音效载入
-	//如果死亡，弹出界面（重新开始或返回菜单）
-	//敌人死亡判定
-	//敌人死亡动画音效载入
-	//硬币与人物矩形接触判定
-	//吃到硬币动画与音效
-	//计分板变化
-	//人物与蘑菇接触判定
-	//吃到蘑菇动画与音效
-	//人物与终点接触判定
-	//抵达终点后动画与音效
-	//通关动画与音效
-	//返回菜单或进入下一关
-	mciSendString("clase all", NULL, 0, NULL);//关闭所有多媒体音乐文件
 	closegraph();
 	system("pause");
 	return 0;

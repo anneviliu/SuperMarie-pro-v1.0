@@ -190,15 +190,12 @@ void show()
 	score_show();
 	enemy_show(0, 0);
 	enemy_show(1, 0);
-	between_enemy_show(2, 1555, 1978);//1546 1938   2066 2353
-	between_enemy_show(3, 2481, 2962);//3670 4438
+	between_enemy_show(2, 1555, 1978);
+	between_enemy_show(3, 2481, 2962);
 	between_enemy_show(4, 3672, 4473);
-	between_enemy_show(5, 4700, 5600);
+	between_enemy_show(5, 4700, 5300);
 	brick_show();
 	
-	//final_show();
-
-	//putimage(old_positionX, old_positionY, 35, 50, &img_level1, old_positionX, HERO_INIT_Y, SRCCOPY);
 	if (is_right == 1)
 	{
 		putimage(cur_positionX, cur_positionY, HERO_WIDTH, HERO_HIGH, &img_hero_right[2], 210 + 40 * num_hero, 82, NOTSRCERASE);
@@ -225,10 +222,8 @@ void begin()
 	mciSendString("open res\\金币.mp3 alias music_gold", NULL, 0, NULL);
 	mciSendString("open res\\跳.mp3 alias music_jump", NULL, 0, NULL);
 	mciSendString("open res\\踩敌人.mp3 alias music_enemy", NULL, 0, NULL);
-	mciSendString("open res\\通关.mp3 alias music_success", NULL, 0, NULL);
 
-	//mciSendString("open res\\背景音乐.mp3 alias music_back", NULL, 0, NULL);
-	//mciSendString("play music_back", NULL, 0, NULL);
+
 	HWND hwnd = GetHWnd(); //获取窗口句柄
 	SetWindowText(hwnd, "超级玛丽魔改版-V1.0"); //设置窗口标题
 	game_start(); //显示菜单界面
@@ -262,8 +257,14 @@ void begin()
 	loadimage(&img_final_flag[2], _T("res\\终点（掩码）.png"));
 	loadimage(&img_final_home[1], _T("res\\终点.jpg"));
 	loadimage(&img_final_home[2], _T("res\\终点（掩码）.png"));
+	loadimage(&img_success[1], _T("res\\通关.png"));
+	loadimage(&img_quit_game[1], _T("res\\退出游戏（通关）.png"));
+	loadimage(&img_quit_game[2], _T("res\\退出游戏通关（按钮）.png"));
+	loadimage(&img_play_again[1], _T("res\\再玩一次.png"));
+	loadimage(&img_play_again[2], _T("res\\再玩一次（按钮）.png"));
 
-	//cleardevice();
+
+	
 }
 
 void preload()
@@ -328,7 +329,7 @@ void preload()
 	enemy[0].cur_begin_y = 594;
 	enemy[1].cur_begin_x = 570;
 	enemy[1].cur_begin_y = 594;
-	enemy[2].cur_begin_x = 1800;//1546 1938   2066 2353
+	enemy[2].cur_begin_x = 1800;
 	enemy[2].cur_begin_y = 594;
 	enemy[3].cur_begin_x = 2600;
 	enemy[3].cur_begin_y = 594;
@@ -407,7 +408,6 @@ void gold_show() //显示金币
 		putimage(gold[10].begin_x - map_position, gold[10].begin_y, 48, 44, &img_gold[1], 0 + 50 * num_gold, 340, SRCINVERT);
 	num_gold++;
 	num_gold %= 4;
-	//FlushBatchDraw();
 
 }
 
@@ -434,13 +434,11 @@ void enemy_show(int i, int direction) //i代表是第几个敌人，direction代
 		if (enemy[i].is_die == 1&&enemy[i].first_die_put<=15)
 		{
 			
-			//enemy[1].cur_begin_y = 10000;
 			enemy[i].enemy_can_move = 0;
 			enemy[i].first_die_put++;
 			putimage(enemy[i].cur_begin_x, enemy[i].cur_begin_y, 65, 65, &img_enemy_die[2], 324, 527, NOTSRCERASE);
 			putimage(enemy[i].cur_begin_x, enemy[i].cur_begin_y, 65, 65, &img_enemy_die[1], 324, 527, SRCINVERT);
 			
-			//enemy[1].is_die = 0;
 		}			
 
 }
@@ -474,9 +472,7 @@ void between_enemy_show(int i, double left, double right)//两个水管之间的
 		enemy[i].first_die_put ++;
 		putimage(enemy[i].cur_begin_x-map_position, enemy[i].cur_begin_y, 65, 65, &img_enemy_die[2], 324, 527, NOTSRCERASE);
 		putimage(enemy[i].cur_begin_x-map_position, enemy[i].cur_begin_y, 65, 65, &img_enemy_die[1], 324, 527, SRCINVERT);
-		//enemy[3].cur_begin_y = 10000;
 
-		//enemy[3].is_die = 0;
 	}
 
 }
@@ -492,16 +488,9 @@ void brick_show()
 	putimage(891 - map_position, 400, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
 	putimage(891 - map_position, 400, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
 
-//	if (!is_touch_brick) 
-//	{
 		putimage(988 - map_position, 400, 47, 47, &img_wh_brick[2], 1154 +47 , 0, NOTSRCERASE);
 		putimage(988 - map_position, 400, 47, 47, &img_wh_brick[1], 1154 +47 , 0, SRCINVERT);
-//	}
-//	else
-//	{
-//		putimage(988 - map_position, 400, 47, 47, &img_qm_brick[2], 1299 , 0, NOTSRCERASE);
-//		putimage(988 - map_position, 400, 47, 47, &img_qm_brick[1], 1299 , 0, SRCINVERT);
-//	} */
+
 	putimage(2220 - map_position, 430, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
 	putimage(2220 - map_position, 430, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
 	wh_brick_count++;
@@ -527,7 +516,6 @@ void brick_show()
 	putimage(4000 - map_position, 420, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
 	putimage(4097 - map_position, 420, 97, 48, &img_brick[2], 48, 0, NOTSRCERASE);
 	putimage(4097 - map_position, 420, 97, 48, &img_brick[1], 48, 0, SRCINVERT);
-	//FlushBatchDraw();
 	
 	
 	if (real_positionX >= 2400)
@@ -559,7 +547,6 @@ void hero_die_show()
 
 	putimage(cur_positionX, cur_positionY, HERO_DIE_WIDTH, HERO_DIE_HIGH, &img_hero_die[2], 410, 79, NOTSRCERASE);
 	putimage(cur_positionX, cur_positionY, HERO_DIE_WIDTH, HERO_DIE_HIGH, &img_hero_die[1], 410, 79, SRCINVERT);
-	//HpSleep(1.0 * 1000);
 
 }
 
@@ -569,7 +556,7 @@ void hero_die_menu_show()
 
 	int die_menu_flag = 1;
 
-	loadimage(&img_die_menu, _T("res\\毛玻璃背景.jpg"));
+	loadimage(&img_die_menu, _T("res\\毛玻璃背景.png"));
 	loadimage(&img_replay, _T("res\\重新开始.png"));
 	loadimage(&img_back_home, _T("res\\回到主菜单.png"));
 	loadimage(&img_replay_icon, _T("res\\重新开始图标.png"));
@@ -608,8 +595,7 @@ void hero_die_menu_show()
 				die_menu_flag = 0;
 				mciSendString("close music_gameover", NULL, 0, NULL);
 				mciSendString("close music_back", NULL, 0, NULL);
-				//cleardevice();
-				//exit(0);
+				
 				break;
 			}
 
@@ -637,7 +623,6 @@ void hero_die_menu_show()
 
 	}
 }
-
 
 void develop_mode()
 {
@@ -715,7 +700,6 @@ void flower_show()
 		putimage(2410, 468 - 100, 50, -30 + 100, &img_flower[2], 0, 100, NOTSRCERASE);
 		putimage(2410, 468 - 100, 50, -30 + 100, &img_flower[1], 0, 100, SRCINVERT);
 
-		//num_fw++;
 	}
 	SetWorkingImage(NULL);
 }
@@ -729,7 +713,6 @@ void final_show()
 	putimage(5810, 157, 200, 485, &img_final_flag[1], 565, 261, SRCINVERT);
 	putimage(6100, 420, 238, 229, &img_final_home[2], 855, 520, NOTSRCERASE);
 	putimage(6100, 420, 238, 229, &img_final_home[1], 855, 520, SRCINVERT);
-	//FlushBatchDraw();
 	SetWorkingImage();
 	
 	
@@ -746,4 +729,50 @@ void score_show()
 	outtextxy(1000, 20, score_txt);
 }
 
+void success_button()
+{
+	MOUSEMSG click;
+	while (game_state==3)
+	{
+		click = GetMouseMsg();
+		switch (click.uMsg)
+		{
+		case WM_LBUTTONDOWN:
+			if (click.x >= 520 && click.x <= 720 && click.y >= 200 && click.y <= 250 )
+			{
+				game_state = 1; //游戏状态改变
+				mciSendString("close music_gameover", NULL, 0, NULL);
+				mciSendString("close music_back", NULL, 0, NULL);
+				break;
+			}
+			if (click.x >= 520 && click.x <= 720 && click.y >= 400 && click.y <= 450 )
+			{
+				exit(0);
+				break;
+			}
+
+		case WM_MOUSEMOVE: //实现按钮效果
+			if (click.x >= 520 && click.x <= 720 && click.y >= 200 && click.y <= 250 )
+			{
+				putimage(520, 200, 200, 50, &img_play_again[2], 0, 0);
+			}
+			else
+			{
+				putimage(520, 200, 200, 50, &img_play_again[1], 0, 0);
+
+			}
+			if (click.x >= 520 && click.x <= 720 && click.y >= 400 && click.y <= 450 )
+			{
+				putimage(520, 400, 200, 50, &img_quit_game[2], 0, 0);
+			}
+			else
+			{
+				putimage(520, 400, 200, 50, &img_quit_game[1], 0, 0);
+			}
+		default:
+			break;
+		}
+
+	}
+}
 ///////////////////////////////////////////////////////////////////////

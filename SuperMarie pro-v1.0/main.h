@@ -1,6 +1,7 @@
 ﻿#pragma once
 #ifndef MAIN_H
 #define MAIN_H
+
 #include "MarieDisplayFunction.h"
 #include "MarieActionFunction.h"
 #include "control.h"
@@ -32,13 +33,16 @@ extern IMAGE img_flower[3], img_enemy_die[3];
 extern IMAGE img_final_step[3];
 extern IMAGE img_final_flag[3];
 extern IMAGE img_final_home[3];
+extern IMAGE img_success[3];
+extern IMAGE img_play_again[3];
+extern IMAGE img_quit_game[3];
 extern double cur_vx;
 extern double cur_vy;
 extern double h_now;
 extern int touch_count[11];
 
 
-
+extern int is_success;
 extern int is_jump;
 extern int is_die;
 extern int is_replay;
@@ -56,8 +60,6 @@ extern int develop_flag;
 extern int cur_direction[7];
 extern int score;
 extern int enemy_can_move;
-VOID B(PVOID p); //线程B
-VOID A(PVOID p);//线程B
 extern struct Blank;
 extern struct Block;
 
